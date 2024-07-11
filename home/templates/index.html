@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantão PRO</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 56px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Plantão PRO</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#companyRegistration">Cadastrar Clinicas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#doctorRegistration">Cadastrar Médico</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#shiftRegistration">Cadastrar Plantão</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#login">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <header class="bg-primary py-5 mb-5">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-12">
+                    <h1 class="display-4 text-white mt-5 mb-2">Bem Vindo ao Plantão PRO</h1>
+                    <p class="lead mb-5 text-white-50">Gestão eficiente de Plantão médico.</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Company Registration Section -->
+    <section id="companyRegistration" class="py-5">
+        <div class="container">
+            <h2 class="text-center">Cadastrar Clínica</h2>
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="companyName">Nome</label>
+                        <input type="text" class="form-control" id="companyName" placeholder="Informe o nome da clínica">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="companyLegalName">Razão Social</label>
+                        <input type="text" class="form-control" id="companyLegalName" placeholder="Informe a razão social">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="companyCep">CEP</label>
+                        <input type="text" class="form-control" id="companyCep" placeholder="Informe o CEP">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="companyStreet">Rua</label>
+                        <input type="text" class="form-control" id="companyStreet" placeholder="Informe a rua">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="companyNumber">Número</label>
+                        <input type="text" class="form-control" id="companyNumber" placeholder="Nº">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="companyNeighborhood">Bairro</label>
+                        <input type="text" class="form-control" id="companyNeighborhood" placeholder="Informe o bairro">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="companyCity">Cidade</label>
+                        <input type="text" class="form-control" id="companyCity" placeholder="Informe a cidade">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="companyState">Estado</label>
+                        <select id="companyState" class="form-control">
+                            <option selected>Escolher...</option>
+                            <option>AC</option>
+                            <option>AL</option>
+                            <option>AP</option>
+                            <option>AM</option>
+                            <option>BA</option>
+                            <option>CE</option>
+                            <option>DF</option>
+                            <option>ES</option>
+                            <option>GO</option>
+                            <option>MA</option>
+                            <option>MT</option>
+                            <option>MS</option>
+                            <option>MG</option>
+                            <option>PA</option>
+                            <option>PB</option>
+                            <option>PR</option>
+                            <option>PE</option>
+                            <option>PI</option>
+                            <option>RJ</option>
+                            <option>RN</option>
+                            <option>RS</option>
+                            <option>RO</option>
+                            <option>RR</option>
+                            <option>SC</option>
+                            <option>SP</option>
+                            <option>SE</option>
+                            <option>TO</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Cadastrar Clínica</button>
+            </form>
+        </div>
+    </section>
+    
+    
+
+    <!-- Doctor Registration Section -->
+    <section id="doctorRegistration" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center">Cadastrar Médicos</h2>
+            <form>
+                <div class="form-group">
+                    <label for="doctorName">Nome</label>
+                    <input type="text" class="form-control" id="doctorName" placeholder="Nome do Médico">
+                </div>
+                <div class="form-group">
+                    <label for="doctorSpecialty">Especialidade</label>
+                    <input type="text" class="form-control" id="doctorSpecialty" placeholder="Especialidade">
+                </div>
+                <div class="form-group">
+                    <label for="doctorCrm">CRM</label>
+                    <input type="text" class="form-control" id="doctorCrm" placeholder="CRM">
+                </div>
+                <div class="form-group">
+                    <label for="doctorPhone">Telefone</label>
+                    <input type="text" class="form-control" id="doctorPhone" placeholder="Telefone">
+                </div>
+                <button type="submit" class="btn btn-primary">Cadastrar Médico</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Shift Registration Section -->
+    <section id="shiftRegistration" class="py-5">
+        <div class="container">
+            <h2 class="text-center">Plantão - Cadastro</h2>
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="shiftDate">Data</label>
+                        <input type="date" class="form-control" id="shiftDate">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="shiftTime">Hora</label>
+                        <input type="time" class="form-control" id="shiftTime">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="doctorSelect">Médico</label>
+                        <select class="form-control" id="doctorSelect">
+                            <option selected>Escolha um Médico</option>
+                            <option>Dr. José Silva</option>
+                            <option>Dra. Maria Oliveira</option>
+                            <option>Dr. João Souza</option>
+                            <option>Dra. Ana Lima</option>
+                            <option>Dr. Carlos Pereira</option>
+                            <option>Dra. Fernanda Costa</option>
+                            <option>Dr. Pedro Santos</option>
+                            <option>Dra. Juliana Almeida</option>
+                            <option>Dr. Ricardo Gonçalves</option>
+                            <option>Dra. Beatriz Mendes</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="shiftValue">Valor do Plantão</label>
+                        <input type="number" class="form-control" id="shiftValue" placeholder="Informe o valor">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Cadastrar Plantão</button>
+            </form>
+        </div>
+    </section>
+    
+    
+    <!-- Login Section -->
+    <!-- <section id="login" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center">Login</h2>
+            <form>
+                <div class="form-group">
+                    <label for="loginEmail">Email address</label>
+                    <input type="email" class="form-control" id="loginEmail" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" class="form-control" id="loginPassword" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </section> -->
+    <!-- Footer Section -->
+    <footer class="py-4 bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <p class="m-0 text-white">© 2024 Plantão - PRO. Todos os direitos Reservados.</p>
+                </div>
+                <div class="col-lg-6 text-right">
+                    <a href="#" class="m-0 text-white">Politica de Privacidade</a>
+                    <span class="text-white mx-2">|</span>
+                    <a href="#" class="m-0 text-white">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
