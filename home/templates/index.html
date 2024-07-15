@@ -370,109 +370,192 @@
             </form>
         </div>
     </section>
-    <section id="shiftRegistration" class="py-5">
-        <div class="container">
-            <h2 class="text-center">Plantão - Cadastro</h2>
-            <form>
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="shiftDate">Data</label>
-                        <input type="date" class="form-control" id="shiftDate">
+ <!-- shiftRegistration -->
+ <section id="shiftRegistration" class="py-5">
+    <div class="container">
+        <h2 class="text-center">Plantão - Cadastro</h2>
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="shiftDate">Data</label>
+                    <input type="date" class="form-control" id="shiftDate">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="startTime">Hora de Início</label>
+                    <input type="time" class="form-control" id="startTime">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="endTime">Hora de Término</label>
+                    <input type="time" class="form-control" id="endTime">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="doctorSelect">Médico Responsável</label>
+                    <select class="form-control" id="doctorSelect">
+                        <option selected>Escolha um Médico</option>
+                        <option>Dr. José Silva</option>
+                        <option>Dra. Maria Oliveira</option>
+                        <option>Dr. João Souza</option>
+                        <option>Dra. Ana Lima</option>
+                        <option>Dr. Carlos Pereira</option>
+                        <option>Dra. Fernanda Costa</option>
+                        <option>Dr. Pedro Santos</option>
+                        <option>Dra. Juliana Almeida</option>
+                        <option>Dr. Ricardo Gonçalves</option>
+                        <option>Dra. Beatriz Mendes</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="specialty">Especialidade</label>
+                    <input type="text" class="form-control" id="specialty" placeholder="Informe a especialidade">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="shiftType">Tipo de Plantão</label>
+                    <select class="form-control" id="shiftType">
+                        <option selected>Escolha o Tipo</option>
+                        <option>Diurno</option>
+                        <option>Noturno</option>
+                        <option>Fim de Semana</option>
+                        <option>Feriado</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="shiftValue">Valor do Plantão</label>
+                    <input type="number" class="form-control" id="shiftValue" placeholder="Informe o valor">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="shiftStatus">Status do Plantão</label>
+                    <select class="form-control" id="shiftStatus">
+                        <option selected>Escolha o Status</option>
+                        <option>Confirmado</option>
+                        <option>Pendente</option>
+                        <option>Cancelado</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="emergencyContact">Contato de Emergência</label>
+                    <input type="text" class="form-control" id="emergencyContact" placeholder="Informe o contato">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="equipment">Equipamentos Necessários</label>
+                    <input type="text" class="form-control" id="equipment" placeholder="Informe os equipamentos">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="auxiliaryStaff">Cargos Auxiliares</label>
+                    <input type="text" class="form-control" id="auxiliaryStaff" placeholder="Informe os cargos auxiliares">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="substitute">Substituto</label>
+                    <input type="text" class="form-control" id="substitute" placeholder="Informe o substituto">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="notes">Observações</label>
+                    <textarea class="form-control" id="notes" rows="3" placeholder="Adicione observações"></textarea>
+                </div>
+            </div>
+            <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
+            <div class="form-row">
+                <div class="col-md-12 text-left">
+                    <button type="submit" class="btn btn-primary mr-2">Cadastrar Plantão</button>
+                    <button type="button" class="btn btn-secondary mr-2">Cancelar</button>
+                    <button type="button" class="btn btn-info mr-2">Limpar</button>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#viewModal">Visualizar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+        </form>
+    </div>
+</section>
+
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewModalLabel">Detalhes do Plantão</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="table-responsive">
+                        <table class="table" style="width: 80%; margin: auto;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: left; width: 15%;">Médico</th>
+                                    <th style="text-align: left; width: 15%;">Hora de Início</th>
+                                    <th style="text-align: left; width: 15%;">Hora de Término</th>
+                                    <th style="text-align: left; width: 15%;">Valor Bruto</th>
+                                    <th style="text-align: left; width: 15%;">Valor Líquido</th>
+                                    <th style="text-align: left; width: 15%;">Status</th>
+                                    <th style="text-align: left; width: 10%;">Observações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span id="modalDoctorSelect"></span></td>
+                                    <td><span id="modalStartTime"></span></td>
+                                    <td><span id="modalEndTime"></span></td>
+                                    <td><span id="modalShiftValue"></span></td>
+                                    <td><span id="modalShiftNetValue"></span></td>
+                                    <td><span id="modalShiftStatus"></span></td>
+                                    <td><span id="modalNotes"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="startTime">Hora de Início</label>
-                        <input type="time" class="form-control" id="startTime">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="endTime">Hora de Término</label>
-                        <input type="time" class="form-control" id="endTime">
+                    <div class="row mt-3">
+                        <div class="col-md-12 text-right"><strong>Total:</strong> <span id="modalTotal"></span></div>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="doctorSelect">Médico Responsável</label>
-                        <select class="form-control" id="doctorSelect">
-                            <option selected>Escolha um Médico</option>
-                            <option>Dr. José Silva</option>
-                            <option>Dra. Maria Oliveira</option>
-                            <option>Dr. João Souza</option>
-                            <option>Dra. Ana Lima</option>
-                            <option>Dr. Carlos Pereira</option>
-                            <option>Dra. Fernanda Costa</option>
-                            <option>Dr. Pedro Santos</option>
-                            <option>Dra. Juliana Almeida</option>
-                            <option>Dr. Ricardo Gonçalves</option>
-                            <option>Dra. Beatriz Mendes</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="specialty">Especialidade</label>
-                        <input type="text" class="form-control" id="specialty" placeholder="Informe a especialidade">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="shiftType">Tipo de Plantão</label>
-                        <select class="form-control" id="shiftType">
-                            <option selected>Escolha o Tipo</option>
-                            <option>Diurno</option>
-                            <option>Noturno</option>
-                            <option>Fim de Semana</option>
-                            <option>Feriado</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="shiftValue">Valor do Plantão</label>
-                        <input type="number" class="form-control" id="shiftValue" placeholder="Informe o valor">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="shiftStatus">Status do Plantão</label>
-                        <select class="form-control" id="shiftStatus">
-                            <option selected>Escolha o Status</option>
-                            <option>Confirmado</option>
-                            <option>Pendente</option>
-                            <option>Cancelado</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="emergencyContact">Contato de Emergência</label>
-                        <input type="text" class="form-control" id="emergencyContact" placeholder="Informe o contato">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="equipment">Equipamentos Necessários</label>
-                        <input type="text" class="form-control" id="equipment" placeholder="Informe os equipamentos">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="auxiliaryStaff">Cargos Auxiliares</label>
-                        <input type="text" class="form-control" id="auxiliaryStaff" placeholder="Informe os cargos auxiliares">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="substitute">Substituto</label>
-                        <input type="text" class="form-control" id="substitute" placeholder="Informe o substituto">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="notes">Observações</label>
-                        <textarea class="form-control" id="notes" rows="3" placeholder="Adicione observações"></textarea>
-                    </div>
-                </div>
-                <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
-                <div class="form-row">
-                    <div class="col-md-12 text-left">
-                        <button type="submit" class="btn btn-primary mr-2">Cadastrar Plantão</button>
-                        <button type="button" class="btn btn-secondary mr-2">Cancelar</button>
-                        <button type="button" class="btn btn-info mr-2">Limpar</button>
-                        <button type="button" class="btn btn-success">Imprimir</button>
-                    </div>
-                </div>
-            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="printModal()">Imprimir</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
+            </div>
         </div>
-    </section>
+    </div>
+</div>
+
+<script>
+document.querySelector('.btn-success').addEventListener('click', function() {
+    document.getElementById('modalDoctorSelect').innerText = document.getElementById('doctorSelect').value;
+    document.getElementById('modalStartTime').innerText = document.getElementById('startTime').value;
+    document.getElementById('modalEndTime').innerText = document.getElementById('endTime').value;
+    document.getElementById('modalShiftValue').innerText = document.getElementById('shiftValue').value;
+    document.getElementById('modalShiftNetValue').innerText = document.getElementById('shiftNetValue').value;
+    document.getElementById('modalShiftStatus').innerText = document.getElementById('shiftStatus').value;
+    document.getElementById('modalNotes').innerText = document.getElementById('notes').value;
+    var total = parseFloat(document.getElementById('shiftValue').value) + parseFloat(document.getElementById('shiftNetValue').value);
+    document.getElementById('modalTotal').innerText = total ? total.toFixed(2) : "N/A";
+});
+
+function printModal() {
+    var printContents = document.querySelector('#viewModal .modal-body').innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+    location.reload();
+}
+</script>
+
+
+
+
+
+
  <!-- Login Section -->
     <!-- <section id="login" class="py-5 bg-light">
         <div class="container">
