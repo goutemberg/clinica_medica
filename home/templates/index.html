@@ -58,26 +58,36 @@
     <!-- Company Registration Section -->
     <section id="companyRegistration" class="py-5">
         <div class="container">
-            <h2 class="text-center">Cadastrar Clínica</h2>
+            <h2 class="text-center">Cadastrar Empresa</h2>
             <form>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="companyName">Nome</label>
-                        <input type="text" class="form-control" id="companyName" placeholder="Informe o nome da clínica">
+                        <input type="text" class="form-control" id="companyName" placeholder="Nome da empresa">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="companyLegalName">Razão Social</label>
-                        <input type="text" class="form-control" id="companyLegalName" placeholder="Informe a razão social">
+                        <input type="text" class="form-control" id="companyLegalName" placeholder="Razão social">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="companyCnpj">CNPJ</label>
+                        <input type="text" class="form-control" id="companyCnpj" placeholder="00.000.000/0000-00">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="companyInscricaoEstadual">Inscrição Estadual</label>
+                        <input type="text" class="form-control" id="companyInscricaoEstadual" placeholder="Inscrição estadual">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="companyCep">CEP</label>
-                        <input type="text" class="form-control" id="companyCep" placeholder="Informe o CEP">
+                        <input type="text" class="form-control" id="companyCep" placeholder="CEP">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="companyStreet">Rua</label>
-                        <input type="text" class="form-control" id="companyStreet" placeholder="Informe a rua">
+                        <label for="companyStreet">Lougradouro(Rua, Av, Travessa e etc)</label>
+                        <input type="text" class="form-control" id="companyStreet" placeholder="Lougradouro">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="companyNumber">Número</label>
@@ -87,11 +97,11 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="companyNeighborhood">Bairro</label>
-                        <input type="text" class="form-control" id="companyNeighborhood" placeholder="Informe o bairro">
+                        <input type="text" class="form-control" id="companyNeighborhood" placeholder="Bairro">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="companyCity">Cidade</label>
-                        <input type="text" class="form-control" id="companyCity" placeholder="Informe a cidade">
+                        <input type="text" class="form-control" id="companyCity" placeholder="Cidade">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="companyState">Estado</label>
@@ -127,7 +137,73 @@
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Cadastrar Clínica</button>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="companyPhone">Telefone</label>
+                        <input type="text" class="form-control" id="companyPhone" placeholder="(xx) 9999-9999">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="companyCell">Celular</label>
+                        <input type="text" class="form-control" id="companyCell" placeholder="(xx) 99999-9999">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="companyContactPerson">Pessoa para Contato</label>
+                        <input type="text" class="form-control" id="companyContactPerson" placeholder="Pessoa para contato">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="companyEmail">Email</label>
+                        <input type="email" class="form-control" id="companyEmail" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="companyValorPlantao">Valor Plantão(12h)</label>
+                        <input type="text" class="form-control" id="companyValorPlantao" placeholder="Valor do plantão">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="companyValorPlantaoHora">Valor Plantão (Por hora)</label>
+                        <input type="text" class="form-control" id="companyValorPlantaoHora" placeholder="Plantão por hora">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="companyPlantaoSemana">Plantão Semana</label>
+                        <input type="text" class="form-control" id="companyPlantaoSemana" placeholder="Plantão durante a semana">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="companyValorPlantaoSabadoDomingo">Valor Plantão Sábado e Domingo</label>
+                        <input type="text" class="form-control" id="companyValorPlantaoSabadoDomingo" placeholder="Plantão sábados e domingos">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="companyValorContrato">Valor Contrato(R$)</label>
+                        <input type="text" class="form-control" id="companyValorContrato" placeholder="Valor do contrato">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="companyTaxaAdministracao">Taxa de Administração(%)</label>
+                        <input type="text" class="form-control" id="companyTaxaAdministracao" placeholder="Informe a taxa de administração">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="companyIsentoTributacao">Isento de Tributação</label>
+                        <select id="companyIsentoTributacao" class="form-control">
+                            <option selected>Escolher...</option>
+                            <option>Sim</option>
+                            <option>Não</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
+                <div class="form-row">
+                    <div class="col-md-12 text-left">
+                        <button type="submit" class="btn btn-primary mr-2">Cadastrar Empresas</button>
+                        <button type="button" class="btn btn-secondary mr-2">Cancelar</button>
+                        <button type="button" class="btn btn-info mr-2">Limpar</button>
+                        <button type="button" class="btn btn-success">Imprimir</button>
+                    </div>
+                </div>
             </form>
         </div>
     </section>
@@ -139,27 +215,161 @@
         <div class="container">
             <h2 class="text-center">Cadastrar Médicos</h2>
             <form>
-                <div class="form-group">
-                    <label for="doctorName">Nome</label>
-                    <input type="text" class="form-control" id="doctorName" placeholder="Nome do Médico">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="doctorName">Nome</label>
+                        <input type="text" class="form-control" id="doctorName" placeholder="Nome do Médico">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="doctorCpf">CPF</label>
+                        <input type="text" class="form-control" id="doctorCpf" placeholder="000.000.000-00">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="doctorSpecialty">Especialidade</label>
-                    <input type="text" class="form-control" id="doctorSpecialty" placeholder="Especialidade">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="doctorSpecialty">Especialidade</label>
+                        <input type="text" class="form-control" id="doctorSpecialty" placeholder="Especialidade">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="doctorCrm">CRM</label>
+                        <input type="text" class="form-control" id="doctorCrm" placeholder="CRM">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="doctorPhone">Telefone</label>
+                        <input type="text" class="form-control" id="doctorPhone" placeholder="(xx) 9999-9999">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="doctorCrm">CRM</label>
-                    <input type="text" class="form-control" id="doctorCrm" placeholder="CRM">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="doctorAddress">Endereço</label>
+                        <input type="text" class="form-control" id="doctorAddress" placeholder="Endereço">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="doctorNumber">Número</label>
+                        <input type="text" class="form-control" id="doctorNumber" placeholder="Nº">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="doctorComplement">Complemento</label>
+                        <input type="text" class="form-control" id="doctorComplement" placeholder="Complemento">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="doctorPhone">Telefone</label>
-                    <input type="text" class="form-control" id="doctorPhone" placeholder="Telefone">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="doctorNeighborhood">Bairro</label>
+                        <input type="text" class="form-control" id="doctorNeighborhood" placeholder="Bairro">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="doctorCity">Cidade</label>
+                        <input type="text" class="form-control" id="doctorCity" placeholder="Cidade">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="doctorState">Estado</label>
+                        <select id="doctorState" class="form-control">
+                            <option selected>Escolher...</option>
+                            <option>AC</option>
+                            <option>AL</option>
+                            <option>AP</option>
+                            <option>AM</option>
+                            <option>BA</option>
+                            <option>CE</option>
+                            <option>DF</option>
+                            <option>ES</option>
+                            <option>GO</option>
+                            <option>MA</option>
+                            <option>MT</option>
+                            <option>MS</option>
+                            <option>MG</option>
+                            <option>PA</option>
+                            <option>PB</option>
+                            <option>PR</option>
+                            <option>PE</option>
+                            <option>PI</option>
+                            <option>RJ</option>
+                            <option>RN</option>
+                            <option>RS</option>
+                            <option>RO</option>
+                            <option>RR</option>
+                            <option>SC</option>
+                            <option>SP</option>
+                            <option>SE</option>
+                            <option>TO</option>
+                        </select>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Cadastrar Médico</button>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="doctorPhone1">Telefone Celular</label>
+                        <input type="text" class="form-control" id="doctorPhone1" placeholder="(xx) 99999-9999">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="doctorPhone2">Telefone 2</label>
+                        <input type="text" class="form-control" id="doctorPhone2" placeholder="(xx) 9999-9999">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="doctorEmail">Email</label>
+                        <input type="email" class="form-control" id="doctorEmail" placeholder="Email">
+                    </div>
+                </div>
+                <h5 class="text-left text-muted mb-3 mt-4" style="font-size: 1.1rem; font-weight: bold; border-bottom: 1px solid #dee2e6;">Informações da Clínica</h5>
+                <div class="form-group">
+                    <label for="clinicName">Nome da Clínica</label>
+                    <input type="text" class="form-control" id="clinicName" placeholder="Nome da clínica">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="clinicAttendant">Atendente</label>
+                        <input type="text" class="form-control" id="clinicAttendant" placeholder="Nome do atendente">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="clinicPhone">Telefone da Clínica</label>
+                        <input type="text" class="form-control" id="clinicPhone" placeholder="(xx) 9999-9999">
+                    </div>
+                </div>
+                <h5 class="text-left text-muted mb-3 mt-4" style="font-size: 1.1rem; font-weight: bold; border-bottom: 1px solid #dee2e6;">Informações Bancárias</h5>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="bankName">Banco</label>
+                        <select id="bankName" class="form-control">
+                            <option selected>Escolher...</option>
+                            <option>Banco do Brasil</option>
+                            <option>Caixa Econômica Federal</option>
+                            <option>Bradesco</option>
+                            <option>Itaú</option>
+                            <option>Santander</option>
+                            <option>Banco Safra</option>
+                            <option>BTG Pactual</option>
+                            <option>Banco Inter</option>
+                            <option>Neon</option>
+                            <option>Nubank</option>
+                            <option>Original</option>
+                            <option>PagBank</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="bankAgency">Agência</label>
+                        <input type="text" class="form-control" id="bankAgency" placeholder="Agência">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="bankAccount">Conta</label>
+                        <input type="text" class="form-control" id="bankAccount" placeholder="Conta">
+                    </div>
+                    <div class="form-group col-md-5">
+                        <label for="bankHolder">Titular</label>
+                        <input type="text" class="form-control" id="bankHolder" placeholder="Titular da conta">
+                    </div>
+                </div>
+                <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
+                <div class="form-row">
+                    <div class="col-md-12 text-left">
+                        <button type="submit" class="btn btn-primary mr-2">Cadastrar Médico</button>
+                        <button type="button" class="btn btn-secondary mr-2">Cancelar</button>
+                        <button type="button" class="btn btn-info mr-2">Limpar</button>
+                        <button type="button" class="btn btn-success">Imprimir</button>
+                    </div>
+                </div>
             </form>
         </div>
     </section>
-
     <!-- Shift Registration Section -->
     <section id="shiftRegistration" class="py-5">
         <div class="container">
@@ -202,7 +412,7 @@
         </div>
     </section>
     
-    
+     
     <!-- Login Section -->
     <!-- <section id="login" class="py-5 bg-light">
         <div class="container">
@@ -240,4 +450,4 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-</html>
+</html> 

@@ -20,4 +20,4 @@ class Plantao(models.Model):
     data = models.DateField()
     medico = models.CharField(max_length=260)
     hora = models.TimeField()
-    valor = models.CharField()
+    valor = models.CharField(max_length=12)
