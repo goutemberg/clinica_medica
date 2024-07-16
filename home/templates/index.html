@@ -5,9 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plantão PRO</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             padding-top: 56px;
+        }
+        .form-group label {
+            display: flex;
+            align-items: center;
+        }
+        .form-group label i {
+            margin-right: 8px;
         }
     </style>
 </head>
@@ -27,7 +36,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#companyRegistration">Cadastrar Clinicas</a>
+                        <a class="nav-link" href="#companyRegistration">Cadastrar Empresa</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#doctorRegistration">Cadastrar Médico</a>
@@ -48,7 +57,7 @@
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-lg-12">
-                    <h1 class="display-4 text-white mt-5 mb-2">Bem Vindo ao Plantão PRO</h1>
+                    <h1 class="display-4 text-white mt-5 mb-2">Bem vindo ao plantão PRO</h1>
                     <p class="lead mb-5 text-white-50">Gestão eficiente de Plantão médico.</p>
                 </div>
             </div>
@@ -62,49 +71,49 @@
             <form>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="companyName">Nome</label>
+                        <label for="companyName"><i class="fas fa-building"></i> Nome</label>
                         <input type="text" class="form-control" id="companyName" placeholder="Nome da empresa">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="companyLegalName">Razão Social</label>
+                        <label for="companyLegalName"><i class="fas fa-file-alt"></i> Razão Social</label>
                         <input type="text" class="form-control" id="companyLegalName" placeholder="Razão social">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="companyCnpj">CNPJ</label>
+                        <label for="companyCnpj"><i class="fas fa-id-card"></i> CNPJ</label>
                         <input type="text" class="form-control" id="companyCnpj" placeholder="00.000.000/0000-00">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="companyInscricaoEstadual">Inscrição Estadual</label>
+                        <label for="companyInscricaoEstadual"><i class="fas fa-file-signature"></i> Inscrição Estadual</label>
                         <input type="text" class="form-control" id="companyInscricaoEstadual" placeholder="Inscrição estadual">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label for="companyCep">CEP</label>
+                        <label for="companyCep"><i class="fas fa-map-marker-alt"></i> CEP</label>
                         <input type="text" class="form-control" id="companyCep" placeholder="CEP">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="companyStreet">Lougradouro(Rua, Av, Travessa e etc)</label>
+                        <label for="companyStreet"><i class="fas fa-road"></i> Lougradouro(Rua, Av, Travessa e etc)</label>
                         <input type="text" class="form-control" id="companyStreet" placeholder="Lougradouro">
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="companyNumber">Número</label>
+                        <label for="companyNumber"><i class="fas fa-hashtag"></i> Número</label>
                         <input type="text" class="form-control" id="companyNumber" placeholder="Nº">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="companyNeighborhood">Bairro</label>
+                        <label for="companyNeighborhood"><i class="fas fa-map"></i> Bairro</label>
                         <input type="text" class="form-control" id="companyNeighborhood" placeholder="Bairro">
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="companyCity">Cidade</label>
+                        <label for="companyCity"><i class="fas fa-city"></i> Cidade</label>
                         <input type="text" class="form-control" id="companyCity" placeholder="Cidade">
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="companyState">Estado</label>
+                        <label for="companyState"><i class="fas fa-flag"></i> Estado</label>
                         <select id="companyState" class="form-control">
                             <option selected>Escolher...</option>
                             <option>AC</option>
@@ -139,55 +148,55 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="companyPhone">Telefone</label>
+                        <label for="companyPhone"><i class="fas fa-phone"></i> Telefone</label>
                         <input type="text" class="form-control" id="companyPhone" placeholder="(xx) 9999-9999">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="companyCell">Celular</label>
+                        <label for="companyCell"><i class="fas fa-mobile-alt"></i> Celular</label>
                         <input type="text" class="form-control" id="companyCell" placeholder="(xx) 99999-9999">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="companyContactPerson">Pessoa para Contato</label>
+                        <label for="companyContactPerson"><i class="fas fa-user"></i> Pessoa para Contato</label>
                         <input type="text" class="form-control" id="companyContactPerson" placeholder="Pessoa para contato">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="companyEmail">Email</label>
+                        <label for="companyEmail"><i class="fas fa-envelope"></i> Email</label>
                         <input type="email" class="form-control" id="companyEmail" placeholder="Email">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label for="companyValorPlantao">Valor Plantão(12h)</label>
+                        <label for="companyValorPlantao"><i class="fas fa-dollar-sign"></i> Valor Plantão (12h)</label>
                         <input type="text" class="form-control" id="companyValorPlantao" placeholder="Valor do plantão">
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="companyValorPlantaoHora">Valor Plantão (Por hora)</label>
+                        <label for="companyValorPlantaoHora"><i class="fas fa-clock"></i> Valor Plantão (Por hora)</label>
                         <input type="text" class="form-control" id="companyValorPlantaoHora" placeholder="Plantão por hora">
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="companyPlantaoSemana">Plantão Semana</label>
+                        <label for="companyPlantaoSemana"><i class="fas fa-calendar-week"></i> Plantão Semana</label>
                         <input type="text" class="form-control" id="companyPlantaoSemana" placeholder="Plantão durante a semana">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="companyValorPlantaoSabadoDomingo">Valor Plantão Sábado e Domingo</label>
+                        <label for="companyValorPlantaoSabadoDomingo"><i class="fas fa-calendar-day"></i> Valor Plantão Sábado e Domingo</label>
                         <input type="text" class="form-control" id="companyValorPlantaoSabadoDomingo" placeholder="Plantão sábados e domingos">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="companyValorContrato">Valor Contrato(R$)</label>
+                        <label for="companyValorContrato"><i class="fas fa-file-contract"></i> Valor Contrato (R$)</label>
                         <input type="text" class="form-control" id="companyValorContrato" placeholder="Valor do contrato">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="companyTaxaAdministracao">Taxa de Administração(%)</label>
+                        <label for="companyTaxaAdministracao"><i class="fas fa-percentage"></i> Taxa de Administração (%)</label>
                         <input type="text" class="form-control" id="companyTaxaAdministracao" placeholder="Informe a taxa de administração">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="companyIsentoTributacao">Isento de Tributação</label>
+                        <label for="companyIsentoTributacao"><i class="fas fa-ban"></i> Isento de Tributação</label>
                         <select id="companyIsentoTributacao" class="form-control">
                             <option selected>Escolher...</option>
                             <option>Sim</option>
@@ -208,62 +217,57 @@
         </div>
     </section>
     
-    
 
     <!-- Doctor Registration Section -->
-    <section id="doctorRegistration" class="py-5 bg-light">
+    <section id="doctorRegistration" class="py-5">
         <div class="container">
-            <h2 class="text-center">Cadastrar Médicos</h2>
+            <h2 class="text-center">Cadastrar Médico</h2>
             <form>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="doctorName">Nome</label>
-                        <input type="text" class="form-control" id="doctorName" placeholder="Nome do Médico">
+                        <label for="doctorName"><i class="fas fa-user-md"></i> Nome</label>
+                        <input type="text" class="form-control" id="doctorName" placeholder="Nome do médico">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="doctorCpf">CPF</label>
-                        <input type="text" class="form-control" id="doctorCpf" placeholder="000.000.000-00">
+                        <label for="doctorCpf"><i class="fas fa-id-card"></i> CPF</label>
+                        <input type="text" class="form-control" id="doctorCpf" placeholder="CPF">
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="doctorSpecialty">Especialidade</label>
-                        <input type="text" class="form-control" id="doctorSpecialty" placeholder="Especialidade">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="doctorCrm">CRM</label>
+                    <div class="form-group col-md-6">
+                        <label for="doctorCrm"><i class="fas fa-stethoscope"></i> CRM</label>
                         <input type="text" class="form-control" id="doctorCrm" placeholder="CRM">
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="doctorPhone">Telefone</label>
-                        <input type="text" class="form-control" id="doctorPhone" placeholder="(xx) 9999-9999">
+                    <div class="form-group col-md-6">
+                        <label for="doctorEspecialidade"><i class="fas fa-user-nurse"></i> Especialidade</label>
+                        <input type="text" class="form-control" id="doctorEspecialidade" placeholder="Especialidade">
                     </div>
                 </div>
                 <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="doctorCep"><i class="fas fa-map-marker-alt"></i> CEP</label>
+                        <input type="text" class="form-control" id="doctorCep" placeholder="CEP">
+                    </div>
                     <div class="form-group col-md-6">
-                        <label for="doctorAddress">Endereço</label>
-                        <input type="text" class="form-control" id="doctorAddress" placeholder="Endereço">
+                        <label for="doctorStreet"><i class="fas fa-road"></i> Lougradouro (Rua, Av, Travessa e etc)</label>
+                        <input type="text" class="form-control" id="doctorStreet" placeholder="Lougradouro">
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="doctorNumber">Número</label>
+                        <label for="doctorNumber"><i class="fas fa-hashtag"></i> Número</label>
                         <input type="text" class="form-control" id="doctorNumber" placeholder="Nº">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="doctorComplement">Complemento</label>
-                        <input type="text" class="form-control" id="doctorComplement" placeholder="Complemento">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="doctorNeighborhood">Bairro</label>
+                        <label for="doctorNeighborhood"><i class="fas fa-map"></i> Bairro</label>
                         <input type="text" class="form-control" id="doctorNeighborhood" placeholder="Bairro">
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="doctorCity">Cidade</label>
+                        <label for="doctorCity"><i class="fas fa-city"></i> Cidade</label>
                         <input type="text" class="form-control" id="doctorCity" placeholder="Cidade">
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="doctorState">Estado</label>
+                        <label for="doctorState"><i class="fas fa-flag"></i> Estado</label>
                         <select id="doctorState" class="form-control">
                             <option selected>Escolher...</option>
                             <option>AC</option>
@@ -297,38 +301,42 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="doctorPhone1">Telefone Celular</label>
-                        <input type="text" class="form-control" id="doctorPhone1" placeholder="(xx) 99999-9999">
+                    <div class="form-group col-md-6">
+                        <label for="doctorPhone"><i class="fas fa-phone"></i> Telefone</label>
+                        <input type="text" class="form-control" id="doctorPhone" placeholder="(xx) 9999-9999">
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="doctorPhone2">Telefone 2</label>
-                        <input type="text" class="form-control" id="doctorPhone2" placeholder="(xx) 9999-9999">
+                    <div class="form-group col-md-6">
+                        <label for="doctorCell"><i class="fas fa-mobile-alt"></i> Celular</label>
+                        <input type="text" class="form-control" id="doctorCell" placeholder="(xx) 99999-9999">
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="doctorEmail">Email</label>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="doctorEmail"><i class="fas fa-envelope"></i> Email</label>
                         <input type="email" class="form-control" id="doctorEmail" placeholder="Email">
                     </div>
                 </div>
+    
                 <h5 class="text-left text-muted mb-3 mt-4" style="font-size: 1.1rem; font-weight: bold; border-bottom: 1px solid #dee2e6;">Informações da Clínica</h5>
-                <div class="form-group">
-                    <label for="clinicName">Nome da Clínica</label>
-                    <input type="text" class="form-control" id="clinicName" placeholder="Nome da clínica">
-                </div>
                 <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="clinicName"><i class="fas fa-hospital"></i> Nome da Clínica</label>
+                        <input type="text" class="form-control" id="clinicName" placeholder="Nome da clínica">
+                    </div>
                     <div class="form-group col-md-6">
-                        <label for="clinicAttendant">Atendente</label>
+                        <label for="clinicAttendant"><i class="fas fa-user"></i> Atendente</label>
                         <input type="text" class="form-control" id="clinicAttendant" placeholder="Nome do atendente">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="clinicPhone">Telefone da Clínica</label>
+                        <label for="clinicPhone"><i class="fas fa-phone-alt"></i> Telefone da Clínica</label>
                         <input type="text" class="form-control" id="clinicPhone" placeholder="(xx) 9999-9999">
                     </div>
                 </div>
+    
                 <h5 class="text-left text-muted mb-3 mt-4" style="font-size: 1.1rem; font-weight: bold; border-bottom: 1px solid #dee2e6;">Informações Bancárias</h5>
                 <div class="form-row">
                     <div class="form-group col-md-3">
-                        <label for="bankName">Banco</label>
+                        <label for="bankName"><i class="fas fa-university"></i> Banco</label>
                         <select id="bankName" class="form-control">
                             <option selected>Escolher...</option>
                             <option>Banco do Brasil</option>
@@ -346,18 +354,19 @@
                         </select>
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="bankAgency">Agência</label>
+                        <label for="bankAgency"><i class="fas fa-building"></i> Agência</label>
                         <input type="text" class="form-control" id="bankAgency" placeholder="Agência">
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="bankAccount">Conta</label>
+                        <label for="bankAccount"><i class="fas fa-credit-card"></i> Conta</label>
                         <input type="text" class="form-control" id="bankAccount" placeholder="Conta">
                     </div>
                     <div class="form-group col-md-5">
-                        <label for="bankHolder">Titular</label>
+                        <label for="bankHolder"><i class="fas fa-user-tie"></i> Titular</label>
                         <input type="text" class="form-control" id="bankHolder" placeholder="Titular da conta">
                     </div>
                 </div>
+    
                 <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
                 <div class="form-row">
                     <div class="col-md-12 text-left">
@@ -370,28 +379,34 @@
             </form>
         </div>
     </section>
+
  <!-- shiftRegistration -->
+
  <section id="shiftRegistration" class="py-5">
     <div class="container">
         <h2 class="text-center">Plantão - Cadastro</h2>
         <form>
             <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="shiftDate">Data</label>
-                    <input type="date" class="form-control" id="shiftDate">
+                <div class="form-group col-md-3">
+                    <label for="shiftStartDate"><i class="fas fa-calendar-alt"></i> Data Início</label>
+                    <input type="date" class="form-control" id="shiftStartDate">
                 </div>
-                <div class="form-group col-md-4">
-                    <label for="startTime">Hora de Início</label>
+                <div class="form-group col-md-3">
+                    <label for="startTime"><i class="fas fa-clock"></i> Hora de Início</label>
                     <input type="time" class="form-control" id="startTime">
                 </div>
-                <div class="form-group col-md-4">
-                    <label for="endTime">Hora de Término</label>
+                <div class="form-group col-md-3">
+                    <label for="shiftEndDate"><i class="fas fa-calendar-alt"></i> Data Término</label>
+                    <input type="date" class="form-control" id="shiftEndDate">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="endTime"><i class="fas fa-clock"></i> Hora de Término</label>
                     <input type="time" class="form-control" id="endTime">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="doctorSelect">Médico Responsável</label>
+                    <label for="doctorSelect"><i class="fas fa-user-md"></i> Médico Responsável</label>
                     <select class="form-control" id="doctorSelect">
                         <option selected>Escolha um Médico</option>
                         <option>Dr. José Silva</option>
@@ -407,27 +422,32 @@
                     </select>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="specialty">Especialidade</label>
+                    <label for="specialty"><i class="fas fa-stethoscope"></i> Especialidade</label>
                     <input type="text" class="form-control" id="specialty" placeholder="Informe a especialidade">
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="shiftType">Tipo de Plantão</label>
+                <div class="form-group col-md-3">
+                    <label for="shiftType"><i class="fas fa-clipboard-list"></i> Tipo de Plantão</label>
                     <select class="form-control" id="shiftType">
                         <option selected>Escolha o Tipo</option>
-                        <option>Diurno</option>
-                        <option>Noturno</option>
-                        <option>Fim de Semana</option>
+                        <option>Por Hora</option>
+                        <option>12 Horas</option>
+                        <option>Semana</option>
+                        <option>Sábado e Domingo</option>
                         <option>Feriado</option>
                     </select>
                 </div>
-                <div class="form-group col-md-4">
-                    <label for="shiftValue">Valor do Plantão</label>
+                <div class="form-group col-md-3">
+                    <label for="shiftHours"><i class="fas fa-hourglass-half"></i> Quantidade de Horas</label>
+                    <input type="number" class="form-control" id="shiftHours" placeholder="Informe a quantidade de horas">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="shiftValue"><i class="fas fa-dollar-sign"></i> Valor do Plantão</label>
                     <input type="number" class="form-control" id="shiftValue" placeholder="Informe o valor">
                 </div>
-                <div class="form-group col-md-4">
-                    <label for="shiftStatus">Status do Plantão</label>
+                <div class="form-group col-md-3">
+                    <label for="shiftStatus"><i class="fas fa-info-circle"></i> Status do Plantão</label>
                     <select class="form-control" id="shiftStatus">
                         <option selected>Escolha o Status</option>
                         <option>Confirmado</option>
@@ -438,27 +458,27 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="emergencyContact">Contato de Emergência</label>
+                    <label for="emergencyContact"><i class="fas fa-phone-alt"></i> Contato de Emergência</label>
                     <input type="text" class="form-control" id="emergencyContact" placeholder="Informe o contato">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="equipment">Equipamentos Necessários</label>
+                    <label for="equipment"><i class="fas fa-toolbox"></i> Equipamentos Necessários</label>
                     <input type="text" class="form-control" id="equipment" placeholder="Informe os equipamentos">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="auxiliaryStaff">Cargos Auxiliares</label>
+                    <label for="auxiliaryStaff"><i class="fas fa-users"></i> Cargos Auxiliares</label>
                     <input type="text" class="form-control" id="auxiliaryStaff" placeholder="Informe os cargos auxiliares">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="substitute">Substituto</label>
+                    <label for="substitute"><i class="fas fa-user"></i> Substituto</label>
                     <input type="text" class="form-control" id="substitute" placeholder="Informe o substituto">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <label for="notes">Observações</label>
+                    <label for="notes"><i class="fas fa-comment-alt"></i> Observações</label>
                     <textarea class="form-control" id="notes" rows="3" placeholder="Adicione observações"></textarea>
                 </div>
             </div>
@@ -474,10 +494,8 @@
         </form>
     </div>
 </section>
-        </form>
-    </div>
-</section>
 
+<!-- Modal -->
 <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -489,71 +507,130 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <div class="table-responsive">
-                        <table class="table" style="width: 80%; margin: auto;">
-                            <thead>
-                                <tr>
-                                    <th style="text-align: left; width: 15%;">Médico</th>
-                                    <th style="text-align: left; width: 15%;">Hora de Início</th>
-                                    <th style="text-align: left; width: 15%;">Hora de Término</th>
-                                    <th style="text-align: left; width: 15%;">Valor Bruto</th>
-                                    <th style="text-align: left; width: 15%;">Valor Líquido</th>
-                                    <th style="text-align: left; width: 15%;">Status</th>
-                                    <th style="text-align: left; width: 10%;">Observações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span id="modalDoctorSelect"></span></td>
-                                    <td><span id="modalStartTime"></span></td>
-                                    <td><span id="modalEndTime"></span></td>
-                                    <td><span id="modalShiftValue"></span></td>
-                                    <td><span id="modalShiftNetValue"></span></td>
-                                    <td><span id="modalShiftStatus"></span></td>
-                                    <td><span id="modalNotes"></span></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <label for="filterStartDate">Data Inicial</label>
+                            <input type="date" class="form-control" id="filterStartDate">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="filterEndDate">Data Final</label>
+                            <input type="date" class="form-control" id="filterEndDate">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="filterDoctor">Médico</label>
+                            <select class="form-control" id="filterDoctor">
+                                <option selected>Escolher...</option>
+                                <option>Dr. José Silva</option>
+                                <option>Dra. Maria Oliveira</option>
+                                <option>Dr. João Souza</option>
+                                <option>Dra. Ana Lima</option>
+                                <option>Dr. Carlos Pereira</option>
+                                <option>Dra. Fernanda Costa</option>
+                                <option>Dr. Pedro Santos</option>
+                                <option>Dra. Juliana Almeida</option>
+                                <option>Dr. Ricardo Gonçalves</option>
+                                <option>Dra. Beatriz Mendes</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col-md-12 text-right"><strong>Total:</strong> <span id="modalTotal"></span></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Médico</th>
+                                        <th scope="col">Hora de Início</th>
+                                        <th scope="col">Hora de Término</th>
+                                        <th scope="col">Valor Bruto do Plantão</th>
+                                        <th scope="col">Valor Imposto</th>
+                                        <th scope="col">Valor Líquido do Plantão</th>
+                                        <th scope="col">Observações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td id="modalDoctorSelect"></td>
+                                        <td id="modalStartTime"></td>
+                                        <td id="modalEndTime"></td>
+                                        <td id="modalShiftValue"></td>
+                                        <td id="modalTaxValue"></td>
+                                        <td id="modalShiftNetValue"></td>
+                                        <td id="modalShiftObs"></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="6" class="text-right"><strong>Total:</strong></td>
+                                        <td><strong id="modalTotal"></strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="printModal()">Imprimir</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
+                <button type="button" class="btn btn-primary" onclick="printTable()">Imprimir</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
             </div>
         </div>
     </div>
 </div>
 
+<!-- FontAwesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<!-- Bootstrap JS (necessário para o funcionamento dos modais) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+<!-- Estilos para impressão -->
+<style>
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        #viewModal .modal-content * {
+            visibility: visible;
+        }
+        #viewModal .modal-content {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+        }
+        #viewModal .modal-header,
+        #viewModal .modal-footer {
+            display: none;
+        }
+    }
+</style>
+
 <script>
-document.querySelector('.btn-success').addEventListener('click', function() {
-    document.getElementById('modalDoctorSelect').innerText = document.getElementById('doctorSelect').value;
-    document.getElementById('modalStartTime').innerText = document.getElementById('startTime').value;
-    document.getElementById('modalEndTime').innerText = document.getElementById('endTime').value;
-    document.getElementById('modalShiftValue').innerText = document.getElementById('shiftValue').value;
-    document.getElementById('modalShiftNetValue').innerText = document.getElementById('shiftNetValue').value;
-    document.getElementById('modalShiftStatus').innerText = document.getElementById('shiftStatus').value;
-    document.getElementById('modalNotes').innerText = document.getElementById('notes').value;
-    var total = parseFloat(document.getElementById('shiftValue').value) + parseFloat(document.getElementById('shiftNetValue').value);
-    document.getElementById('modalTotal').innerText = total ? total.toFixed(2) : "N/A";
-});
+    // JavaScript code to populate modal with form data
+    $('#viewModal').on('show.bs.modal', function (event) {
+        var modal = $(this);
+        modal.find('#modalDoctorSelect').text($('#doctorSelect').val());
+        modal.find('#modalStartTime').text($('#startTime').val());
+        modal.find('#modalEndTime').text($('#endTime').val());
+        modal.find('#modalShiftValue').text($('#shiftValue').val());
+        modal.find('#modalTaxValue').text($('#taxValue').val()); // Novo campo para valor do imposto
+        modal.find('#modalShiftNetValue').text($('#shiftNetValue').val());
 
-function printModal() {
-    var printContents = document.querySelector('#viewModal .modal-body').innerHTML;
-    var originalContents = document.body.innerHTML;
-    document.body.innerHTML = printContents;
-    window.print();
-    document.body.innerHTML = originalContents;
-    location.reload();
-}
+        // Calcular e preencher o valor total (exemplo)
+        var shiftValue = parseFloat($('#shiftValue').val()) || 0;
+        var taxValue = parseFloat($('#taxValue').val()) || 0;
+        var shiftNetValue = parseFloat($('#shiftNetValue').val()) || 0;
+        var total = shiftValue - taxValue + shiftNetValue; // Exemplo de cálculo do total
+        modal.find('#modalTotal').text(total.toFixed(2));
+
+        modal.find('#modalShiftObs').text($('#shiftObs').val());
+    });
+
+    function printTable() {
+        window.print();
+    }
 </script>
-
-
-
-
 
 
  <!-- Login Section -->
