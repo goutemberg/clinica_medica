@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,7 +76,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="companyLegalName"><i class="fas fa-file-alt"></i> Razão Social</label>
-                        <input type="text" class="form-control" id="companyLegalName" placeholder="Razão social">
+                        <input type="text" class="form-control" id="companyLegalName" placeholder="Razão social" required oninvalid="this.setCustomValidity('Campo Obrigatorio')" oninput="this.setCustomValidity('')">
                     </div>
                 </div>
                 <div class="form-row">
