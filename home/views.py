@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
-from .models import CadastroEmpresa, ValorPlantao
+from .models import CadastroEmpresa
 
 
 def index(request):
@@ -36,32 +36,36 @@ def cadastroEmpBanco(request):
     CompanyEmail = request.POST['companyEmail']
     CompanyTaxaAdministracao = request.POST['companyTaxaAdministracao']
     CompanyIsentoTributacao = request.POST['companyIsentoTributacao'] == 'true'
-    novoCadastroEmp = CadastroEmpresa(nome=CompanyName,razao_social=CompanyLegalName,cnpj=CompanyCnpj,inscricao_estadual=CompanyInscricaoEstadual,
-    cep=CompanyCep,logradouro=Lougradouro,numero=CompanyNumber,bairro=CompanyNeighborhood,cidade=CompanyCity,estado=CompanyState,telefone=CompanyPhone,
-    celular=CompanyCell,pessoa_contato=CompanyContactPerson,email=CompanyEmail,taxa_administrativa=CompanyTaxaAdministracao,isento_tributacao=CompanyIsentoTributacao,
-    )
-    novoCadastroEmp.save()
-    return HttpResponseRedirect(reverse('index'))
-
-
-def index(request):
-    cadValorPlant = ValorPlantao.objects.all().values()
-    template = loader.get_template('index.html')
-    context = {
-        'cadValorPlant':cadValorPlant
-    }
-    return HttpResponse(template.render(context,request))
-
-
-def cadastrarValorPlant(request):
-    template = loader.get_template('index.html')
-    return HttpResponse(template.render({}, request))
-
-def cadValorPlant(request):
     CompanyValorPlantao = request.POST['companyValorPlantao']
     CompanyValorPlantaoHora = request.POST['companyValorPlantaoHora']
     CompanyPlantaoSemana = request.POST['companyPlantaoSemana'] 
     CompanyValorPlantaoSabadoDomingo = request.POST['companyValorPlantaoSabadoDomingo']
-    novoCadPlant = ValorPlantao(valor_12h=CompanyValorPlantao,valor_por_hora=CompanyValorPlantaoHora,valor_semana=CompanyPlantaoSemana,valor_fim_semana=CompanyValorPlantaoSabadoDomingo)
-    novoCadPlant.save()
-    return HttpResponseRedirect(reverse('index')) 
+    novoCadastroEmp = CadastroEmpresa(nome=CompanyName,razao_social=CompanyLegalName,cnpj=CompanyCnpj,inscricao_estadual=CompanyInscricaoEstadual,
+    cep=CompanyCep,logradouro=Lougradouro,numero=CompanyNumber,bairro=CompanyNeighborhood,cidade=CompanyCity,estado=CompanyState,telefone=CompanyPhone,
+    celular=CompanyCell,pessoa_contato=CompanyContactPerson,email=CompanyEmail,taxa_administrativa=CompanyTaxaAdministracao,isento_tributacao=CompanyIsentoTributacao,
+    valor_12h=CompanyValorPlantao,valor_por_hora=CompanyValorPlantaoHora,valor_semana=CompanyPlantaoSemana,valor_fim_semana=CompanyValorPlantaoSabadoDomingo)
+    novoCadastroEmp.save()
+    return HttpResponseRedirect(reverse('index'))
+
+
+# def index(request):
+#     cadValorPlant = ValorPlantao.objects.all().values()
+#     template = loader.get_template('index.html')
+#     context = {
+#         'cadValorPlant':cadValorPlant
+#     }
+#     return HttpResponse(template.render(context,request))
+
+
+# def cadastrarValorPlant(request):
+#     template = loader.get_template('index.html')
+#     return HttpResponse(template.render({}, request))
+
+# def cadValorPlant(request):
+#     CompanyValorPlantao = request.POST['companyValorPlantao']
+#     CompanyValorPlantaoHora = request.POST['companyValorPlantaoHora']
+#     CompanyPlantaoSemana = request.POST['companyPlantaoSemana'] 
+#     CompanyValorPlantaoSabadoDomingo = request.POST['companyValorPlantaoSabadoDomingo']
+#     novoCadPlant = ValorPlantao(valor_12h=CompanyValorPlantao,valor_por_hora=CompanyValorPlantaoHora,valor_semana=CompanyPlantaoSemana,valor_fim_semana=CompanyValorPlantaoSabadoDomingo)
+#     novoCadPlant.save()
+#     return HttpResponseRedirect(reverse('index')) 
