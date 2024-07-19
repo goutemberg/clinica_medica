@@ -34,7 +34,7 @@ class CadastroEmpresa(models.Model):
     pessoa_contato = models.CharField(max_length=50)
     email = models.EmailField(max_length=50, validators=[EmailValidator(message='Email inválido')])
     isento_tributacao = models.BooleanField(default=False)
-    taxa_administrativa = models.DecimalField(max_digits=6, decimal_places=2)
+    taxa_administrativa = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     valor_imposto = models.CharField(max_length=5)
 
 
