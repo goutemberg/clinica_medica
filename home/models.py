@@ -36,14 +36,18 @@ class CadastroEmpresa(models.Model):
     isento_tributacao = models.BooleanField(default=False)
     taxa_administrativa = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     valor_imposto = models.CharField(max_length=5)
-
-
-
-class ValorPlantao(models.Model):
     valor_12h = models.DecimalField(max_digits=10, decimal_places=2)
     valor_por_hora = models.DecimalField(max_digits=10, decimal_places=2)
     valor_semana = models.DecimalField(max_digits=10, decimal_places=2)
     valor_fim_semana = models.DecimalField(max_digits=10, decimal_places=2)
+
+
+
+# class ValorPlantao(models.Model):
+#     valor_12h = models.DecimalField(max_digits=10, decimal_places=2)
+#     valor_por_hora = models.DecimalField(max_digits=10, decimal_places=2)
+#     valor_semana = models.DecimalField(max_digits=10, decimal_places=2)
+#     valor_fim_semana = models.DecimalField(max_digits=10, decimal_places=2)
 
 class InformacoesBancarias(models.Model):
     banco = models.CharField(max_length=50)
