@@ -30,12 +30,12 @@ def cadastroEmpBanco(request):
     CompanyNeighborhood = request.POST['companyNeighborhood'] 
     CompanyCity= request.POST['companyCity']
     CompanyState = request.POST['companyState']
-    CompanyPhone = request.POST['companyPhon']
+    CompanyPhone = request.POST['companyPhone']
     CompanyCell = request.POST['companyCell']
     CompanyContactPerson = request.POST['companyContactPerson']
     CompanyEmail = request.POST['companyEmail']
     CompanyTaxaAdministracao = request.POST['companyTaxaAdministracao']
-    CompanyIsentoTributacao = request.POST['companyIsentoTributacao']
+    CompanyIsentoTributacao = request.POST['companyIsentoTributacao'] == 'true'
     novoCadastroEmp = CadastroEmpresa(nome=CompanyName,razao_social=CompanyLegalName,cnpj=CompanyCnpj,inscricao_estadual=CompanyInscricaoEstadual,
     cep=CompanyCep,logradouro=Lougradouro,numero=CompanyNumber,bairro=CompanyNeighborhood,cidade=CompanyCity,estado=CompanyState,telefone=CompanyPhone,
     celular=CompanyCell,pessoa_contato=CompanyContactPerson,email=CompanyEmail,taxa_administrativa=CompanyTaxaAdministracao,isento_tributacao=CompanyIsentoTributacao,
