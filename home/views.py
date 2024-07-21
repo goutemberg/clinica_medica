@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
-from .models import CadastroEmpresa
+from .models import CadastroEmpresa, CadastroMedico
 
 
 def index(request):
@@ -48,24 +48,70 @@ def cadastroEmpBanco(request):
     return HttpResponseRedirect(reverse('index'))
 
 
-# def index(request):
-#     cadValorPlant = ValorPlantao.objects.all().values()
-#     template = loader.get_template('index.html')
-#     context = {
-#         'cadValorPlant':cadValorPlant
-#     }
-#     return HttpResponse(template.render(context,request))
+def index(request):
+     cadMed = CadastroMedico.objects.all().values()
+     template = loader.get_template('index.html')
+     context = {
+         'cadMed':cadMed
+     }
+     return HttpResponse(template.render(context,request))
 
 
-# def cadastrarValorPlant(request):
-#     template = loader.get_template('index.html')
-#     return HttpResponse(template.render({}, request))
+def cadastrarMed(request):
+     template = loader.get_template('index.html')
+     return HttpResponse(template.render({}, request))
 
-# def cadValorPlant(request):
-#     CompanyValorPlantao = request.POST['companyValorPlantao']
-#     CompanyValorPlantaoHora = request.POST['companyValorPlantaoHora']
-#     CompanyPlantaoSemana = request.POST['companyPlantaoSemana'] 
-#     CompanyValorPlantaoSabadoDomingo = request.POST['companyValorPlantaoSabadoDomingo']
-#     novoCadPlant = ValorPlantao(valor_12h=CompanyValorPlantao,valor_por_hora=CompanyValorPlantaoHora,valor_semana=CompanyPlantaoSemana,valor_fim_semana=CompanyValorPlantaoSabadoDomingo)
-#     novoCadPlant.save()
-#     return HttpResponseRedirect(reverse('index')) 
+def cadMedBanco(request):
+     DoctorName = request.POST['doctorName']
+     DoctorCpf = request.POST['doctorCpf']
+     DoctorSpecialty = request.POST['doctorSpecialty'] 
+     DoctorCrm = request.POST['doctorCrm']
+     DoctorPhone = request.POST['doctorPhone']
+     DoctorAddress = request.POST['doctorAddress']
+     DoctorNumber = request.POST['doctorNumber']
+     DoctorComplement = request.POST['doctorComplement']
+     DoctorNeighborhood = request.POST['doctorNeighborhood']
+     DoctorCity = request.POST['doctorCity']
+     DoctorState = request.POST['doctorState']
+     DoctorPhone1 = request.POST['doctorPhone1']
+     DoctorPhone2 = request.POST['doctorPhone2']
+     DoctorEmail = request.POST['doctorEmail']
+     ClinicName = request.POST['clinicName']
+     ClinicAttendant = request.POST['clinicAttendant']
+     ClinicPhone = request.POST['clinicPhone']
+     BankName = request.POST['bankName']
+     BankAgency = request.POST['bankAgency']
+     BankAccount = request.POST['bankAccount']
+     BankHolder = request.POST['bankHolder']
+     novoCadMed = CadastroMedico(nome=DoctorName,cpf=DoctorCpf,especialidade=DoctorSpecialty, crm=DoctorCrm, celular=DoctorPhone,logradouro=DoctorAddress,numero=DoctorNumber,complemento=DoctorComplement,bairro=DoctorNeighborhood,cidade=DoctorCity, 
+    estado=DoctorState,telefone1=DoctorPhone1,telefone2=DoctorPhone2,email=DoctorEmail,nomeAtendente=ClinicAttendant,nomeClinica=ClinicName, 
+    telefone=ClinicPhone,banco=BankName,agencia=BankAgency,conta=BankAccount,titular_conta=BankHolder)
+     novoCadMed.save()
+     return HttpResponseRedirect(reverse('index')) 
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
