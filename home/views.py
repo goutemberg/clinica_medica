@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
-from .models import CadastroEmpresa, CadastroMedico
+from .models import CadastroEmpresa, CadastroMedico, Plantao
 
 
 def index(request):
@@ -89,12 +89,28 @@ def cadMedBanco(request):
      novoCadMed.save()
      return HttpResponseRedirect(reverse('index')) 
 
-
-
-
-  
-  
-
+def cadPlantaoBanco(request):
+     StartDate = request.POST['startDate']
+     StartTime = request.POST['startTime']
+     EndDate = request.POST['endDate']
+     EndTime = request.POST['endTime'] 
+     DoctorSelect = request.POST['doctorSelect']
+     Specialty = request.POST['specialty']
+     ShiftType = request.POST['shiftType']
+     ShiftValue = request.POST['shiftValue']
+     ShiftStatus = request.POST['shiftStatus']
+     ShiftHours = request.POST['shiftHours']
+     EmergencyContact = request.POST['emergencyContact']
+     Equipment = request.POST['equipment']
+     AuxiliaryStaff = request.POST['auxiliaryStaff']
+     Substitute = request.POST['substitute']
+     Notes = request.POST['notes']
+     novoCadPlant = Plantao(data_inicio=StartDate,hora_inicio=StartTime,hora_termino=EndTime,data_termino=EndDate,medico_responsavel=DoctorSelect,
+    especialidade=Specialty,tipo_plantao=ShiftType,quantidade_horas=ShiftHours,status=ShiftStatus, 
+    valor=ShiftValue, contato_emergencia=EmergencyContact, equipamentos_necessarios=Equipment, cargos_auxiliares=AuxiliaryStaff,
+    substituto=Substitute,observacoes=Notes)
+     novoCadPlant.save()
+     return HttpResponseRedirect(reverse('index')) 
 
 
 
