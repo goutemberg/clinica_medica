@@ -58,7 +58,7 @@
     <!-- Company Registration Section -->
     <section id="companyRegistration" class="py-5">
         <div class="container">
-            <h2 class="text-center">Cadastrar Empresa</h2>
+            <h2 class="text-center">Cadastrar Clinica</h2>
             <form method="post" action="cadastroEmpBanco/">
             {% csrf_token %}
                 <div class="form-row">
@@ -373,7 +373,8 @@
  <section id="shiftRegistration" class="py-5">
     <div class="container">
         <h2 class="text-center">Plantão - Cadastro</h2>
-        <form>
+        <form method="post" action="cadPlantaoBanco/">
+                {% csrf_token %}
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="startDate">Data Inicial</label>
@@ -473,7 +474,7 @@
             <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
             <div class="form-row">
                 <div class="col-md-12 text-left">
-                    <button type="submit" class="btn btn-primary mr-2">Cadastrar Plantão</button>
+                    <button type="submit" value="cadastrarPlan" class="btn btn-primary mr-2">Cadastrar Plantão</button>
                     <button type="button" class="btn btn-secondary mr-2">Cancelar</button>
                     <button type="button" class="btn btn-info mr-2">Limpar</button>
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#viewModal">Visualizar</button>

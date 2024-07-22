@@ -73,7 +73,7 @@ class Plantao(models.Model):
     hora_inicio = models.TimeField(default=timezone.now)
     data_termino = models.DateField(default=timezone.now)
     hora_termino = models.TimeField(default=timezone.now)
-    medico_responsavel = models.ForeignKey(CadastroMedico, on_delete=models.CASCADE)
+    medico_responsavel = models.CharField(max_length=255)
     especialidade = models.CharField(max_length=255)
     tipo_plantao = models.CharField(max_length=20)
     quantidade_horas = models.DecimalField(max_digits=5, decimal_places=2)

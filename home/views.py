@@ -87,7 +87,20 @@ def cadMedBanco(request):
     estado=DoctorState,telefone1=DoctorPhone1,telefone2=DoctorPhone2,email=DoctorEmail,nomeAtendente=ClinicAttendant,nomeClinica=ClinicName, 
     telefone=ClinicPhone,banco=BankName,agencia=BankAgency,conta=BankAccount,titular_conta=BankHolder)
      novoCadMed.save()
-     return HttpResponseRedirect(reverse('index')) 
+     return HttpResponseRedirect(reverse('index'))
+
+def index(request):
+     cadPlant = Plantao.objects.all().values()
+     template = loader.get_template('index.html')
+     context = {
+         'cadPlant':cadPlant
+     }
+     return HttpResponse(template.render(context,request))
+
+
+def cadastrarPlan(request):
+     template = loader.get_template('index.html')
+     return HttpResponse(template.render({}, request))
 
 def cadPlantaoBanco(request):
      StartDate = request.POST['startDate']
