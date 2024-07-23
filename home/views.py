@@ -125,6 +125,11 @@ def cadPlantaoBanco(request):
      novoCadPlant.save()
      return HttpResponseRedirect(reverse('index')) 
 
+def relatorioPage(request):
+    template = loader.get_template('impressao.html')
+    
+    return HttpResponse(template.render())
+
 
 
 
