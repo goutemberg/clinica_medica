@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
+#from .models import CadastroEmpresa, CadastroMedico, Plantao
 from .models import CadastroEmpresa, CadastroMedico, Plantao
-
 
 def index(request):
     cadastroEmpresa = CadastroEmpresa.objects.all().values()
@@ -125,7 +125,10 @@ def cadPlantaoBanco(request):
      novoCadPlant.save()
      return HttpResponseRedirect(reverse('index')) 
 
-
+def relatorioPage(request):
+    template = loader.get_template('impressao.html')
+    
+    return HttpResponse(template.render())
 
 
 
