@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        {% include 'plantaopro/partials/_head.html' %}
+        <style>
+            body, html {
+                height: 100%;
+                margin: 0;
+            }
+            .flex-wrapper {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+            .content {
+                flex: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-wrapper">
+            {% include 'plantaopro/partials/_nav.html' %}
+     <!-- Doctor Registration Section -->
+ <section id="print" class="py-5 bg-light">
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Relatório de Plantões</h2>
+        <form class="mb-4">
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="filterStartDate">Data Inicial</label>
+                    <input type="date" class="form-control" id="filterStartDate" name="filterStartDate">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="filterEndDate">Data Final</label>
+                    <input type="date" class="form-control" id="filterEndDate" name="filterEndDate">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="filterDoctor">Médico</label>
+                    <select class="form-control" id="filterDoctor" name="filterDoctor">
+                        <option value="all" selected>Todos</option>
+                        <option value="Dr. José Silva">Dr. José Silva</option>
+                        <option value="Dra. Maria Oliveira">Dra. Maria Oliveira</option>
+                        <option value="Dr. João Souza">Dr. João Souza</option>
+                        <option value="Dra. Ana Lima">Dra. Ana Lima</option>
+                        <option value="Dr. Carlos Pereira">Dr. Carlos Pereira</option>
+                        <option value="Dra. Fernanda Costa">Dra. Fernanda Costa</option>
+                        <option value="Dr. Pedro Santos">Dr. Pedro Santos</option>
+                        <option value="Dra. Juliana Almeida">Dra. Juliana Almeida</option>
+                        <option value="Dr. Ricardo Gonçalves">Dr. Ricardo Gonçalves</option>
+                        <option value="Dra. Beatriz Mendes">Dra. Beatriz Mendes</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary mr-2">Pesquisar</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='index.html'">Sair</button>
+                    <button type="button" class="btn btn-info ml-2" onclick="window.print()">Imprimir</button>
+                </div>
+            </div>
+        </form>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Nome do Médico</th>
+                    <th>CPF</th>
+                    <th>Hora de Início</th>
+                    <th>Hora de Término</th>
+                    <th>Data de Início</th>
+                    <th>Data de Término</th>
+                    <th>Quantidade de Horas Trabalhadas</th>
+                    <th>Valor Bruto</th>
+                    <th>Valor do Imposto</th>
+                    <th>Valor Líquido a Receber</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dados do relatório devem ser inseridos aqui -->
+                <tr>
+                    <td>Dr. José Silva</td>
+                    <td>123.456.789-00</td>
+                    <td>08:00</td>
+                    <td>20:00</td>
+                    <td>2023-07-01</td>
+                    <td>2023-07-01</td>
+                    <td>12</td>
+                    <td>R$ 1.200,00</td>
+                    <td>R$ 180,00</td>
+                    <td>R$ 1.020,00</td>
+                </tr>
+                <tr>
+                    <td>Dra. Maria Oliveira</td>
+                    <td>987.654.321-00</td>
+                    <td>07:00</td>
+                    <td>19:00</td>
+                    <td>2023-07-02</td>
+                    <td>2023-07-02</td>
+                    <td>12</td>
+                    <td>R$ 1.400,00</td>
+                    <td>R$ 210,00</td>
+                    <td>R$ 1.190,00</td>
+                </tr>
+                <tr>
+                    <td>Dr. João Souza</td>
+                    <td>456.789.123-00</td>
+                    <td>06:00</td>
+                    <td>18:00</td>
+                    <td>2023-07-03</td>
+                    <td>2023-07-03</td>
+                    <td>12</td>
+                    <td>R$ 1.300,00</td>
+                    <td>R$ 195,00</td>
+                    <td>R$ 1.105,00</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-right">
+            <p><strong>Total:</strong> R$ 3.315,00</p>
+        </div>
+    </div>
+</section>
+        <div>    
+            {% include 'plantaopro/partials/_footer.html' %}
+        </div>
+    </body>
+    </html>

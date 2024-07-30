@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'plantaopro/partials/_head.html' %}
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        .flex-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-wrapper">
+        {% include 'plantaopro/partials/_nav.html' %}
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        {% include 'plantaopro/partials/_pagination.html' %}
+        {% include 'plantaopro/partials/_footer.html' %}
+    </div>
+</body>
+</html>
+
+
+
+
+
