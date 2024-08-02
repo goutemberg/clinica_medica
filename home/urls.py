@@ -3,7 +3,8 @@
 
 
 from django.urls import path
-from home.views import index, cadastrarempresa, cadastrarmedico, cadastrarplantao, impressao
+from home.views import index, cadastrarmedico, cadastrarplantao, impressao
+from . import views
 
 
 # urlpatterns = [
@@ -19,9 +20,10 @@ app_name = "plantao_pro"
 
 urlpatterns = [
     path('', index, name='index'),
-    path('cadastrarempresa/', cadastrarempresa, name='cadastraempresa'),
+    path('cadastrarempresa/', views.cadastroEmpresa, name='cadastraempresa'),
+    path('cadastrarempresa/cadastroEmpBanco/', views.cadastroEmpBanco, name='cadastrarempBanco'),
     path('cadastrarmedico/', cadastrarmedico, name='cadastrarmedico'),
-    path('cadastrarplantao/', cadastrarplantao, name='cadastrarplantao'),
-    path('impressao/', impressao, name='impressao'),
+    path('cadastrarplantao/', views.cadastrarplantao, name='cadastrarplantao'),
+    path('impressao/', views.impressao, name='impressao'),
     
 ]
