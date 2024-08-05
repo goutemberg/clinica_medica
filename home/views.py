@@ -73,6 +73,48 @@ def cadastroEmpBanco(request):
     # return HttpResponseRedirect(reverse('plantaopro/pages/CompanyRegistration'))
     return redirect('plantaopro/pages/CompanyRegistration.html')
 
+def shiftRegistration(request):
+     cadastroPlantao = Plantao.objects.all().values()
+     template = loader.get_template('plantaopro/pages/shiftRegistration.html')
+     context = {
+         'cadastroPlantao':cadastroPlantao
+     }
+     return HttpResponse(template.render(context,request))
+
+    
+def cadastroPlantao(request):
+     template = loader.get_template('plantaopro/pages/shiftRegistration.html')
+     return HttpResponse(template.render({}, request))
+
+@require_POST
+def cadastroPlantaoBanco(request):
+    StartDate = request.POST['startDate']
+    EndDate = request.POST ['endDate']
+    StartTime = request.POST ['startTime']
+    EndTime = request.POST['endTime']
+    DoctorSelect = request.POST['doctorSelect']
+    Specialty = request.POST ['specialty']
+    ShiftType = request.POST['shiftType']
+    ShiftValue = request.POST['shiftValue'] 
+    ShiftHours= request.POST['shiftHours']
+    ShiftStatus = request.POST['shiftStatus']
+    EmergencyContact = request.POST['emergencyContact']
+    Equipment = request.POST['equipment']
+    AuxiliaryStaff = request.POST['auxiliaryStaff']
+    Substitute = request.POST['substitute']
+    Notes = request.POST['notes']
+    
+
+    novoCadastroPlan = Plantao(
+        data_inicio=StartDate,hora_inicio=StartTime,data_termino=EndDate,hora_termino=EndTime,medico_responsavel=DoctorSelect, especialidade=Specialty,tipo_plantao=ShiftType, 
+        quantidade_horas=ShiftHours,valor=ShiftValue,status=ShiftStatus,contato_emergencia=EmergencyContact,equipamentos_necessarios=Equipment, 
+        cargos_auxiliares=AuxiliaryStaff,substituto=Substitute,observacoes=Notes 
+       
+    )
+
+    novoCadastroPlan.save()
+
+    return redirect('plantaopro/pages/shiftRegistration.html')
   
 
 
@@ -184,12 +226,6 @@ def cadastrarmedico(request):
     return render(
         request,
         'plantaopro/pages/doctorRegistration.html'
-    )
-
-def cadastrarplantao(request):
-    return render(
-        request,
-        'plantaopro/pages/shiftRegistration.html'
     )
 
 def impressao(request):

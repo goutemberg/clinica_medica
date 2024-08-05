@@ -23,7 +23,7 @@
             <section id="shiftRegistration" class="py-5">
                 <div class="container">
                     <h2 class="text-center">Plantão - Cadastro</h2>
-                    <form method="post" action="cadPlantaoBanco/">
+                    <form method="post" action="cadastroPlantao/">
                             {% csrf_token %}
                         <div class="form-row">
                             <div class="form-group col-md-3">
@@ -124,7 +124,7 @@
                         <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
                         <div class="form-row">
                             <div class="col-md-12 text-left">
-                                <button type="submit" value="cadastrarPlan" class="btn btn-primary mr-2">Cadastrar Plantão</button>
+                                <button type="submit" value="cadastroPlantaoBanco" class="btn btn-primary mr-2">Cadastrar Plantão</button>
                                 <button type="button" class="btn btn-secondary mr-2">Cancelar</button>
                                 <button type="button" class="btn btn-info mr-2">Limpar</button>
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#viewModal">Visualizar</button>
