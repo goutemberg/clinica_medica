@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.template import loader
 from django.urls import reverse
-from .models import CadastroEmpresa, CadastroMedico, ValorPlantao, ContatoEmpresa, BancoEmpresa, Plantao, ImpostoEmpresa, BancoMedico
+from .models import CadastroEmpresa, CadastroMedico, ValorPlantao, ContatoEmpresa, Plantao, BancoMedico
 from django.views.decorators.http import require_POST
 
 
@@ -115,161 +115,61 @@ def cadastroPlantaoBanco(request):
     novoCadastroPlan.save()
 
     return redirect('plantaopro/pages/shiftRegistration.html')
-  
 
+def doctorRegistration(request):
+     cadastroMedico = CadastroMedico.objects.all().values()
+     template = loader.get_template('plantaopro/pages/doctorRegistration.html')
+     context = {
+         'cadastroMedico':cadastroMedico
+     }
+     return HttpResponse(template.render(context,request))
 
-
-# CompanyValorPlantao = request.POST['companyValorPlantao']
-# CompanyValorPlantaoHora = request.POST['companyValorPlantaoHora']
-# CompanyPlantaoSemana = request.POST['companyPlantaoSemana'] 
-# CompanyValorPlantaoSabadoDomingo = request.POST['companyValorPlantaoSabadoDomingo']
-# CompanyTaxaAdministracao = request.POST['companyTaxaAdministracao']
-# CompanyContactPerson = request.POST['companyContactPerson']
-
-
-# def index(request):
-#      cadMed = CadastroMedico.objects.all().values()
-#      template = loader.get_template('index.html')
-#      context = {
-#          'cadMed':cadMed
-#      }
-#      return HttpResponse(template.render(context,request))
-
-      
-# def cadastrarMed(request):
-#      template = loader.get_template('index.html')
-#      return HttpResponse(template.render({}, request))
-
-# def cadMedBanco(request):
-#      DoctorName = request.POST['doctorName']
-#      DoctorCpf = request.POST['doctorCpf']
-#      DoctorSpecialty = request.POST['doctorSpecialty'] 
-#      DoctorCrm = request.POST['doctorCrm']
-#      DoctorPhone = request.POST['doctorPhone']
-#      DoctorAddress = request.POST['doctorAddress']
-#      DoctorNumber = request.POST['doctorNumber']
-#      DoctorComplement = request.POST['doctorComplement']
-#      DoctorNeighborhood = request.POST['doctorNeighborhood']
-#      DoctorCity = request.POST['doctorCity']
-#      DoctorState = request.POST['doctorState']
-#      DoctorPhone1 = request.POST['doctorPhone1']
-#      DoctorPhone2 = request.POST['doctorPhone2']
-#      DoctorEmail = request.POST['doctorEmail']
-#      ClinicName = request.POST['clinicName']
-#      ClinicAttendant = request.POST['clinicAttendant']
-#      ClinicPhone = request.POST['clinicPhone']
-#      BankName = request.POST['bankName']
-#      BankAgency = request.POST['bankAgency']
-#      BankAccount = request.POST['bankAccount']
-#      BankHolder = request.POST['bankHolder']
-#      novoCadMed = CadastroMedico(nome=DoctorName,cpf=DoctorCpf,especialidade=DoctorSpecialty, crm=DoctorCrm, celular=DoctorPhone,logradouro=DoctorAddress,numero=DoctorNumber,complemento=DoctorComplement,bairro=DoctorNeighborhood,cidade=DoctorCity, 
-#     estado=DoctorState,telefone1=DoctorPhone1,telefone2=DoctorPhone2,email=DoctorEmail,nomeAtendente=ClinicAttendant,nomeClinica=ClinicName, 
-#     telefone=ClinicPhone,banco=BankName,agencia=BankAgency,conta=BankAccount,titular_conta=BankHolder)
-#      novoCadMed.save()
-#      return HttpResponseRedirect(reverse('index'))
-
-# def index(request):
-#      cadPlant = Plantao.objects.all().values()
-#      template = loader.get_template('index.html')
-#      context = {
-#          'cadPlant':cadPlant
-#      }
-#      return HttpResponse(template.render(context,request))
-
-
-# def cadastrarPlan(request):
-#      template = loader.get_template('index.html')
-#      return HttpResponse(template.render({}, request))
-
-# def cadPlantaoBanco(request):
-#      StartDate = request.POST['startDate']
-#      StartTime = request.POST['startTime']
-#      EndDate = request.POST['endDate']
-#      EndTime = request.POST['endTime'] 
-#      DoctorSelect = request.POST['doctorSelect']
-#      Specialty = request.POST['specialty']
-#      ShiftType = request.POST['shiftType']
-#      ShiftValue = request.POST['shiftValue']
-#      ShiftStatus = request.POST['shiftStatus']
-#      ShiftHours = request.POST['shiftHours']
-#      EmergencyContact = request.POST['emergencyContact']
-#      Equipment = request.POST['equipment']
-#      AuxiliaryStaff = request.POST['auxiliaryStaff']
-#      Substitute = request.POST['substitute']
-#      Notes = request.POST['notes']
-#      novoCadPlant = Plantao(data_inicio=StartDate,hora_inicio=StartTime,hora_termino=EndTime,data_termino=EndDate,medico_responsavel=DoctorSelect,
-#     especialidade=Specialty,tipo_plantao=ShiftType,quantidade_horas=ShiftHours,status=ShiftStatus, 
-#     valor=ShiftValue, contato_emergencia=EmergencyContact, equipamentos_necessarios=Equipment, cargos_auxiliares=AuxiliaryStaff,
-#     substituto=Substitute,observacoes=Notes)
-#      novoCadPlant.save()
-#      return HttpResponseRedirect(reverse('index')) 
-
-# def relatorioPage(request):
-#     template = loader.get_template('impressao.html')
     
-#     return HttpResponse(template.render())
+def cadastrarMedico(request):
+     template = loader.get_template('plantaopro/pages/doctorRegistration.html')
+     return HttpResponse(template.render({}, request))
 
+@require_POST
+def cadastroMedBanco(request):
+    DoctorName = request.POST['doctorName']
+    DoctorCpf = request.POST ['doctorCpf']
+    DoctorSpecialty = request.POST ['doctorSpecialty']
+    DoctorCrm = request.POST['doctorCrm']
+    DoctorPhone = request.POST['doctorPhone']
+    DoctorAddress = request.POST ['doctorAddress']
+    DoctorNumber = request.POST['doctorNumber']
+    DoctorComplement = request.POST['doctorComplement'] 
+    DoctorNeighborhood = request.POST['doctorNeighborhood']
+    DoctorCity = request.POST['doctorCity']
+    DoctorState = request.POST['doctorState']
+    DoctorPhone1 = request.POST['doctorPhone1']
+    DoctorPhone2 = request.POST['doctorPhone2']
+    DoctorEmail = request.POST['doctorEmail']
+    BankName = request.POST['bankName']
+    BankAgency = request.POST['bankAgency']
+    BankAccount = request.POST['bankAccount']
+    BankHolder = request.POST['bankHolder']
+    
+    novoCadastroMed = CadastroMedico(
+        nome=DoctorName,cpf=DoctorCpf,especialidade=DoctorSpecialty,crm=DoctorCrm,celular=DoctorPhone,logradouro=DoctorAddress,numero=DoctorNumber,
+        complemento=DoctorComplement,bairro=DoctorNeighborhood,cidade=DoctorCity,estado=DoctorState,telefone1=DoctorPhone1, 
+        telefone2=DoctorPhone2,email=DoctorEmail 
+    )
+
+    novoCadastroMed.save()
+
+    novoBankDoctor = BancoMedico (
+
+    banco=BankName,agencia=BankAgency,conta=BankAccount,titular_conta=BankHolder
+    )
+    novoBankDoctor.save()
+
+
+    return redirect('plantaopro/pages/CompanyRegistration.html')
+  
 
 def index(request):
     return render(
         request,
         'plantaopro/pages/index.html'
     )
-
-# def cadastrarempresa(request):
-#     return render(
-#         request,
-#         'plantaopro/pages/CompanyRegistration.html'
-#     )
-
-def cadastrarmedico(request):
-    return render(
-        request,
-        'plantaopro/pages/doctorRegistration.html'
-    )
-
-def impressao(request):
-    return render(
-        request,
-        'plantaopro/pages/print.html'
-    )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    id 
-    nome 
-    razao_social 
-    cnpj 
-    inscricao_estadual
-    cep 
-    logradouro 
-    numero 
-    bairro 
-    cidade 
-    estado 
-    telefone 
-    celular 
-    email
-    isento_tributacao
-
-  
-
-
-
-
-
-
-

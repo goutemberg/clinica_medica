@@ -10,5 +10,8 @@ urlpatterns = [
     path('cadastrarempresa/cadastroEmpBanco/', views.cadastroEmpBanco, name='cadastrarempBanco'),
 
     path('cadastrarplantao/', views.cadastroPlantao, name='cadastrarplantao'),
-    path('cadastrarplantao/cadastroPlantao/', views.cadastroPlantaoBanco, name='cadastroPlantaoBanco'),   
+    path('cadastrarplantao/cadastroPlantao/', views.cadastroPlantaoBanco, name='cadastroPlantaoBanco'), 
+
+    path('cadastrarmedico/', views.cadastrarMedico, name='cadastrarmedico'),
+    path('cadastrarmedico/cadastroMedBanco/', views.cadastroMedBanco, name='cadastroMedBanco'), 
 ]
