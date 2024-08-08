@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Medicos</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 56px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Selecione um Medicos</h1>
+    <form>
+        <select class="form-control form-control-sm" name="medicos" id="medicos">
+            <option>Selecione</option>
+            {% for medico in medicos %}
+                <option value="{{ medico.id }}">{{ medico.nome }}</option>
+            {% endfor %}
+            </select>
+    </form>
+</body>
+</html>

@@ -123,7 +123,7 @@ class Plantao(models.Model):
     hora_inicio = models.TimeField(default=timezone.now)
     data_termino = models.DateField(default=timezone.now)
     hora_termino = models.TimeField(default=timezone.now)
-    medico_responsavel = models.ForeignKey(CadastroMedico, on_delete=models.CASCADE, related_name='plantoes')
+    #medico_responsavel = models.ForeignKey(CadastroMedico, on_delete=models.CASCADE, blank=True, null=True)
     especialidade = models.CharField(max_length=255)
     tipo_plantao = models.CharField(max_length=20)
     quantidade_horas = models.DecimalField(max_digits=5, decimal_places=2)
@@ -134,6 +134,7 @@ class Plantao(models.Model):
     cargos_auxiliares = models.TextField(blank=True, null=True)
     substituto = models.CharField(max_length=255, blank=True, null=True)
     observacoes = models.TextField(max_length=255, blank=True, null=True)
+    medico_responsavel = models.ForeignKey(CadastroMedico, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'Plantão {self.tipo_plantao} de {self.medico_responsavel}'
