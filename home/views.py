@@ -4,6 +4,7 @@ from django.template import loader
 from django.urls import reverse
 from .models import CadastroEmpresa, CadastroMedico, ValorPlantao, ContatoEmpresa, BancoEmpresa, Plantao, ImpostoEmpresa, BancoMedico
 from django.views.decorators.http import require_POST
+from django.shortcuts import get_object_or_404
 
 
 def companyRegistration(request):
@@ -89,39 +90,37 @@ def cadastroPlantao(request):
           'medicos':medicos
      }
      return HttpResponse(template.render(context, request))
-     #template = loader.get_template('plantaopro/pages/shiftRegistration.html')
-     #return HttpResponse(template.render({}, request))
 
 @require_POST
 def cadastroPlantaoBanco(request):
-    StartDate = request.POST['startDate']
-    EndDate = request.POST ['endDate']
-    StartTime = request.POST ['startTime']
-    EndTime = request.POST['endTime']
-    #DoctorSelect = request.POST['doctorSelect']
-    Specialty = request.POST ['specialty']
-    ShiftType = request.POST['shiftType']
-    ShiftValue = request.POST['shiftValue'] 
-    ShiftHours= request.POST['shiftHours']
-    ShiftStatus = request.POST['shiftStatus']
-    EmergencyContact = request.POST['emergencyContact']
-    Equipment = request.POST['equipment']
-    AuxiliaryStaff = request.POST['auxiliaryStaff']
-    Substitute = request.POST['substitute']
-    Notes = request.POST['notes']
-    DoctorSelect = request.POST.get('doctorSelect')
-    
+    if request.method == 'POST':
+        StartDate = request.POST['startDate']
+        EndDate = request.POST ['endDate']
+        StartTime = request.POST ['startTime']
+        EndTime = request.POST['endTime']
+        Specialty = request.POST ['specialty']
+        ShiftType = request.POST['shiftType']
+        ShiftValue = request.POST['shiftValue'] 
+        ShiftHours= request.POST['shiftHours']
+        ShiftStatus = request.POST['shiftStatus']
+        EmergencyContact = request.POST['emergencyContact']
+        Equipment = request.POST['equipment']
+        AuxiliaryStaff = request.POST['auxiliaryStaff']
+        Substitute = request.POST['substitute']
+        Notes = request.POST['notes']
+        DoctorSelect_id = request.POST.get('medicos')
+        DoctorSelect = CadastroMedico.objects.get(id=DoctorSelect_id)
 
-    novoCadastroPlan = Plantao(
+        novoCadastroPlan = Plantao(
         data_inicio=StartDate,hora_inicio=StartTime,data_termino=EndDate,hora_termino=EndTime, especialidade=Specialty,tipo_plantao=ShiftType, 
         quantidade_horas=ShiftHours,valor=ShiftValue,status=ShiftStatus,contato_emergencia=EmergencyContact,equipamentos_necessarios=Equipment, 
-        cargos_auxiliares=AuxiliaryStaff,substituto=Substitute,observacoes=Notes, medico_responsavel=DoctorSelect
-       
-    )
+        cargos_auxiliares=AuxiliaryStaff,substituto=Substitute,observacoes=Notes, medico_responsavel=DoctorSelect)
 
-    novoCadastroPlan.save()
+        novoCadastroPlan.save()
 
-    return redirect('plantaopro/pages/shiftRegistration.html')
+    #return redirect('plantaopro/pages/shiftRegistration.html')
+    #return redirect('cadastrarplantao/cadastroPlantao/plantaopro/pages/shiftRegistration.html')
+    return redirect('cadastrarplantao/cadastroPlantao/cadastrarplantao/cadastroPlantao/plantaopro/pages/shiftRegistration.html')
   
 
 
