@@ -1,9 +1,12 @@
+from django import forms
+from django.forms import ModelForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from django.urls import reverse
 from .models import CadastroEmpresa, CadastroMedico, ValorPlantao, ContatoEmpresa, Plantao, BancoMedico
 from django.views.decorators.http import require_POST
+from .models import DoctorSelect
 
 
 def companyRegistration(request):
@@ -71,7 +74,7 @@ def cadastroEmpBanco(request):
     novoPessoaContato.save()
 
     # return HttpResponseRedirect(reverse('plantaopro/pages/CompanyRegistration'))
-    return redirect('plantaopro/pages/CompanyRegistration.html')
+    return redirect('index')
 
 def shiftRegistration(request):
      cadastroPlantao = Plantao.objects.all().values()
@@ -129,14 +132,49 @@ def cadastrarMedico(request):
      template = loader.get_template('plantaopro/pages/doctorRegistration.html')
      return HttpResponse(template.render({}, request))
 
+# @require_POST
+# def cadastroMedBanco(request):
+#     DoctorName = request.POST['doctorName']
+#     DoctorCpf = request.POST ['doctorCpf']
+#     DoctorSpecialty = request.POST ['doctorSpecialty']
+#     DoctorCrm = request.POST['doctorCrm']
+#     DoctorPhone = request.POST['doctorPhone']
+#     DoctorAddress = request.POST ['doctorAddress']
+#     DoctorNumber = request.POST['doctorNumber']
+#     DoctorComplement = request.POST['doctorComplement'] 
+#     DoctorNeighborhood = request.POST['doctorNeighborhood']
+#     DoctorCity = request.POST['doctorCity']
+#     DoctorState = request.POST['doctorState']
+#     DoctorPhone1 = request.POST['doctorPhone1']
+#     DoctorPhone2 = request.POST['doctorPhone2']
+#     DoctorEmail = request.POST['doctorEmail']
+#     BankName = request.POST['bankName']
+#     BankAgency = request.POST['bankAgency']
+#     BankAccount = request.POST['bankAccount']
+#     BankHolder = request.POST['bankHolder']
+    
+#     novoCadastroMed = CadastroMedico(
+#         nome=DoctorName,cpf=DoctorCpf,especialidade=DoctorSpecialty,crm=DoctorCrm,celular=DoctorPhone,logradouro=DoctorAddress,numero=DoctorNumber,
+#         complemento=DoctorComplement,bairro=DoctorNeighborhood,cidade=DoctorCity,estado=DoctorState,telefone1=DoctorPhone1, 
+#         telefone2=DoctorPhone2,email=DoctorEmail 
+#     )
+
+#     novoCadastroMed.save()
+
+#     novoBankDoctor = BancoMedico (
+
+#     banco=BankName,agencia=BankAgency,conta=BankAccount,titular_conta=BankHolder
+#     )
+#     novoBankDoctor.save()
+
 @require_POST
 def cadastroMedBanco(request):
     DoctorName = request.POST['doctorName']
-    DoctorCpf = request.POST ['doctorCpf']
-    DoctorSpecialty = request.POST ['doctorSpecialty']
+    DoctorCpf = request.POST['doctorCpf']
+    DoctorSpecialty = request.POST['doctorSpecialty']
     DoctorCrm = request.POST['doctorCrm']
     DoctorPhone = request.POST['doctorPhone']
-    DoctorAddress = request.POST ['doctorAddress']
+    DoctorAddress = request.POST['doctorAddress']
     DoctorNumber = request.POST['doctorNumber']
     DoctorComplement = request.POST['doctorComplement'] 
     DoctorNeighborhood = request.POST['doctorNeighborhood']
@@ -150,26 +188,46 @@ def cadastroMedBanco(request):
     BankAccount = request.POST['bankAccount']
     BankHolder = request.POST['bankHolder']
     
+    # Cria e salva o novo médico
     novoCadastroMed = CadastroMedico(
-        nome=DoctorName,cpf=DoctorCpf,especialidade=DoctorSpecialty,crm=DoctorCrm,celular=DoctorPhone,logradouro=DoctorAddress,numero=DoctorNumber,
-        complemento=DoctorComplement,bairro=DoctorNeighborhood,cidade=DoctorCity,estado=DoctorState,telefone1=DoctorPhone1, 
-        telefone2=DoctorPhone2,email=DoctorEmail 
+        nome=DoctorName, cpf=DoctorCpf, especialidade=DoctorSpecialty, crm=DoctorCrm, celular=DoctorPhone, 
+        logradouro=DoctorAddress, numero=DoctorNumber, complemento=DoctorComplement, bairro=DoctorNeighborhood, 
+        cidade=DoctorCity, estado=DoctorState, telefone1=DoctorPhone1, telefone2=DoctorPhone2, email=DoctorEmail
     )
-
     novoCadastroMed.save()
 
-    novoBankDoctor = BancoMedico (
-
-    banco=BankName,agencia=BankAgency,conta=BankAccount,titular_conta=BankHolder
+    # Cria e salva o novo banco associado ao médico criado
+    novoBankDoctor = BancoMedico(
+        medico=novoCadastroMed,  # Aqui, relacionamos com o novo médico criado
+        banco=BankName, agencia=BankAgency, conta=BankAccount, titular_conta=BankHolder
     )
     novoBankDoctor.save()
 
+    exibeMedBanco = {
+         'medicos': CadastroMedico.objects.all()
+         
+    }
 
-    return redirect('plantaopro/pages/CompanyRegistration.html')
-  
+    return redirect('http://127.0.0.1:8000/cadastrarmedico/', exibeMedBanco)
+
 
 def index(request):
     return render(
         request,
         'plantaopro/pages/index.html'
     )
+
+def imprimirRelatorio(request):
+    return render(
+        request,
+        'plantaopro/pages/print.html'
+    )
+
+
+
+
+
+
+    
+
+

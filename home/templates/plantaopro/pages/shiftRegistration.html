@@ -47,18 +47,11 @@
                             <div class="form-group col-md-6">
                                 <label for="doctorSelect">Médico Responsável</label>
                                 <select class="form-control" id="doctorSelect" name="doctorSelect">
-                                    <option selected>Escolha um Médico</option>
-                                    <option>Dr. José Silva</option>
-                                    <option>Dra. Maria Oliveira</option>
-                                    <option>Dr. João Souza</option>
-                                    <option>Dra. Ana Lima</option>
-                                    <option>Dr. Carlos Pereira</option>
-                                    <option>Dra. Fernanda Costa</option>
-                                    <option>Dr. Pedro Santos</option>
-                                    <option>Dra. Juliana Almeida</option>
-                                    <option>Dr. Ricardo Gonçalves</option>
-                                    <option>Dra. Beatriz Mendes</option>
-                                </select>
+                                <option selected>Escolha um Médico</option>
+                            {% for medico in medicos %}   
+                            <option value="{{ medico.id }}">{{ medico.nome }}</option>
+                            {% endfor %}
+                            </select>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="specialty">Especialidade</label>

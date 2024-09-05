@@ -1,4 +1,6 @@
+from django import forms
 from django.db import models
+from django.forms import ModelForm
 from django.utils import timezone
 from django.core.validators import RegexValidator, EmailValidator
 
@@ -123,7 +125,8 @@ class Plantao(models.Model):
     hora_inicio = models.TimeField(default=timezone.now)
     data_termino = models.DateField(default=timezone.now)
     hora_termino = models.TimeField(default=timezone.now)
-    medico_responsavel = models.ForeignKey(CadastroMedico, on_delete=models.CASCADE, related_name='plantoes')
+    medico_responsavel = models.ForeignKey(CadastroMedico, on_delete=models.SET_NULL, related_name='plantoes',
+    blank=True, null=True)
     especialidade = models.CharField(max_length=255)
     tipo_plantao = models.CharField(max_length=20)
     quantidade_horas = models.DecimalField(max_digits=5, decimal_places=2)
@@ -137,6 +140,16 @@ class Plantao(models.Model):
 
     def __str__(self):
         return f'Plantão {self.tipo_plantao} de {self.medico_responsavel}'
+    
+
+class DoctorSelect(ModelForm):
+     class Meta:
+          model = CadastroMedico
+          fields = '__all__'
+doctor = forms.ModelChoiceField(
+         queryset=CadastroMedico.objects.all(),
+    )
+    
 
 
 
