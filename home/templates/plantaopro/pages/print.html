@@ -55,7 +55,6 @@
 <body>
     <div class="flex-wrapper">
         {% include 'plantaopro/partials/_nav.html' %}
-
         <div class="content"> 
             <table>
                 <tr>
@@ -71,15 +70,19 @@
                 </tr>
                 {% for data in record %}
                 <tr>
-                    <td style="width: 10%;">{{ forloop.counter }}</td>
-                    <td style="width: 40%; text-align: left;">{{ data.name|title }}</td>
-                    <td style="width: 30%;">{{ data.roll_no }}</td>
-                    <td style="width: 20%;">{{ data.score }}</td>
+                    <td style="width: 10%;">{{ data.nome }}</td>
+                    <td style="width: 15%; text-align: left;">{{ data.cpf }}</td>
+                    <td style="width: 20%;">{{ data.especialidade }}</td>
+                    <td style="width: 10%;">{{ data.valor_plantao }}</td>
+                    <td style="width: 10%;">{{ data.horas }}</td>
+                    <td style="width: 10%;">{{ data.valor_horas }}</td>
+                    <td style="width: 10%;">{{ data.subtotal }}</td>
+                    <td style="width: 10%;">{{ data.valor_imposto }}</td>
+                    <td style="width: 10%;">{{ data.valor_a_receber }}</td>
                 </tr>
                 {% endfor %}
             </table>
         </div>
-
         {% include 'plantaopro/partials/_footer.html' %}
     </div>
 </body>

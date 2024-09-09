@@ -149,6 +149,22 @@ class DoctorSelect(ModelForm):
 doctor = forms.ModelChoiceField(
          queryset=CadastroMedico.objects.all(),
     )
+
+class PrintPlantao(models.Model):
+    nome = models.CharField(max_length=100)
+    cpf = models.CharField(max_length=14)  # Formato: XXX.XXX.XXX-XX
+    especialidade = models.CharField(max_length=100)
+    valor_plantao = models.CharField(max_length=100)
+    horas = models.CharField(max_length=100)
+    valor_horas = models.CharField(max_length=100)
+    subtotal = models.CharField(max_length=100)
+    valor_imposto = models.CharField(max_length=100)
+    valor_a_receber = models.CharField(max_length=100)
+
+    def __str__(self) -> str:
+        return self.nome
+    
+     
     
 
 

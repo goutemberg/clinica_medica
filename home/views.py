@@ -4,9 +4,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from django.urls import reverse
-from .models import CadastroEmpresa, CadastroMedico, ValorPlantao, ContatoEmpresa, Plantao, BancoMedico
+from .models import CadastroEmpresa, CadastroMedico, ValorPlantao, ContatoEmpresa, Plantao, BancoMedico, PrintPlantao
 from django.views.decorators.http import require_POST
 from .models import DoctorSelect
+from .utils import render_to_pdf
 
 
 def companyRegistration(request):
@@ -223,8 +224,17 @@ def imprimirRelatorio(request):
         'plantaopro/pages/print.html'
     )
 
+def resultList(request):
+    template_name = "plantaopro/pages/print.html"
+    records = PrintPlantao.objects.all().order_by("cpf")
 
-
+    return render(
+        request,
+        template_name,
+        {
+            "record": records,
+        },
+    )
 
 
 
