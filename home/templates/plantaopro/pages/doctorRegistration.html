@@ -1,46 +1,46 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    {% include 'plantaopro/partials/_head.html' %}
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-        }
-        .flex-wrapper {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        .content {
-            flex: 1;
-        }
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        h5 {
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-bottom: 1px solid #dee2e6;
-            margin-bottom: 1.5rem;
-        }
-        .btn {
-            margin-right: 10px;
-        }
-        .disabled-field {
-            background-color: #e9ecef;
-            cursor: not-allowed;
-        }
-    </style>
-</head>
+    <head>
+        {% include 'plantaopro/partials/_head.html' %}
+        <style>
+            body, html {
+                height: 100%;
+                margin: 0;
+            }
+            .flex-wrapper {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+            .content {
+                flex: 1;
+                padding-bottom: 2rem; /* Espaço para não sobrepor o rodapé */
+            }
+            .form-row {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .form-group {
+                margin-bottom: 1rem;
+            }
+            h5 {
+                font-size: 1.1rem;
+                font-weight: bold;
+                border-bottom: 1px solid #dee2e6;
+                margin-bottom: 1.5rem;
+            }
+            .btn {
+                margin-right: 10px;
+            }
+            .disabled-field {
+                background-color: #e9ecef;
+                cursor: not-allowed;
+            }
+        </style>
+    </head>
 <body>
     <div class="flex-wrapper">
         {% include 'plantaopro/partials/_nav.html' %}
-
         <!-- Cadastro de Profissional de Saúde -->
         <section id="plantaoRegistration" class="py-5 bg-light">
             <div class="container">
