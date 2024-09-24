@@ -31,95 +31,162 @@
         .btn {
             margin-right: 10px;
         }
+        .disabled-field {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
     <div class="flex-wrapper">
         {% include 'plantaopro/partials/_nav.html' %}
 
-        <!-- Cadastro de Plantão em Clínicas ou Hospitais -->
+        <!-- Cadastro de Profissional de Saúde -->
         <section id="plantaoRegistration" class="py-5 bg-light">
             <div class="container">
-                <h2 class="text-center mb-4">Cadastrar Plantão</h2>
+                <h2 class="text-center mb-4">Cadastrar Profissional de Saúde</h2>
                 <form method="post" action="cadastroPlantaoBanco/">
                     {% csrf_token %}
-                    
-                    <!-- Informações do Médico -->
-                    <h5 class="text-muted">Informações do Médico</h5>
+
+                    <!-- Informações Pessoais -->
+                    <h5 class="text-muted">Informações Pessoais</h5>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="doctorName">Nome do Médico</label>
-                            <input type="text" class="form-control" id="doctorName" name="doctorName" placeholder="Nome do Médico" required>
-                        </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="doctorCpf">CPF</label>
-                            <input type="text" class="form-control" id="doctorCpf" name="doctorCpf" placeholder="000.000.000-00" required>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="doctorCpf" name="doctorCpf" placeholder="000.000.000-00" required>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary" onclick="buscarCpf()">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="doctorName">Nome Completo</label>
+                            <input type="text" class="form-control disabled-field" id="doctorName" name="doctorName" placeholder="Nome Completo" required disabled>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="birthdate">Data de Nascimento</label>
+                            <input type="date" class="form-control disabled-field" id="birthdate" name="birthdate" required disabled>
                         </div>
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control disabled-field" id="email" name="email" placeholder="exemplo@dominio.com" required disabled>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="phone">Telefone</label>
+                            <input type="tel" class="form-control disabled-field" id="phone" name="phone" placeholder="(xx) xxxxx-xxxx" required disabled>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="cep">CEP</label>
+                            <input type="text" class="form-control disabled-field" id="cep" name="cep" placeholder="XXXXX-XXX" required disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="address">Logradouro</label>
+                            <input type="text" class="form-control disabled-field" id="address" name="address" placeholder="Logradouro" required disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="number">Número</label>
+                            <input type="text" class="form-control disabled-field" id="number" name="number" placeholder="Número" required disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="complement">Complemento</label>
+                            <input type="text" class="form-control disabled-field" id="complement" name="complement" placeholder="Complemento" disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="bairro">Bairro</label>
+                            <input type="text" class="form-control disabled-field" id="bairro" name="bairro" placeholder="Bairro" required disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="city">Cidade</label>
+                            <input type="text" class="form-control disabled-field" id="city" name="city" placeholder="Cidade" required disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="state">Estado</label>
+                            <input type="text" class="form-control disabled-field" id="state" name="state" placeholder="UF" required disabled>
+                        </div>
+                    </div>
+
+                    <!-- Dados Profissionais -->
+                    <h5 class="text-muted">Dados Profissionais</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="professionalType">Tipo de Profissional</label>
+                            <select class="form-control disabled-field" id="professionalType" name="professionalType" required disabled>
+                                <option value="">Selecione</option>
+                                <option value="Medico">Médico</option>
+                                <option value="Enfermeiro">Enfermeiro</option>
+                                <option value="Fisioterapeuta">Fisioterapeuta</option>
+                                <option value="Outro">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
                             <label for="doctorSpecialty">Especialidade</label>
-                            <input type="text" class="form-control" id="doctorSpecialty" name="doctorSpecialty" placeholder="Especialidade">
+                            <input type="text" class="form-control disabled-field" id="doctorSpecialty" name="doctorSpecialty" placeholder="Especialidade" disabled>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="doctorCrm">CRM</label>
-                            <input type="text" class="form-control" id="doctorCrm" name="doctorCrm" placeholder="CRM" required>
+                        <div class="form-group col-md-3">
+                            <label for="registerType">Tipo de Registro</label>
+                            <select class="form-control disabled-field" id="registerType" name="registerType" required disabled>
+                                <option value="">Selecione</option>
+                                <option value="CRM">CRM</option>
+                                <option value="COREN">COREN</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="doctorCrm">Número do Registro</label>
+                            <input type="text" class="form-control disabled-field" id="doctorCrm" name="doctorCrm" placeholder="Número do Registro" required disabled>
                         </div>
                     </div>
 
-                    <!-- Informações da Clínica -->
-                    <h5 class="text-muted">Informações da Clínica ou Hospital</h5>
+                    <!-- Formação Acadêmica -->
+                    <h5 class="text-muted">Formação Acadêmica</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="academicDegree">Grau Acadêmico</label>
+                            <input type="text" class="form-control disabled-field" id="academicDegree" name="academicDegree" placeholder="Graduação, Mestrado, Doutorado" required disabled>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="institutionName">Instituição de Ensino</label>
+                            <input type="text" class="form-control disabled-field" id="institutionName" name="institutionName" placeholder="Instituição de Ensino" required disabled>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="graduationYear">Ano de Conclusão</label>
+                            <input type="number" class="form-control disabled-field" id="graduationYear" name="graduationYear" placeholder="Ano de Conclusão" required disabled>
+                        </div>
+                    </div>
+
+                    <!-- Certificações e Capacitações -->
+                    <h5 class="text-muted">Certificações e Capacitações</h5>
                     <div class="form-group">
-                        <label for="clinicName">Nome da Clínica</label>
-                        <input type="text" class="form-control" id="clinicName" name="clinicName" placeholder="Nome da Clínica" required>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="clinicPhone">Telefone</label>
-                            <input type="text" class="form-control" id="clinicPhone" name="clinicPhone" placeholder="(xx) 9999-9999" required>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="clinicAddress">Endereço</label>
-                            <input type="text" class="form-control" id="clinicAddress" name="clinicAddress" placeholder="Endereço da Clínica">
-                        </div>
+                        <label for="certifications">Certificações</label>
+                        <textarea class="form-control disabled-field" id="certifications" name="certifications" placeholder="Liste as certificações ou capacitações relevantes" disabled></textarea>
                     </div>
 
-                    <!-- Horário do Plantão -->
-                    <h5 class="text-muted">Horário do Plantão</h5>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="shiftDate">Data</label>
-                            <input type="date" class="form-control" id="shiftDate" name="shiftDate" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="shiftStartTime">Horário de Início</label>
-                            <input type="time" class="form-control" id="shiftStartTime" name="shiftStartTime" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="shiftEndTime">Horário de Término</label>
-                            <input type="time" class="form-control" id="shiftEndTime" name="shiftEndTime" required>
-                        </div>
+                    <!-- Vinculação à Clínica/Hospital -->
+                    <h5 class="text-muted">Vinculação à Clínica ou Hospital</h5>
+                    <div class="form-group">
+                        <label for="clinicAffiliation">Clínica ou Hospital Vinculado</label>
+                        <input type="text" class="form-control disabled-field" id="clinicAffiliation" name="clinicAffiliation" placeholder="Nome da Clínica ou Hospital" disabled>
                     </div>
 
-                    <!-- Valor e Observações -->
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="shiftValue">Valor do Plantão (R$)</label>
-                            <input type="number" class="form-control" id="shiftValue" name="shiftValue" placeholder="Valor" required>
-                        </div>
-                        <div class="form-group col-md-8">
-                            <label for="shiftNotes">Observações</label>
-                            <textarea class="form-control" id="shiftNotes" name="shiftNotes" placeholder="Observações sobre o plantão"></textarea>
-                        </div>
+                    <!-- Outras Informações -->
+                    <h5 class="text-muted">Outras Informações</h5>
+                    <div class="form-group">
+                        <label for="otherInfo">Outras Informações</label>
+                        <textarea class="form-control disabled-field" id="otherInfo" name="otherInfo" placeholder="Outras informações relevantes" disabled></textarea>
                     </div>
 
                     <!-- Ações -->
                     <div class="form-row">
                         <div class="col-md-12 text-left">
-                            <button type="submit" class="btn btn-primary">Cadastrar Plantão</button>
+                            <button type="submit" class="btn btn-primary" id="submitButton" disabled>Cadastrar</button>
                             <button type="reset" class="btn btn-secondary">Limpar</button>
-                            <button type="button" class="btn btn-info">Imprimir</button>
+                            <button type="button" class="btn btn-danger" onclick="window.location.href='{% url 'index' %}'">Cancelar</button>
                         </div>
                     </div>
                 </form>
@@ -130,5 +197,25 @@
             {% include 'plantaopro/partials/_footer.html' %}
         </div>
     </div>
+
+    <script>
+        function buscarCpf() {
+            // Lógica para buscar o CPF no banco de dados
+            alert('Buscar CPF no banco de dados.');
+            // Exemplo de lógica após busca: habilitar os campos para preenchimento
+            habilitarCampos();
+        }
+
+        function habilitarCampos() {
+            const fields = document.querySelectorAll('.disabled-field');
+            fields.forEach(field => {
+                field.removeAttribute('disabled');
+                field.classList.remove('disabled-field');
+            });
+
+            document.getElementById('submitButton').removeAttribute('disabled');
+        }
+    </script>
 </body>
 </html>
+
