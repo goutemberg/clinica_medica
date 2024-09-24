@@ -6,8 +6,9 @@ from django.template import loader
 from django.urls import reverse
 from .models import CadastroEmpresa, CadastroMedico, ValorPlantao, ContatoEmpresa, Plantao, BancoMedico, PrintPlantao
 from django.views.decorators.http import require_POST
-from .models import DoctorSelect
-from .utils import render_to_pdf
+from django.db.models import Q
+from datetime import datetime
+
 
 
 def companyRegistration(request):
@@ -226,17 +227,34 @@ def imprimirRelatorio(request):
 
 def resultList(request):
     template_name = "plantaopro/pages/print.html"
-    records = PrintPlantao.objects.all().order_by("cpf")
+
+    # Buscando médicos para o filtro
+    medicos = CadastroMedico.objects.all()
+
+    # Pegando os parâmetros de filtro
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    medico_nome = request.GET.get('medico')
+
+    # Pegando todos os registros inicialmente
+    records = PrintPlantao.objects.all()
+
+    # Aplicando filtros de data
+    if start_date and end_date:
+        records = records.filter(data__range=[start_date, end_date])
+
+    # Aplicando o filtro de médico pelo nome
+    if medico_nome:
+        records = records.filter(medico__nome=medico_nome)
 
     return render(
         request,
         template_name,
         {
             "record": records,
+            "medicos": medicos,  # Passar médicos para o template
         },
     )
-
-
 
     
 

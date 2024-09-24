@@ -160,6 +160,8 @@ class PrintPlantao(models.Model):
     subtotal = models.CharField(max_length=100)
     valor_imposto = models.CharField(max_length=100)
     valor_a_receber = models.CharField(max_length=100)
+    medico = models.ForeignKey(CadastroMedico, on_delete=models.CASCADE, null=True)
+    data = models.DateField(default=timezone.now)
 
     def __str__(self) -> str:
         return self.nome

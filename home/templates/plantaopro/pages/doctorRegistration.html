@@ -1,188 +1,134 @@
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        {% include 'plantaopro/partials/_head.html' %}
-        <style>
-            body, html {
-                height: 100%;
-                margin: 0;
-            }
-            .flex-wrapper {
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-            }
-            .content {
-                flex: 1;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-wrapper">
-            {% include 'plantaopro/partials/_nav.html' %}
-     <!-- Doctor Registration Section -->
- <section id="doctorRegistration" class="py-5 bg-light">
-    <div class="container">
-        <h2 class="text-center">Cadastrar Médicos</h2>
-        <form method="post" action="cadastroMedBanco/">
-            {% csrf_token %}
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="doctorName">Nome</label>
-                    <input type="text" class="form-control" id="doctorName" name="doctorName" placeholder="Nome do Médico" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="doctorCpf">CPF</label>
-                    <input type="text" class="form-control" id="doctorCpf" name="doctorCpf" placeholder="000.000.000-00" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')">
-                </div>
+<html lang="pt-br">
+<head>
+    {% include 'plantaopro/partials/_head.html' %}
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        .flex-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content {
+            flex: 1;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        h5 {
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 1.5rem;
+        }
+        .btn {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-wrapper">
+        {% include 'plantaopro/partials/_nav.html' %}
+
+        <!-- Cadastro de Plantão em Clínicas ou Hospitais -->
+        <section id="plantaoRegistration" class="py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center mb-4">Cadastrar Plantão</h2>
+                <form method="post" action="cadastroPlantaoBanco/">
+                    {% csrf_token %}
+                    
+                    <!-- Informações do Médico -->
+                    <h5 class="text-muted">Informações do Médico</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="doctorName">Nome do Médico</label>
+                            <input type="text" class="form-control" id="doctorName" name="doctorName" placeholder="Nome do Médico" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="doctorCpf">CPF</label>
+                            <input type="text" class="form-control" id="doctorCpf" name="doctorCpf" placeholder="000.000.000-00" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="doctorSpecialty">Especialidade</label>
+                            <input type="text" class="form-control" id="doctorSpecialty" name="doctorSpecialty" placeholder="Especialidade">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="doctorCrm">CRM</label>
+                            <input type="text" class="form-control" id="doctorCrm" name="doctorCrm" placeholder="CRM" required>
+                        </div>
+                    </div>
+
+                    <!-- Informações da Clínica -->
+                    <h5 class="text-muted">Informações da Clínica ou Hospital</h5>
+                    <div class="form-group">
+                        <label for="clinicName">Nome da Clínica</label>
+                        <input type="text" class="form-control" id="clinicName" name="clinicName" placeholder="Nome da Clínica" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="clinicPhone">Telefone</label>
+                            <input type="text" class="form-control" id="clinicPhone" name="clinicPhone" placeholder="(xx) 9999-9999" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="clinicAddress">Endereço</label>
+                            <input type="text" class="form-control" id="clinicAddress" name="clinicAddress" placeholder="Endereço da Clínica">
+                        </div>
+                    </div>
+
+                    <!-- Horário do Plantão -->
+                    <h5 class="text-muted">Horário do Plantão</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="shiftDate">Data</label>
+                            <input type="date" class="form-control" id="shiftDate" name="shiftDate" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="shiftStartTime">Horário de Início</label>
+                            <input type="time" class="form-control" id="shiftStartTime" name="shiftStartTime" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="shiftEndTime">Horário de Término</label>
+                            <input type="time" class="form-control" id="shiftEndTime" name="shiftEndTime" required>
+                        </div>
+                    </div>
+
+                    <!-- Valor e Observações -->
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="shiftValue">Valor do Plantão (R$)</label>
+                            <input type="number" class="form-control" id="shiftValue" name="shiftValue" placeholder="Valor" required>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="shiftNotes">Observações</label>
+                            <textarea class="form-control" id="shiftNotes" name="shiftNotes" placeholder="Observações sobre o plantão"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Ações -->
+                    <div class="form-row">
+                        <div class="col-md-12 text-left">
+                            <button type="submit" class="btn btn-primary">Cadastrar Plantão</button>
+                            <button type="reset" class="btn btn-secondary">Limpar</button>
+                            <button type="button" class="btn btn-info">Imprimir</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="doctorSpecialty">Especialidade</label>
-                    <input type="text" class="form-control" id="doctorSpecialty" name="doctorSpecialty" placeholder="Especialidade">
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="doctorCrm">CRM</label>
-                    <input type="text" class="form-control" id="doctorCrm" name="doctorCrm" placeholder="CRM" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')">
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="doctorPhone">Telefone</label>
-                    <input type="text" class="form-control" id="doctorPhone" name="doctorPhone" placeholder="(xx) 9999-9999" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="doctorAddress">Endereço</label>
-                    <input type="text" class="form-control" id="doctorAddress" name="doctorAddress" placeholder="Endereço">
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="doctorNumber">Número</label>
-                    <input type="text" class="form-control" id="doctorNumber" name="doctorNumber" placeholder="Nº">
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="doctorComplement">Complemento</label>
-                    <input type="text" class="form-control" id="doctorComplement" name="doctorComplement" placeholder="Complemento">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="doctorNeighborhood">Bairro</label>
-                    <input type="text" class="form-control" id="doctorNeighborhood" name="doctorNeighborhood" placeholder="Bairro">
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="doctorCity">Cidade</label>
-                    <input type="text" class="form-control" id="doctorCity" name="doctorCity" placeholder="Cidade">
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="doctorState">Estado</label>
-                    <select id="doctorState" class="form-control" name="doctorState">
-                        <option selected>Escolher...</option>
-                        <option>AC</option>
-                        <option>AL</option>
-                        <option>AP</option>
-                        <option>AM</option>
-                        <option>BA</option>
-                        <option>CE</option>
-                        <option>DF</option>
-                        <option>ES</option>
-                        <option>GO</option>
-                        <option>MA</option>
-                        <option>MT</option>
-                        <option>MS</option>
-                        <option>MG</option>
-                        <option>PA</option>
-                        <option>PB</option>
-                        <option>PR</option>
-                        <option>PE</option>
-                        <option>PI</option>
-                        <option>RJ</option>
-                        <option>RN</option>
-                        <option>RS</option>
-                        <option>RO</option>
-                        <option>RR</option>
-                        <option>SC</option>
-                        <option>SP</option>
-                        <option>SE</option>
-                        <option>TO</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="doctorPhone1">Telefone Celular</label>
-                    <input type="text" class="form-control" id="doctorPhone1" name="doctorPhone1" placeholder="(xx) 99999-9999">
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="doctorPhone2">Telefone 2</label>
-                    <input type="text" class="form-control" id="doctorPhone2" name="doctorPhone2" placeholder="(xx) 9999-9999">
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="doctorEmail">Email</label>
-                    <input type="email" class="form-control" id="doctorEmail" name="doctorEmail" placeholder="Email">
-                </div>
-            </div>
-            <h5 class="text-left text-muted mb-3 mt-4" style="font-size: 1.1rem; font-weight: bold; border-bottom: 1px solid #dee2e6;">Informações da Clínica</h5>
-            <div class="form-group">
-                <label for="clinicName">Nome da Clínica</label>
-                <input type="text" class="form-control" id="clinicName" name="clinicName" placeholder="Nome da clínica">
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="clinicAttendant">Atendente</label>
-                    <input type="text" class="form-control" id="clinicAttendant" name="clinicAttendant" placeholder="Nome do atendente">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="clinicPhone">Telefone da Clínica</label>
-                    <input type="text" class="form-control" id="clinicPhone" name="clinicPhone" placeholder="(xx) 9999-9999">
-                </div>
-            </div>
-            <h5 class="text-left text-muted mb-3 mt-4" style="font-size: 1.1rem; font-weight: bold; border-bottom: 1px solid #dee2e6;">Informações Bancárias</h5>
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <label for="bankName">Banco</label>
-                    <select id="bankName" class="form-control" name="bankName">
-                        <option selected>Escolher...</option>
-                        <option>Banco do Brasil</option>
-                        <option>Caixa Econômica Federal</option>
-                        <option>Bradesco</option>
-                        <option>Itaú</option>
-                        <option>Santander</option>
-                        <option>Banco Safra</option>
-                        <option>BTG Pactual</option>
-                        <option>Banco Inter</option>
-                        <option>Neon</option>
-                        <option>Nubank</option>
-                        <option>Original</option>
-                        <option>PagBank</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="bankAgency">Agência</label>
-                    <input type="text" class="form-control" id="bankAgency" name="bankAgency" placeholder="Agência">
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="bankAccount">Conta</label>
-                    <input type="text" class="form-control" id="bankAccount" name="bankAccount" placeholder="Conta">
-                </div>
-                <div class="form-group col-md-5">
-                    <label for="bankHolder">Titular</label>
-                    <input type="text" class="form-control" id="bankHolder" name="bankHolder" placeholder="Titular da conta">
-                </div>
-            </div>
-            <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
-            <div class="form-row">
-                <div class="col-md-12 text-left">
-                    <button type="submit" value="cadastroMedBanco"class="btn btn-primary mr-2">Cadastrar Médico</button>
-                    <button type="button" class="btn btn-secondary mr-2">Cancelar</button>
-                    <button type="button" class="btn btn-info mr-2">Limpar</button>
-                    <button type="button" class="btn btn-success">Imprimir</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</section>
-        <div>    
+        </section>
+
+        <div>
             {% include 'plantaopro/partials/_footer.html' %}
         </div>
-    </body>
-    </html>
+    </div>
+</body>
+</html>
