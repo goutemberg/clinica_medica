@@ -8,6 +8,9 @@ from .models import CadastroEmpresa, CadastroMedico, ValorPlantao, ContatoEmpres
 from django.views.decorators.http import require_POST
 from django.db.models import Q
 from datetime import datetime
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 
@@ -255,7 +258,44 @@ def resultList(request):
             "medicos": medicos,  # Passar médicos para o template
         },
     )
+def buscar_cpf(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        cpf = data.get('cpf')
+        
+        try:
+            medico = CadastroMedico.objects.get(cpf=cpf)
+            response = {
+                'exists': True,
+                'nome': medico.nome,
+                #'data_nascimento': medico.data_nascimento.strftime('%Y-%m-%d'),
+                # Adicionar outros dados que você quer retornar
+            }
+        except CadastroMedico.DoesNotExist:
+            response = {'exists': False}
 
+        return JsonResponse(response)
+
+@csrf_exempt
+def alterar_cadastro(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        cpf = data.get('cpf')
+        nome = data.get('nome')
+        #data_nascimento = data.get('data_nascimento')
+
+        try:
+            # Buscar o médico pelo CPF
+            medico = CadastroMedico.objects.get(cpf=cpf)
+            
+            # Atualizar as informações
+            medico.nome = nome
+            #medico.data_nascimento = data_nascimento
+            medico.save()
+
+            return JsonResponse({'success': True})
+        except CadastroMedico.DoesNotExist:
+            return JsonResponse({'success': False, 'message': 'Médico não encontrado.'})
     
 
 

@@ -185,6 +185,7 @@
                     <div class="form-row">
                         <div class="col-md-12 text-left">
                             <button type="submit" class="btn btn-primary" id="submitButton" disabled>Cadastrar</button>
+                            <button type="button" class="btn btn-secondary" id="alterarButton" onclick="alterarDados()" disabled>Alterar</button>
                             <button type="reset" class="btn btn-secondary">Limpar</button>
                             <button type="button" class="btn btn-danger" onclick="window.location.href='{% url 'index' %}'">Cancelar</button>
                         </div>
@@ -200,22 +201,67 @@
 
     <script>
         function buscarCpf() {
-            // Lógica para buscar o CPF no banco de dados
-            alert('Buscar CPF no banco de dados.');
-            // Exemplo de lógica após busca: habilitar os campos para preenchimento
-            habilitarCampos();
+            var cpf = document.getElementById("doctorCpf").value;
+    
+            // Fazer requisição via AJAX
+            fetch('/buscar-cpf/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ cpf: cpf })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.exists) {
+                    // Preencher os campos se o médico foi encontrado
+                    document.getElementById('doctorName').value = data.nome;
+                    document.getElementById('birthdate').value = data.data_nascimento;
+    
+                    // Habilitar campos e botões
+                    document.getElementById('doctorName').disabled = false;
+                    document.getElementById('birthdate').disabled = false;
+                    document.getElementById('alterarButton').disabled = false;  // Habilitar botão "Alterar"
+                    document.getElementById('submitButton').disabled = true;    // Desabilitar o botão "Cadastrar"
+                } else {
+                    alert('Médico não encontrado. Preencha os campos.');
+                    // Habilitar campos para novo cadastro
+                    document.getElementById('doctorName').disabled = false;
+                    document.getElementById('birthdate').disabled = false;
+                    document.getElementById('submitButton').disabled = false;   // Habilitar o botão "Cadastrar"
+                    document.getElementById('alterarButton').disabled = true;   // Desabilitar o botão "Alterar"
+                }
+            })
+            .catch(error => console.error('Erro ao buscar CPF:', error));
         }
-
-        function habilitarCampos() {
-            const fields = document.querySelectorAll('.disabled-field');
-            fields.forEach(field => {
-                field.removeAttribute('disabled');
-                field.classList.remove('disabled-field');
-            });
-
-            document.getElementById('submitButton').removeAttribute('disabled');
+    
+        function alterarDados() {
+            var cpf = document.getElementById("doctorCpf").value;
+            var nome = document.getElementById("doctorName").value;
+            var dataNascimento = document.getElementById("birthdate").value;
+    
+            // Fazer requisição via AJAX para alterar os dados no servidor
+            fetch('/alterar-cadastro/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ cpf: cpf, nome: nome, data_nascimento: dataNascimento })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Dados alterados com sucesso!');
+                } else {
+                    alert('Erro ao alterar os dados.');
+                }
+            })
+            .catch(error => console.error('Erro ao alterar dados:', error));
         }
     </script>
+    
 </body>
 </html>
 
