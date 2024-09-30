@@ -1,133 +1,139 @@
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        {% include 'plantaopro/partials/_head.html' %}
-        <style>
-            body, html {
-                height: 100%;
-                margin: 0;
-            }
-            .flex-wrapper {
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-            }
-            .content {
-                flex: 1;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-wrapper">
-            {% include 'plantaopro/partials/_nav.html' %}
-            <section id="shiftRegistration" class="py-5">
-                <div class="container">
-                    <h2 class="text-center">Plantão - Cadastro</h2>
-                    <form method="post" action="cadastroPlantao/">
-                            {% csrf_token %}
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                                <label for="startDate">Data Inicial</label>
-                                <input type="date" class="form-control" id="startDate" name="startDate" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="endDate">Data Final</label>
-                                <input type="date" class="form-control" id="endDate" name="endDate" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="startTime">Hora de Início</label>
-                                <input type="time" class="form-control" id="startTime" name="startTime" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="endTime">Hora de Término</label>
-                                <input type="time" class="form-control" id="endTime" name="endTime" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')">
-                            </div>
+<html lang="en">
+<head>
+    {% include 'plantaopro/partials/_head.html' %}
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        .flex-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-wrapper">
+        {% include 'plantaopro/partials/_nav.html' %}
+        <section id="shiftRegistration" class="py-5">
+            <div class="container">
+                <h2 class="text-center">Cadastro de Plantão</h2>
+                <form method="post" action="cadastroPlantao/">
+                    {% csrf_token %}
+
+                    <!-- Cadastro de Horários de Plantão -->
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="shiftDate">Data do Plantão</label>
+                            <input type="date" class="form-control" id="shiftDate" name="shiftDate" required>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="doctorSelect">Médico Responsável</label>
-                                <select class="form-control" id="doctorSelect" name="doctorSelect">
+                        <div class="form-group col-md-3">
+                            <label for="startTime">Horário de Início</label>
+                            <input type="time" class="form-control" id="startTime" name="startTime" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="endTime">Horário de Término</label>
+                            <input type="time" class="form-control" id="endTime" name="endTime" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="breakTime">Intervalo (se houver)</label>
+                            <input type="time" class="form-control" id="breakTime" name="breakTime">
+                        </div>
+                    </div>
+
+                    <!-- Seleção do Médico e Especialidade -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="doctorSelect">Médico Responsável</label>
+                            <select class="form-control" id="doctorSelect" name="doctorSelect">
                                 <option selected>Escolha um Médico</option>
-                            {% for medico in medicos %}   
-                            <option value="{{ medico.id }}">{{ medico.nome }}</option>
-                            {% endfor %}
+                                {% for medico in medicos %}
+                                    <option value="{{ medico.id }}">{{ medico.nome }}</option>
+                                {% endfor %}
                             </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="specialty">Especialidade</label>
-                                <input type="text" class="form-control" id="specialty" name="specialty" placeholder="Informe a especialidade">
-                            </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                                <label for="shiftType">Tipo de Plantão</label>
-                                <select class="form-control" id="shiftType" name="shiftType">
-                                    <option selected>Escolha o Tipo</option>
-                                    <option>12 Horas</option>
-                                    <option>Por Hora</option>
-                                    <option>Sábado</option>
-                                    <option>Domingo</option>
-                                    <option>Feriado</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="shiftValue">Valor do Plantão</label>
-                                <input type="number" class="form-control" id="shiftValue" name="shiftValue" placeholder="Informe o valor">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="shiftHours">Quantidade de Horas</label>
-                                <input type="number" class="form-control" id="shiftHours" name="shiftHours" placeholder="Informe a quantidade de horas">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="shiftStatus">Status do Plantão</label>
-                                <select class="form-control" id="shiftStatus" name="shiftStatus">
-                                    <option selected>Escolha o Status</option>
-                                    <option>Confirmado</option>
-                                    <option>Pendente</option>
-                                    <option>Cancelado</option>
-                                </select>
-                            </div>
+                        <div class="form-group col-md-6">
+                            <label for="specialty">Especialidade</label>
+                            <input type="text" class="form-control" id="specialty" name="specialty" placeholder="Informe a especialidade">
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="emergencyContact">Contato de Emergência</label>
-                                <input type="text" class="form-control" id="emergencyContact" name="emergencyContact" placeholder="Informe o contato">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="equipment">Equipamentos Necessários</label>
-                                <input type="text" class="form-control" id="equipment" name="equipment" placeholder="Informe os equipamentos">
-                            </div>
+                    </div>
+
+                    <!-- Tipo de Plantão -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="shiftType">Tipo de Plantão</label>
+                            <select class="form-control" id="shiftType" name="shiftType">
+                                <option selected>Escolha o Tipo</option>
+                                <option>Noturno</option>
+                                <option>Diurno</option>
+                                <option>Emergência</option>
+                                <option>Sobreaviso</option>
+                            </select>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="auxiliaryStaff">Cargos Auxiliares</label>
-                                <input type="text" class="form-control" id="auxiliaryStaff" name="auxiliaryStaff" placeholder="Informe os cargos auxiliares">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="substitute">Substituto</label>
-                                <input type="text" class="form-control" id="substitute" name="substitute" placeholder="Informe o substituto">
-                            </div>
+                        <div class="form-group col-md-6">
+                            <label for="location">Local do Plantão</label>
+                            <input type="text" class="form-control" id="location" name="location" placeholder="Informe a clínica ou hospital">
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="notes">Observações</label>
-                                <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Adicione observações"></textarea>
-                            </div>
+                    </div>
+
+                    <!-- Definição de Remuneração -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="paymentType">Tipo de Pagamento</label>
+                            <select class="form-control" id="paymentType" name="paymentType">
+                                <option selected>Por Hora</option>
+                                <option>Valor Fixo</option>
+                            </select>
                         </div>
-                        <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
-                        <div class="form-row">
-                            <div class="col-md-12 text-left">
-                                <button type="submit" value="cadastroPlantaoBanco" class="btn btn-primary mr-2">Cadastrar Plantão</button>
-                                <button type="button" class="btn btn-secondary mr-2">Cancelar</button>
-                                <button type="button" class="btn btn-info mr-2">Limpar</button>
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#viewModal">Visualizar</button>
-                            </div>
+                        <div class="form-group col-md-6">
+                            <label for="shiftValue">Valor do Plantão</label>
+                            <input type="number" class="form-control" id="shiftValue" name="shiftValue" placeholder="Informe o valor">
                         </div>
-                    </form>
-                </div>
-            </section>
-        <div>    
+                    </div>
+
+                    <!-- Recursos e Substituições -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="bedsAvailable">Número de Leitos/Salas</label>
+                            <input type="number" class="form-control" id="bedsAvailable" name="bedsAvailable" placeholder="Informe a quantidade">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="equipment">Equipamentos Necessários</label>
+                            <input type="text" class="form-control" id="equipment" name="equipment" placeholder="Informe os equipamentos necessários">
+                        </div>
+                    </div>
+
+                    <!-- Substituições e Faltas -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="substituteDoctor">Médico Substituto</label>
+                            <input type="text" class="form-control" id="substituteDoctor" name="substituteDoctor" placeholder="Informe o médico substituto">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="substitutionReason">Motivo da Substituição</label>
+                            <textarea class="form-control" id="substitutionReason" name="substitutionReason" rows="3" placeholder="Descreva o motivo"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Ações -->
+                    <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
+                    <div class="form-row">
+                        <div class="col-md-12 text-left">
+                            <button type="submit" value="cadastroPlantaoBanco" class="btn btn-primary mr-2">Cadastrar Plantão</button>
+                            <button type="button" class="btn btn-secondary mr-2">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <div>
             {% include 'plantaopro/partials/_footer.html' %}
         </div>
-    </body>
-    </html>
+    </div>
+</body>
+</html>
