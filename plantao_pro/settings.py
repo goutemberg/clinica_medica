@@ -62,10 +62,21 @@ WSGI_APPLICATION = 'plantao_pro.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': os.getenv('POSTGRES_PORT'),
     }
 }
 
@@ -104,7 +115,26 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+#Novas configuracoes static files
+
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+# Em produção (quando DEBUG é False), o Django coleta todos os arquivos estáticos aqui
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Diretório para salvar arquivos de mídia (uploads de usuários)
+MEDIA_ROOT = os.path.join(BASE_DIR, '/data/web/media')
+
+# Para permitir que o WhiteNoise sirva arquivos estáticos de forma otimizada
+if not DEBUG:
+    #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+# Configurações adicionais de arquivo estático
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, './home/static/plantaopro'),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
