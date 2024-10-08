@@ -1,5 +1,5 @@
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -13,14 +13,13 @@ SECRET_KEY = 'django-insecure-&3d@0w2x0^@2juw_v478r0h_4rk6)iv_*o6r&hc0#eq!)th3&y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://clinica-medica-i66x.onrender.com','localhost', '127.0.0.1','clinica-medica-i66x.onrender.com']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'home',
-    'relatorios',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,7 +43,7 @@ ROOT_URLCONF = 'plantao_pro.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'home', 'templates/plantaopro/pages')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -63,10 +62,33 @@ WSGI_APPLICATION = 'plantao_pro.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': os.getenv('POSTGRES_DB'),
+#        'USER': os.getenv('POSTGRES_USER'),
+#        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+#        'HOST': os.getenv('POSTGRES_HOST'),
+#        'PORT': os.getenv('POSTGRES_PORT'),
+#    }
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mgl_base_dados',
+        'USER': 'usuario_mgl',
+        'PASSWORD': 'McqAdGu54NougOKPqxHvPjTNVUgYD8XI',  
+        'HOST': 'dpg-crutsju8ii6s738hnki0-a',
+        'PORT': '5432',
+        'CONN_MAX_AGE': 600,  # Conexões persistentes com o banco de dados
     }
 }
 
@@ -105,7 +127,26 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+#Novas configuracoes static files
+
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+# Em produção (quando DEBUG é False), o Django coleta todos os arquivos estáticos aqui
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Diretório para salvar arquivos de mídia (uploads de usuários)
+MEDIA_ROOT = os.path.join(BASE_DIR, '/data/web/media')
+
+# Para permitir que o WhiteNoise sirva arquivos estáticos de forma otimizada
+if not DEBUG:
+    #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+# Configurações adicionais de arquivo estático
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, './home/static/plantaopro'),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

@@ -1,0 +1,129 @@
+<html>
+<head>
+    {% include 'plantaopro/partials/_head.html' %}
+    <style>
+        * {
+            font-size: 15px;
+        }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .flex-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        table {
+            table-layout: fixed;
+            width: 100%;
+            border: 1px solid black;
+        }
+
+        table th {
+            text-align: left;
+            padding: 3px;
+            padding-bottom: 0;
+        }
+
+        table td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 3px;
+            padding-bottom: 0;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .filter-form {
+            margin-bottom: 20px;
+        }
+
+        .filter-form label {
+            margin-right: 10px;
+        }
+
+        .filter-form input, .filter-form select {
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-wrapper">
+        {% include 'plantaopro/partials/_nav.html' %}
+        
+        <div class="content"> 
+            <!-- Formulário de Filtros -->
+            <form method="GET" class="filter-form">
+                <label for="start_date">Data Início:</label>
+                <input type="date" id="start_date" name="start_date" value="{{ request.GET.start_date }}">
+                
+                <label for="end_date">Data Fim:</label>
+                <input type="date" id="end_date" name="end_date" value="{{ request.GET.end_date }}">
+            
+                <label for="medico">Médico:</label>
+                <select id="medico" name="medico">
+                    <option value="">Selecione</option>
+                    {% for medico in medicos %}
+                        <option value="{{ medico.nome }}" {% if request.GET.medico == medico.nome %}selected{% endif %}>
+                            {{ medico.nome }}
+                        </option>
+                    {% endfor %}
+                </select>
+            
+                <button type="submit">Filtrar</button>
+                <button type="submit">Imprimir</button>
+            </form>
+            <table>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Especialidade</th>
+                    <th>Valor do Plantão</th>
+                    <th>Horas</th>
+                    <th>Valor Horas</th>
+                    <th>Subtotal</th>
+                    <th>Valor Imposto</th>
+                    <th>Valor a Receber</th>
+                    <th>Médico</th>
+                    <th>Data</th>
+                </tr>
+                {% for data in record %}
+                <tr>
+                    <td>{{ data.nome }}</td>
+                    <td>{{ data.cpf }}</td>
+                    <td>{{ data.especialidade }}</td>
+                    <td>{{ data.valor_plantao }}</td>
+                    <td>{{ data.horas }}</td>
+                    <td>{{ data.valor_horas }}</td>
+                    <td>{{ data.subtotal }}</td>
+                    <td>{{ data.valor_imposto }}</td>
+                    <td>{{ data.valor_a_receber }}</td>
+                    <td>{{ data.medico.nome }}</td>  <!-- Exibindo o nome do médico -->
+                    <td>{{ data.data|date:"d/m/Y" }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            
+            
+                    </div>
+        {% include 'plantaopro/partials/_footer.html' %}
+    </div>
+</body>
+</html>
