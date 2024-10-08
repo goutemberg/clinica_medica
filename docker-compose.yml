@@ -16,7 +16,7 @@ services:
     depends_on:
       - psql
   psql:
-    container_name: psql_plantaopro
+    container_name: psql
     image: postgres:13-alpine
     volumes:
       - ./data/postgres/data:/var/lib/postgresql/data/
