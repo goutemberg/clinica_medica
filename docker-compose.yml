@@ -20,8 +20,8 @@ services:
     image: postgres:13-alpine
     volumes:
       - ./data/postgres/data:/var/lib/postgresql/data/
-    env_file:
-      - ./dotenv_files/.env
+   #env_file:
+    #  - ./dotenv_files/.env
     restart: unless-stopped
   pgadmin:
     container_name: container-pgadmin
