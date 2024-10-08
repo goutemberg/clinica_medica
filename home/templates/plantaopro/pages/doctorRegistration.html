@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        {% include 'plantaopro/partials/_head.html' %}
+        <style>
+            body, html {
+                height: 100%;
+                margin: 0;
+            }
+            .flex-wrapper {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+            .content {
+                flex: 1;
+                padding-bottom: 2rem; /* Espaço para não sobrepor o rodapé */
+            }
+            .form-row {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .form-group {
+                margin-bottom: 1rem;
+            }
+            h5 {
+                font-size: 1.1rem;
+                font-weight: bold;
+                border-bottom: 1px solid #dee2e6;
+                margin-bottom: 1.5rem;
+            }
+            .btn {
+                margin-right: 10px;
+            }
+            .disabled-field {
+                background-color: #e9ecef;
+                cursor: not-allowed;
+            }
+        </style>
+    </head>
+<body>
+    <div class="flex-wrapper">
+        {% include 'plantaopro/partials/_nav.html' %}
+        <!-- Cadastro de Profissional de Saúde -->
+        <section id="plantaoRegistration" class="py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center mb-4">Cadastrar Profissional de Saúde</h2>
+                <form method="post" action="cadastroPlantaoBanco/">
+                    {% csrf_token %}
+
+                    <!-- Informações Pessoais -->
+                    <h5 class="text-muted">Informações Pessoais</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="doctorCpf">CPF</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="doctorCpf" name="doctorCpf" placeholder="000.000.000-00" required>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary" onclick="buscarCpf()">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="doctorName">Nome Completo</label>
+                            <input type="text" class="form-control disabled-field" id="doctorName" name="doctorName" placeholder="Nome Completo" required disabled>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="birthdate">Data de Nascimento</label>
+                            <input type="date" class="form-control disabled-field" id="birthdate" name="birthdate" required disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control disabled-field" id="email" name="email" placeholder="exemplo@dominio.com" required disabled>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="phone">Telefone</label>
+                            <input type="tel" class="form-control disabled-field" id="phone" name="phone" placeholder="(xx) xxxxx-xxxx" required disabled>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="cep">CEP</label>
+                            <input type="text" class="form-control disabled-field" id="cep" name="cep" placeholder="XXXXX-XXX" required disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="address">Logradouro</label>
+                            <input type="text" class="form-control disabled-field" id="address" name="address" placeholder="Logradouro" required disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="number">Número</label>
+                            <input type="text" class="form-control disabled-field" id="number" name="number" placeholder="Número" required disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="complement">Complemento</label>
+                            <input type="text" class="form-control disabled-field" id="complement" name="complement" placeholder="Complemento" disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="bairro">Bairro</label>
+                            <input type="text" class="form-control disabled-field" id="bairro" name="bairro" placeholder="Bairro" required disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="city">Cidade</label>
+                            <input type="text" class="form-control disabled-field" id="city" name="city" placeholder="Cidade" required disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="state">Estado</label>
+                            <input type="text" class="form-control disabled-field" id="state" name="state" placeholder="UF" required disabled>
+                        </div>
+                    </div>
+
+                    <!-- Dados Profissionais -->
+                    <h5 class="text-muted">Dados Profissionais</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="professionalType">Tipo de Profissional</label>
+                            <select class="form-control disabled-field" id="professionalType" name="professionalType" required disabled>
+                                <option value="">Selecione</option>
+                                <option value="Medico">Médico</option>
+                                <option value="Enfermeiro">Enfermeiro</option>
+                                <option value="Fisioterapeuta">Fisioterapeuta</option>
+                                <option value="Outro">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="doctorSpecialty">Especialidade</label>
+                            <input type="text" class="form-control disabled-field" id="doctorSpecialty" name="doctorSpecialty" placeholder="Especialidade" disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="registerType">Tipo de Registro</label>
+                            <select class="form-control disabled-field" id="registerType" name="registerType" required disabled>
+                                <option value="">Selecione</option>
+                                <option value="CRM">CRM</option>
+                                <option value="COREN">COREN</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="doctorCrm">Número do Registro</label>
+                            <input type="text" class="form-control disabled-field" id="doctorCrm" name="doctorCrm" placeholder="Número do Registro" required disabled>
+                        </div>
+                    </div>
+
+                    <!-- Formação Acadêmica -->
+                    <h5 class="text-muted">Formação Acadêmica</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="academicDegree">Grau Acadêmico</label>
+                            <input type="text" class="form-control disabled-field" id="academicDegree" name="academicDegree" placeholder="Graduação, Mestrado, Doutorado" required disabled>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="institutionName">Instituição de Ensino</label>
+                            <input type="text" class="form-control disabled-field" id="institutionName" name="institutionName" placeholder="Instituição de Ensino" required disabled>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="graduationYear">Ano de Conclusão</label>
+                            <input type="number" class="form-control disabled-field" id="graduationYear" name="graduationYear" placeholder="Ano de Conclusão" required disabled>
+                        </div>
+                    </div>
+
+                    <!-- Certificações e Capacitações -->
+                    <h5 class="text-muted">Certificações e Capacitações</h5>
+                    <div class="form-group">
+                        <label for="certifications">Certificações</label>
+                        <textarea class="form-control disabled-field" id="certifications" name="certifications" placeholder="Liste as certificações ou capacitações relevantes" disabled></textarea>
+                    </div>
+
+                    <!-- Vinculação à Clínica/Hospital -->
+                    <h5 class="text-muted">Vinculação à Clínica ou Hospital</h5>
+                    <div class="form-group">
+                        <label for="clinicAffiliation">Clínica ou Hospital Vinculado</label>
+                        <input type="text" class="form-control disabled-field" id="clinicAffiliation" name="clinicAffiliation" placeholder="Nome da Clínica ou Hospital" disabled>
+                    </div>
+
+                    <!-- Outras Informações -->
+                    <h5 class="text-muted">Outras Informações</h5>
+                    <div class="form-group">
+                        <label for="otherInfo">Outras Informações</label>
+                        <textarea class="form-control disabled-field" id="otherInfo" name="otherInfo" placeholder="Outras informações relevantes" disabled></textarea>
+                    </div>
+
+                    <!-- Ações -->
+                    <div class="form-row">
+                        <div class="col-md-12 text-left">
+                            <button type="submit" class="btn btn-primary" id="submitButton" disabled>Cadastrar</button>
+                            <button type="button" class="btn btn-secondary" id="alterarButton" onclick="alterarDados()" disabled>Alterar</button>
+                            <button type="reset" class="btn btn-secondary">Limpar</button>
+                            <button type="button" class="btn btn-danger" onclick="window.location.href='{% url 'index' %}'">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <div>
+            {% include 'plantaopro/partials/_footer.html' %}
+        </div>
+    </div>
+
+    <script>
+        function buscarCpf() {
+            var cpf = document.getElementById("doctorCpf").value;
+    
+            // Fazer requisição via AJAX
+            fetch('/buscar-cpf/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ cpf: cpf })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.exists) {
+                    // Preencher os campos se o médico foi encontrado
+                    document.getElementById('doctorName').value = data.nome;
+                    document.getElementById('birthdate').value = data.data_nascimento;
+    
+                    // Habilitar campos e botões
+                    document.getElementById('doctorName').disabled = false;
+                    document.getElementById('birthdate').disabled = false;
+                    document.getElementById('alterarButton').disabled = false;  // Habilitar botão "Alterar"
+                    document.getElementById('submitButton').disabled = true;    // Desabilitar o botão "Cadastrar"
+                } else {
+                    alert('Médico não encontrado. Preencha os campos.');
+                    // Habilitar campos para novo cadastro
+                    document.getElementById('doctorName').disabled = false;
+                    document.getElementById('birthdate').disabled = false;
+                    document.getElementById('submitButton').disabled = false;   // Habilitar o botão "Cadastrar"
+                    document.getElementById('alterarButton').disabled = true;   // Desabilitar o botão "Alterar"
+                }
+            })
+            .catch(error => console.error('Erro ao buscar CPF:', error));
+        }
+    
+        function alterarDados() {
+            var cpf = document.getElementById("doctorCpf").value;
+            var nome = document.getElementById("doctorName").value;
+            var dataNascimento = document.getElementById("birthdate").value;
+    
+            // Fazer requisição via AJAX para alterar os dados no servidor
+            fetch('/alterar-cadastro/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ cpf: cpf, nome: nome, data_nascimento: dataNascimento })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Dados alterados com sucesso!');
+                } else {
+                    alert('Erro ao alterar os dados.');
+                }
+            })
+            .catch(error => console.error('Erro ao alterar dados:', error));
+        }
+    </script>
+    
+</body>
+</html>
+

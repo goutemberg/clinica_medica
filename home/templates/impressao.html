@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantão PRO - Relatório de Plantões</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 56px;
+        }
+        label {
+            font-size: 0.875em; /* Reduzindo a fonte dos labels */
+        }
+        .form-group {
+            flex: 1; /* Fazendo com que os grupos de formulário sejam flexíveis */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Plantão PRO - Relatório de Plantões</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#companyRegistration">Cadastrar Clínicas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#doctorRegistration">Cadastrar Médico</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cadPlantaoBanco/">Cadastrar Plantão</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#login">Relatórios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#login">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Relatório de Plantões</h2>
+        <form class="mb-4">
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="filterStartDate">Data Inicial</label>
+                    <input type="date" class="form-control" id="filterStartDate" name="filterStartDate">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="filterEndDate">Data Final</label>
+                    <input type="date" class="form-control" id="filterEndDate" name="filterEndDate">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="filterDoctor">Médico</label>
+                    <select class="form-control" id="filterDoctor" name="filterDoctor">
+                        <option value="all" selected>Todos</option>
+                        <option value="Dr. José Silva">Dr. José Silva</option>
+                        <option value="Dra. Maria Oliveira">Dra. Maria Oliveira</option>
+                        <option value="Dr. João Souza">Dr. João Souza</option>
+                        <option value="Dra. Ana Lima">Dra. Ana Lima</option>
+                        <option value="Dr. Carlos Pereira">Dr. Carlos Pereira</option>
+                        <option value="Dra. Fernanda Costa">Dra. Fernanda Costa</option>
+                        <option value="Dr. Pedro Santos">Dr. Pedro Santos</option>
+                        <option value="Dra. Juliana Almeida">Dra. Juliana Almeida</option>
+                        <option value="Dr. Ricardo Gonçalves">Dr. Ricardo Gonçalves</option>
+                        <option value="Dra. Beatriz Mendes">Dra. Beatriz Mendes</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary mr-2">Pesquisar</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='index.html'">Sair</button>
+                    <button type="button" class="btn btn-info ml-2" onclick="window.print()">Imprimir</button>
+                </div>
+            </div>
+        </form>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Nome do Médico</th>
+                    <th>CPF</th>
+                    <th>Hora de Início</th>
+                    <th>Hora de Término</th>
+                    <th>Data de Início</th>
+                    <th>Data de Término</th>
+                    <th>Quantidade de Horas Trabalhadas</th>
+                    <th>Valor Bruto</th>
+                    <th>Valor do Imposto</th>
+                    <th>Valor Líquido a Receber</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dados do relatório devem ser inseridos aqui -->
+                <tr>
+                    <td>Dr. José Silva</td>
+                    <td>123.456.789-00</td>
+                    <td>08:00</td>
+                    <td>20:00</td>
+                    <td>2023-07-01</td>
+                    <td>2023-07-01</td>
+                    <td>12</td>
+                    <td>R$ 1.200,00</td>
+                    <td>R$ 180,00</td>
+                    <td>R$ 1.020,00</td>
+                </tr>
+                <tr>
+                    <td>Dra. Maria Oliveira</td>
+                    <td>987.654.321-00</td>
+                    <td>07:00</td>
+                    <td>19:00</td>
+                    <td>2023-07-02</td>
+                    <td>2023-07-02</td>
+                    <td>12</td>
+                    <td>R$ 1.400,00</td>
+                    <td>R$ 210,00</td>
+                    <td>R$ 1.190,00</td>
+                </tr>
+                <tr>
+                    <td>Dr. João Souza</td>
+                    <td>456.789.123-00</td>
+                    <td>06:00</td>
+                    <td>18:00</td>
+                    <td>2023-07-03</td>
+                    <td>2023-07-03</td>
+                    <td>12</td>
+                    <td>R$ 1.300,00</td>
+                    <td>R$ 195,00</td>
+                    <td>R$ 1.105,00</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-right">
+            <p><strong>Total:</strong> R$ 3.315,00</p>
+        </div>
+    </div>
+    <!-- Footer Section -->
+    <footer class="py-4 bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <p class="m-0 text-white">© 2024 Plantão - PRO. Todos os direitos Reservados.</p>
+                </div>
+                <div class="col-lg-6 text-right">
+                    <a href="#" class="m-0 text-white">Política de Privacidade</a>
+                    <span class="text-white mx-2">|</span>
+                    <a href="#" class="m-0 text-white">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -32,3 +32,8 @@ CONTROL-C
 ou o script: 
 
 $ ./stop_django.sh
+
+
+
+
+https://www.youtube.com/watch?v=ozAZL3IATTo

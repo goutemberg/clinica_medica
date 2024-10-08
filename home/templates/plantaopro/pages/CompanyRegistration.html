@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        {% include 'plantaopro/partials/_head.html' %}
+        <style>
+            body, html {
+                height: 100%;
+                margin: 0;
+            }
+            .flex-wrapper {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+            .content {
+                flex: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-wrapper">
+            {% include 'plantaopro/partials/_nav.html' %}
+    <!-- Company Registration Section -->
+    <section id="companyRegistration" class="py-5">
+        <div class="container">
+            <h2 class="text-center">Cadastrar Clinica</h2>
+            <form method="post" action="cadastroEmpBanco/">
+            {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="companyName">Nome</label>
+                        <input type="text" class="form-control" name="companyName" id="companyName" placeholder="Nome da empresa" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="companyLegalName">Razão Social</label>
+                        <input type="text" class="form-control" name="companyLegalName" id="companyLegalName" placeholder="Razão social" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="companyCnpj">CNPJ</label>
+                        <input type="text" class="form-control" id="companyCnpj" name="companyCnpj" placeholder="00.000.000/0000-00" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="companyInscricaoEstadual">Inscrição Estadual</label>
+                        <input type="text" class="form-control" id="companyInscricaoEstadual" name="companyInscricaoEstadual" placeholder="Inscrição estadual" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="companyCep">CEP</label>
+                        <input type="text" class="form-control" id="companyCep" name="companyCep" placeholder="CEP">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="companyStreet">Lougradouro(Rua, Av, Travessa e etc)</label>
+                        <input type="text" class="form-control" id="companyStreet" name="lougradouro" placeholder="Lougradouro">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="companyNumber">Número</label>
+                        <input type="text" class="form-control" id="companyNumber" name="companyNumber" placeholder="Nº">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="companyNeighborhood">Bairro</label>
+                        <input type="text" class="form-control" id="companyNeighborhood" name="companyNeighborhood" placeholder="Bairro">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="companyCity">Cidade</label>
+                        <input type="text" class="form-control" id="companyCity" name="companyCity" placeholder="Cidade">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="companyState">Estado</label>
+                        <select id="companyState" class="form-control" name="companyState">
+                            <option selected>Escolher...</option>
+                            <option>AC</option>
+                            <option>AL</option>
+                            <option>AP</option>
+                            <option>AM</option>
+                            <option>BA</option>
+                            <option>CE</option>
+                            <option>DF</option>
+                            <option>ES</option>
+                            <option>GO</option>
+                            <option>MA</option>
+                            <option>MT</option>
+                            <option>MS</option>
+                            <option>MG</option>
+                            <option>PA</option>
+                            <option>PB</option>
+                            <option>PR</option>
+                            <option>PE</option>
+                            <option>PI</option>
+                            <option>RJ</option>
+                            <option>RN</option>
+                            <option>RS</option>
+                            <option>RO</option>
+                            <option>RR</option>
+                            <option>SC</option>
+                            <option>SP</option>
+                            <option>SE</option>
+                            <option>TO</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="companyPhone">Telefone</label>
+                        <input type="text" class="form-control" id="companyPhone" name="companyPhone" placeholder="(xx) 9999-9999">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="companyCell">Celular</label>
+                        <input type="text" class="form-control" id="companyCell" name="companyCell" placeholder="(xx) 99999-9999">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="companyContactPerson">Pessoa para Contato</label>
+                        <input type="text" class="form-control" id="companyContactPerson" name="companyContactPerson" placeholder="Pessoa para contato">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="companyEmail">Email</label>
+                        <input type="email" class="form-control" id="companyEmail" name="companyEmail" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="companyValorPlantao">Valor Plantão(12h)</label>
+                        <input type="text" class="form-control" id="companyValorPlantao_12" name="companyValorPlantao_12" placeholder="Valor do plantão">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="companyValorPlantaoHora">Valor Plantão (Por hora)</label>
+                        <input type="text" class="form-control" id="companyValorPlantaoHora" name="companyValorPlantaoHora" placeholder="Plantão por hora">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="companyPlantaoSemana">Plantão Semana</label>
+                        <input type="text" class="form-control" id="companyPlantaoSemana" name="companyPlantaoSemana" placeholder="Plantão durante a semana">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="companyValorPlantaoSabadoDomingo">Valor Plantão Sábado e Domingo</label>
+                        <input type="text" class="form-control" id="companyValorPlantaoSabadoDomingo" name="companyValorPlantaoSabadoDomingo" placeholder="Plantão sábados e domingos">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="companyValorContrato">Valor Contrato(R$)</label>
+                        <input type="text" class="form-control" id="companyValorContrato" name="companyValorContrato" placeholder="Valor do contrato">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="companyTaxaAdministracao">Taxa de Administração(%)</label>
+                        <input type="text" class="form-control" id="companyTaxaAdministracao" name="companyTaxaAdministracao" placeholder="Informe a taxa de administração">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="companyIsentoTributacao">Isento de Tributação</label>
+                        <select id="companyIsentoTributacao" class="form-control" name="companyIsentoTributacao">
+                            <option selected>Escolher...</option>
+                            <option>Sim</option>
+                            <option>Não</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
+                <div class="form-row">
+                    <div class="col-md-12 text-left">
+                        <button type="submit" value={% url 'cadastrarempresa' %} class="btn btn-primary mr-2 btn-success">Cadastrar Empresas</button>
+                        <button type="button" class="btn btn-secondary mr-2">Cancelar</button>
+                        <button type="button" class="btn btn-info mr-2">Limpar</button>
+                        <button type="button" class="btn btn-success">Imprimir</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+        <div>    
+            {% include 'plantaopro/partials/_footer.html' %}
+        </div>
+    </body>
+    </html>
+
+  
+
+
+
+
+
+
+
