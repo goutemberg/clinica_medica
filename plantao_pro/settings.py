@@ -68,15 +68,28 @@ WSGI_APPLICATION = 'plantao_pro.wsgi.application'
 #        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
 #}
+#Local data base 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': os.getenv('POSTGRES_DB'),
+#        'USER': os.getenv('POSTGRES_USER'),
+#        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+#        'HOST': os.getenv('POSTGRES_HOST'),
+#        'PORT': os.getenv('POSTGRES_PORT'),
+#    }
+#}
 
+#Data base on render
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB'),
-        'USER': os.getenv('POSTGRES_USER'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-        'HOST': os.getenv('POSTGRES_HOST'),
-        'PORT': os.getenv('POSTGRES_PORT'),
+        'NAME': 'mgl_base_dados',
+        'USER': 'usuario_mgl',
+        'PASSWORD': 'McqAdGu54NougOKPqxHvPjTNVUgYD8XI',  
+        'HOST': 'dpg-crutsju8ii6s738hnki0-a',
+        'PORT': '5432',
+        'CONN_MAX_AGE': 600,  # Conexões persistentes com o banco de dados
     }
 }
 
