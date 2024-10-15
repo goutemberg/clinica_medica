@@ -10,6 +10,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['https://clinica-medica-i66x.onrender.com','localhost', '127.0.0.1','clinica-medica-i66x.onrender.com','0.0.0.0']
 
+CSRF_TRUSTED_ORIGINS = ['https://clinica-medica-i66x.onrender.com','clinica-medica-i66x.onrender.com']
+
 
 # Application definition
 
