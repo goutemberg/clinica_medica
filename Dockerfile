@@ -45,7 +45,7 @@ RUN python -m venv /venv && \
   chmod -R 755 /clinica_medica/staticfiles && \
   chmod -R +x /scripts
 
-
+#/Users/goutembergpessoa/development/clinica_medica/banco.sqlite3
 # Adiciona a pasta scripts e venv/bin 
 # no $PATH do container.
 ENV PATH="/scripts:/venv/bin:$PATH"

@@ -6,3 +6,5 @@ while ! nc -z dpg-crutsju8ii6s738hnki0-a 5432; do
 done
 
 echo "✅ Postgres Database Started Successfully (dpg-crutsju8ii6s738hnki0-a 5432)"
+
+

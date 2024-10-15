@@ -4,7 +4,7 @@
 set -e
 
 
-wait_psql.sh
+#wait_psql.sh
 collectstatic.sh
 makemigrations.sh
 migrate.sh

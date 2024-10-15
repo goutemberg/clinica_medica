@@ -11,29 +11,30 @@ services:
       - ./plantaopro:/plantaopro
       - ./data/web/static:/data/web/static/
       - ./data/web/media:/data/web/media/
+      - ./banco.sqlite3:/clinica_medica/banco.sqlite3
     env_file:
       - ./dotenv_files/.env
-    depends_on:
-      - psql
-  psql:
-    container_name: psql
-    image: postgres:13-alpine
-    volumes:
-      - ./data/postgres/data:/var/lib/postgresql/data/
+   # depends_on:
+   #   - psql
+  #psql:
+  #  container_name: psql
+  #  image: postgres:13-alpine
+  #  volumes:
+  #    - ./data/postgres/data:/var/lib/postgresql/data/
    #env_file:
     #  - ./dotenv_files/.env
-    restart: unless-stopped
-  pgadmin:
-    container_name: container-pgadmin
-    image: dpage/pgadmin4
+  #  restart: unless-stopped
+  #pgadmin:
+  #  container_name: container-pgadmin
+  #  image: dpage/pgadmin4
     
-    depends_on:
-      - psql
-    ports:
-      - "5050:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: root
-    restart: unless-stopped
-    env_file:
-      - ./dotenv_files/.env
+  #  depends_on:
+  #    - psql
+  #  ports:
+  #    - "5050:80"
+  #  environment:
+  #    PGADMIN_DEFAULT_EMAIL: admin@admin.com
+  #    PGADMIN_DEFAULT_PASSWORD: root
+  #  restart: unless-stopped
+  #  env_file:
+  #    - ./dotenv_files/.env
