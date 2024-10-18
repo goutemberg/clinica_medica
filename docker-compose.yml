@@ -11,7 +11,7 @@ services:
       - ./plantaopro:/plantaopro
       - ./data/web/static:/data/web/static/
       - ./data/web/media:/data/web/media/
-      - ./banco.sqlite3:/clinica_medica/banco.sqlite3
+      - ./data_base:/clinica_medica/data_base:rw
     env_file:
       - ./dotenv_files/.env
    # depends_on:

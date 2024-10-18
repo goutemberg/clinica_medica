@@ -15,7 +15,7 @@ ENV PYTHONUNBUFFERED 1
 COPY ./ /clinica_medica
 COPY scripts /scripts
 COPY requirements.txt /prantaopro/requirements.txt
-#COPY ./clinica_medica/db.sqlite3 /clinica_medica 
+ 
 
 # Entra na pasta djangoapp no container
 WORKDIR /clinica_medica
@@ -40,6 +40,10 @@ RUN python -m venv /venv && \
   chown -R duser:duser /data/web/static && \
   chown -R duser:duser /data/web/media && \
   chown -R duser:duser /clinica_medica/staticfiles && \
+  chown -R duser:duser /clinica_medica/home/migrations && \
+  chmod -R 755 /clinica_medica/home/migrations && \
+  chmod -R 755 /clinica_medica/data_base/banco.sqlite3 && \
+  chown -R duser:duser /clinica_medica/data_base/banco.sqlite3 && \
   chmod -R 755 /data/web/static && \
   chmod -R 755 /data/web/media && \
   chmod -R 755 /clinica_medica/staticfiles && \

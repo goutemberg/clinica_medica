@@ -78,46 +78,33 @@ class ImpostoEmpresa(models.Model):
 
     def __str__(self):
         return f'Impostos para {self.empresa.nome}'
-    
 
 class CadastroMedico(models.Model):
-    id = models.AutoField(primary_key=True)
-    nome = models.CharField(max_length=255)
-    cpf = models.CharField(max_length=14, unique=True, validators=[
-        RegexValidator(regex=r'^\d{3}\.\d{3}\.\d{3}-\d{2}$', message='CPF deve estar no formato 000.000.000-00')
-    ])
-    especialidade = models.CharField(max_length=100)
-    crm = models.CharField(max_length=20)
-    celular = models.CharField(max_length=16, validators=[
-        RegexValidator(regex=r'^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$', message='Celular deve estar no formato (XX) XXXXX-XXXX')
-    ])
-    logradouro = models.CharField(max_length=255)
-    numero = models.CharField(max_length=5)
-    complemento = models.CharField(max_length=255, blank=True, null=True)
-    bairro = models.CharField(max_length=255)
-    cidade = models.CharField(max_length=255)
-    estado = models.CharField(max_length=2)
-    telefone1 = models.CharField(max_length=16, blank=True, null=True, validators=[
-        RegexValidator(regex=r'^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$', message='Telefone deve estar no formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX')
-    ])
-    telefone2 = models.CharField(max_length=16, blank=True, null=True, validators=[
-        RegexValidator(regex=r'^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$', message='Telefone deve estar no formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX')
-    ])
-    email = models.EmailField(max_length=100, validators=[EmailValidator(message='Email inválido')])
-    empresa = models.ForeignKey(CadastroEmpresa, on_delete=models.CASCADE, related_name='medicos', blank=True, null=True)
+    doctorCpf = models.CharField(max_length=11, unique=True,default='N/A')  
+    doctorName = models.CharField(max_length=100,default='N/A')  
+    birthdate = models.DateField(default='N/A')  
+    email = models.EmailField(default='N/A')  
+    phone = models.CharField(max_length=15,blank=True, null=True)  
+    cep = models.CharField(max_length=9,blank=True, null=True)  
+    address = models.CharField(max_length=255,blank=True, null=True)  
+    number = models.CharField(max_length=10,blank=True, null=True)  
+    complement = models.CharField(max_length=255, blank=True, null=True) 
+    bairro = models.CharField(max_length=100,blank=True, null=True)  
+    city = models.CharField(max_length=100,blank=True, null=True) 
+    state = models.CharField(max_length=2,blank=True, null=True) 
+    professionalType = models.CharField(max_length=50,blank=True, null=True)  
+    doctorSpecialty = models.CharField(max_length=100,blank=True, null=True)  
+    registerType = models.CharField(max_length=50,blank=True, null=True)  
+    doctorCrm = models.CharField(max_length=15, unique=True,default='N/A')  
+    academicDegree = models.CharField(max_length=100,blank=True, null=True)  
+    institutionName = models.CharField(max_length=255,default='N/A')  
+    graduationYear = models.IntegerField(default='N/A')  
+    certifications = models.TextField(blank=True, null=True)  
+    clinicAffiliation = models.CharField(max_length=255, blank=True, null=True)  
+    otherInfo = models.TextField(blank=True, null=True)  
 
     def __str__(self):
-        return self.nome
-
-class BancoMedico(models.Model):
-    medico = models.ForeignKey(CadastroMedico, on_delete=models.CASCADE, related_name='bancos')
-    banco = models.CharField(max_length=50)
-    agencia = models.CharField(max_length=10)
-    conta = models.CharField(max_length=10)
-    titular_conta = models.CharField(max_length=255)
-
-    def __str__(self):
-        return f'{self.banco} - {self.agencia}/{self.conta}'
+        return f"{self.doctorName} - {self.doctorCpf}"
     
 class Plantao(models.Model):
     id = models.AutoField(primary_key=True)

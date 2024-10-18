@@ -58,7 +58,7 @@ WSGI_APPLICATION = 'plantao_pro.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'banco.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'data_base/banco.sqlite3'),
     }
 }
 

@@ -1,5 +1,5 @@
 from django.urls import path
-from home.views import index, imprimirRelatorio, resultList  
+from home.views import index, resultList  
 from . import views
 from .views import buscar_cpf, alterar_cadastro
 

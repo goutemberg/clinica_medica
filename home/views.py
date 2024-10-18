@@ -1,10 +1,10 @@
-from django import forms
-from django.forms import ModelForm
+
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from django.urls import reverse
-from .models import CadastroEmpresa, CadastroMedico, ValorPlantao, ContatoEmpresa, Plantao, BancoMedico, PrintPlantao
+from .models import CadastroEmpresa, CadastroMedico, ValorPlantao, ContatoEmpresa, Plantao, PrintPlantao
 from django.views.decorators.http import require_POST
 from django.db.models import Q
 from datetime import datetime
@@ -137,76 +137,49 @@ def cadastrarMedico(request):
      template = loader.get_template('plantaopro/pages/doctorRegistration.html')
      return HttpResponse(template.render({}, request))
 
-# @require_POST
-# def cadastroMedBanco(request):
-#     DoctorName = request.POST['doctorName']
-#     DoctorCpf = request.POST ['doctorCpf']
-#     DoctorSpecialty = request.POST ['doctorSpecialty']
-#     DoctorCrm = request.POST['doctorCrm']
-#     DoctorPhone = request.POST['doctorPhone']
-#     DoctorAddress = request.POST ['doctorAddress']
-#     DoctorNumber = request.POST['doctorNumber']
-#     DoctorComplement = request.POST['doctorComplement'] 
-#     DoctorNeighborhood = request.POST['doctorNeighborhood']
-#     DoctorCity = request.POST['doctorCity']
-#     DoctorState = request.POST['doctorState']
-#     DoctorPhone1 = request.POST['doctorPhone1']
-#     DoctorPhone2 = request.POST['doctorPhone2']
-#     DoctorEmail = request.POST['doctorEmail']
-#     BankName = request.POST['bankName']
-#     BankAgency = request.POST['bankAgency']
-#     BankAccount = request.POST['bankAccount']
-#     BankHolder = request.POST['bankHolder']
-    
-#     novoCadastroMed = CadastroMedico(
-#         nome=DoctorName,cpf=DoctorCpf,especialidade=DoctorSpecialty,crm=DoctorCrm,celular=DoctorPhone,logradouro=DoctorAddress,numero=DoctorNumber,
-#         complemento=DoctorComplement,bairro=DoctorNeighborhood,cidade=DoctorCity,estado=DoctorState,telefone1=DoctorPhone1, 
-#         telefone2=DoctorPhone2,email=DoctorEmail 
-#     )
-
-#     novoCadastroMed.save()
-
-#     novoBankDoctor = BancoMedico (
-
-#     banco=BankName,agencia=BankAgency,conta=BankAccount,titular_conta=BankHolder
-#     )
-#     novoBankDoctor.save()
-
 @require_POST
 def cadastroMedBanco(request):
-    DoctorName = request.POST['doctorName']
+    
     DoctorCpf = request.POST['doctorCpf']
+    DoctorName = request.POST['doctorName']
+    Birthdate = request.POST['birthdate']
+    Email = request.POST['email']
+    Phone = request.POST['phone']
+    Cep = request.POST['cep']
+    Address = request.POST['address']
+    Number = request.POST['number']
+    Complement = request.POST['complement']
+    Bairro = request.POST['bairro']
+    City = request.POST['city']
+    State = request.POST['state']
+    ProfessionalType = request.POST['professionalType']
     DoctorSpecialty = request.POST['doctorSpecialty']
+    RegisterType = request.POST['registerType']
     DoctorCrm = request.POST['doctorCrm']
-    DoctorPhone = request.POST['doctorPhone']
-    DoctorAddress = request.POST['doctorAddress']
-    DoctorNumber = request.POST['doctorNumber']
-    DoctorComplement = request.POST['doctorComplement'] 
-    DoctorNeighborhood = request.POST['doctorNeighborhood']
-    DoctorCity = request.POST['doctorCity']
-    DoctorState = request.POST['doctorState']
-    DoctorPhone1 = request.POST['doctorPhone1']
-    DoctorPhone2 = request.POST['doctorPhone2']
-    DoctorEmail = request.POST['doctorEmail']
-    BankName = request.POST['bankName']
-    BankAgency = request.POST['bankAgency']
-    BankAccount = request.POST['bankAccount']
-    BankHolder = request.POST['bankHolder']
+    AcademicDegree = request.POST['academicDegree']
+    InstitutionName = request.POST['institutionName']
+    GraduationYear = request.POST['graduationYear']
+    Certifications = request.POST['certifications']
+    ClinicAffiliation = request.POST['clinicAffiliation']
+    OtherInfo = request.POST['otherInfo']
     
     # Cria e salva o novo médico
     novoCadastroMed = CadastroMedico(
-        nome=DoctorName, cpf=DoctorCpf, especialidade=DoctorSpecialty, crm=DoctorCrm, celular=DoctorPhone, 
-        logradouro=DoctorAddress, numero=DoctorNumber, complemento=DoctorComplement, bairro=DoctorNeighborhood, 
-        cidade=DoctorCity, estado=DoctorState, telefone1=DoctorPhone1, telefone2=DoctorPhone2, email=DoctorEmail
+        doctorCpf=DoctorCpf,doctorName=DoctorName,birthdate=Birthdate,email=Email,phone=Phone,
+        cep=Cep,address=Address,number=Number,complement=Complement,bairro=Bairro,city=City,
+        state=State,professionalType=ProfessionalType,
+        doctorSpecialty=DoctorSpecialty,registerType=RegisterType,doctorCrm=DoctorCrm,academicDegree=AcademicDegree,
+        institutionName=InstitutionName,graduationYear=GraduationYear,certifications=Certifications,
+        clinicAffiliation=ClinicAffiliation,otherInfo=OtherInfo
     )
     novoCadastroMed.save()
 
     # Cria e salva o novo banco associado ao médico criado
-    novoBankDoctor = BancoMedico(
-        medico=novoCadastroMed,  # Aqui, relacionamos com o novo médico criado
-        banco=BankName, agencia=BankAgency, conta=BankAccount, titular_conta=BankHolder
-    )
-    novoBankDoctor.save()
+    #novoBankDoctor = BancoMedico(
+    #    medico=novoCadastroMed,  # Aqui, relacionamos com o novo médico criado
+    #    banco=BankName, agencia=BankAgency, conta=BankAccount, titular_conta=BankHolder
+    #)
+    #novoBankDoctor.save()
 
     exibeMedBanco = {
          'medicos': CadastroMedico.objects.all()
@@ -262,35 +235,54 @@ def buscar_cpf(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         cpf = data.get('cpf')
+        print(f"CPF recebido: {cpf}")
         
         try:
-            medico = CadastroMedico.objects.get(cpf=cpf)
+            medico = CadastroMedico.objects.get(doctorCpf=cpf)
             response = {
                 'exists': True,
-                'nome': medico.nome,
-                #'data_nascimento': medico.data_nascimento.strftime('%Y-%m-%d'),
-                # Adicionar outros dados que você quer retornar
+                'nome': medico.doctorName,
+                'data_nascimento': medico.birthdate,
+                'email': medico.email,
+                'telefone': medico.phone,
+                'cep': medico.cep,
+                'endereco': medico.address,
+                'numero': medico.number,
+                'complemento': medico.complement,
+                'bairro': medico.bairro,
+                'cidade': medico.city,
+                'estado': medico.state,
+                'tipo_profissional': medico.professionalType,
+                'especialidade': medico.doctorSpecialty,
+                'tipo_registro': medico.registerType,
+                'crm': medico.doctorCrm,
+                'grau_academico': medico.academicDegree,
+                'instituicao': medico.institutionName,
+                'ano_graduacao': medico.graduationYear,
+                'certificacoes': medico.certifications,
+                'clinica_afiliada': medico.clinicAffiliation,
+                'outras_infos': medico.otherInfo
             }
         except CadastroMedico.DoesNotExist:
+            print(f"CPF {cpf} não encontrado")
             response = {'exists': False}
 
         return JsonResponse(response)
+
+
 
 @csrf_exempt
 def alterar_cadastro(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        cpf = data.get('cpf')
-        nome = data.get('nome')
-        #data_nascimento = data.get('data_nascimento')
+        cpf = data.get('doctorCpf')
+        nome = data.get('doctorName')
+        
 
         try:
             # Buscar o médico pelo CPF
-            medico = CadastroMedico.objects.get(cpf=cpf)
-            
-            # Atualizar as informações
-            medico.nome = nome
-            #medico.data_nascimento = data_nascimento
+            medico = CadastroMedico.objects.get(doctorCpf=cpf)
+            medico.doctorName = nome
             medico.save()
 
             return JsonResponse({'success': True})
