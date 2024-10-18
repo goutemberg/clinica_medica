@@ -11,10 +11,11 @@ ENV PYTHONDONTWRITEBYTECODE 1
 # Em resumo, você verá os outputs do Python em tempo real.
 ENV PYTHONUNBUFFERED 1
 
-# Copia a pasta "djangoapp" e "scripts" para dentro do container.
+# Copia a pasta "clinica_medica" e "scripts" para dentro do container.
 COPY ./ /clinica_medica
 COPY scripts /scripts
 COPY requirements.txt /prantaopro/requirements.txt
+COPY /clinica_medica/home/migrations /clinica_medica/home/migrations
  
 
 # Entra na pasta djangoapp no container
