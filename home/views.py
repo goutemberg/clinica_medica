@@ -139,54 +139,49 @@ def cadastrarMedico(request):
 
 @require_POST
 def cadastroMedBanco(request):
-    
-    DoctorCpf = request.POST['doctorCpf']
-    DoctorName = request.POST['doctorName']
-    Birthdate = request.POST['birthdate']
-    Email = request.POST['email']
-    Phone = request.POST['phone']
-    Cep = request.POST['cep']
-    Address = request.POST['address']
-    Number = request.POST['number']
-    Complement = request.POST['complement']
-    Bairro = request.POST['bairro']
-    City = request.POST['city']
-    State = request.POST['state']
-    ProfessionalType = request.POST['professionalType']
-    DoctorSpecialty = request.POST['doctorSpecialty']
-    RegisterType = request.POST['registerType']
-    DoctorCrm = request.POST['doctorCrm']
-    AcademicDegree = request.POST['academicDegree']
-    InstitutionName = request.POST['institutionName']
-    GraduationYear = request.POST['graduationYear']
-    Certifications = request.POST['certifications']
-    ClinicAffiliation = request.POST['clinicAffiliation']
-    OtherInfo = request.POST['otherInfo']
-    
-    # Cria e salva o novo médico
-    novoCadastroMed = CadastroMedico(
-        doctorCpf=DoctorCpf,doctorName=DoctorName,birthdate=Birthdate,email=Email,phone=Phone,
-        cep=Cep,address=Address,number=Number,complement=Complement,bairro=Bairro,city=City,
-        state=State,professionalType=ProfessionalType,
-        doctorSpecialty=DoctorSpecialty,registerType=RegisterType,doctorCrm=DoctorCrm,academicDegree=AcademicDegree,
-        institutionName=InstitutionName,graduationYear=GraduationYear,certifications=Certifications,
-        clinicAffiliation=ClinicAffiliation,otherInfo=OtherInfo
-    )
-    novoCadastroMed.save()
+    try:
+        # Extrair dados do formulário
+        DoctorCpf = request.POST['doctorCpf']
+        DoctorName = request.POST['doctorName']
+        Birthdate = request.POST['birthdate']
+        Email = request.POST['email']
+        Phone = request.POST['phone']
+        Cep = request.POST['cep']
+        Address = request.POST['address']
+        Number = request.POST['number']
+        Complement = request.POST['complement']
+        Bairro = request.POST['bairro']
+        City = request.POST['city']
+        State = request.POST['state']
+        ProfessionalType = request.POST['professionalType']
+        DoctorSpecialty = request.POST['doctorSpecialty']
+        RegisterType = request.POST['registerType']
+        DoctorCrm = request.POST['doctorCrm']
+        AcademicDegree = request.POST['academicDegree']
+        InstitutionName = request.POST['institutionName']
+        GraduationYear = request.POST['graduationYear']
+        Certifications = request.POST['certifications']
+        ClinicAffiliation = request.POST['clinicAffiliation']
+        OtherInfo = request.POST['otherInfo']
+        
+        # Cria e salva o novo médico
+        novoCadastroMed = CadastroMedico(
+            doctorCpf=DoctorCpf, doctorName=DoctorName, birthdate=Birthdate, email=Email, phone=Phone,
+            cep=Cep, address=Address, number=Number, complement=Complement, bairro=Bairro, city=City,
+            state=State, professionalType=ProfessionalType, doctorSpecialty=DoctorSpecialty,
+            registerType=RegisterType, doctorCrm=DoctorCrm, academicDegree=AcademicDegree,
+            institutionName=InstitutionName, graduationYear=GraduationYear, certifications=Certifications,
+            clinicAffiliation=ClinicAffiliation, otherInfo=OtherInfo
+        )
+        novoCadastroMed.save()
 
-    # Cria e salva o novo banco associado ao médico criado
-    #novoBankDoctor = BancoMedico(
-    #    medico=novoCadastroMed,  # Aqui, relacionamos com o novo médico criado
-    #    banco=BankName, agencia=BankAgency, conta=BankAccount, titular_conta=BankHolder
-    #)
-    #novoBankDoctor.save()
+        # Redireciona após o cadastro bem-sucedido
+        return redirect('exibeMedBanco')
 
-    exibeMedBanco = {
-         'medicos': CadastroMedico.objects.all()
-         
-    }
-
-    return redirect('cadastroMedBanco')
+    except Exception as e:
+        # Log ou tratamento de erro
+        print(f"Erro ao salvar cadastro: {e}")
+        return render(request, 'erro.html', {'mensagem': 'Ocorreu um erro ao tentar cadastrar o médico.'})
 
 
 def index(request):
