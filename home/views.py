@@ -186,7 +186,7 @@ def cadastroMedBanco(request):
          
     }
 
-    return redirect('http://127.0.0.1:8000/cadastrarmedico/', exibeMedBanco)
+    return redirect('cadastroMedBanco')
 
 
 def index(request):
