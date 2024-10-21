@@ -200,108 +200,111 @@
     </div>
     <script>
         const fields = [
-            'doctorCpf', 'doctorName', 'birthdate', 'email', 'phone',
-            'cep', 'address', 'number', 'complement', 'bairro',
-            'city', 'state', 'professionalType', 'doctorSpecialty',
-            'registerType', 'doctorCrm', 'academicDegree',
-            'institutionName', 'graduationYear', 'certifications',
-            'clinicAffiliation', 'otherInfo'
-        ];
+        'doctorCpf', 'doctorName', 'birthdate', 'email', 'phone',
+        'cep', 'address', 'number', 'complement', 'bairro',
+        'city', 'state', 'professionalType', 'doctorSpecialty',
+        'registerType', 'doctorCrm', 'academicDegree',
+        'institutionName', 'graduationYear', 'certifications',
+        'clinicAffiliation', 'otherInfo'
+    ];
     
-        // Função para preencher os campos com dados
-        function preencherCampos(data) {
-            fields.forEach(function(id) {
-                document.getElementById(id).value = data[id] || ''; // Preenche com o valor ou vazio
-            });
+    // Função para preencher os campos com dados
+    function preencherCampos(data) {
+        fields.forEach(function(id) {
+            document.getElementById(id).value = data[id] || ''; // Preenche com o valor ou vazio
+        });
+    }
+    
+    // Função para limpar todos os campos
+    function limparCampos() {
+        fields.forEach(function(id) {
+            document.getElementById(id).value = '';  // Limpa o valor dos campos
+        });
+    }
+    
+    // Função para habilitar todos os campos
+    function habilitarCampos(habilitar = true) {
+        fields.forEach(function(id) {
+            document.getElementById(id).disabled = !habilitar;  // Habilita ou desabilita
+        });
+    }
+    
+    // Função para habilitar o botão cadastrar
+    function habilitarBotaoCadastrar(habilitar = true) {
+        document.getElementById('submitButton').disabled = !habilitar; // Habilita o botão Cadastrar
+    }
+    
+    function buscarCpf() {
+        var cpf = document.getElementById("doctorCpf").value;
+    
+        if (!cpf) {
+            alert("Por favor, informe o CPF.");
+            return;
         }
     
-        // Função para limpar todos os campos
-        function limparCampos() {
-            fields.forEach(function(id) {
-                document.getElementById(id).value = '';  // Limpa o valor dos campos
-            });
-        }
+        console.log("CPF capturado:", cpf);
     
-        // Função para habilitar todos os campos
-        function habilitarCampos(habilitar = true) {
-            fields.forEach(function(id) {
-                document.getElementById(id).disabled = !habilitar;  // Habilita ou desabilita
-            });
-        }
+        // Fazer requisição via AJAX
+        fetch('/buscar-cpf/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ doctorCpf: cpf })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Dados retornados:", data);
     
-        function buscarCpf() {
-            var cpf = document.getElementById("doctorCpf").value;
+            if (data.exists) {
+                preencherCampos(data);  // Preenche os campos com os dados retornados
+                habilitarCampos(true);  // Habilita os campos para edição
+                habilitarBotaoCadastrar(true);  // Habilita o botão Cadastrar
     
-            if (!cpf) {
-                alert("Por favor, informe o CPF.");
-                return;
+            } else {
+                alert('Profissional não encontrado. Preencha os campos.');
+                limparCampos();  // Limpa os campos existentes
+                habilitarCampos(true);  // Habilita os campos para preenchimento manual
+                habilitarBotaoCadastrar(true);  // Habilita o botão Cadastrar mesmo se não encontrado
             }
+        })
+        .catch(error => console.error('Erro ao buscar CPF:', error));
+    }
     
-            console.log("CPF capturado:", cpf);
+    function alterarDados() {
+        var dados = {};
+        fields.forEach(function(id) {
+            dados[id] = document.getElementById(id).value;  // Coleta os dados dos campos
+        });
     
-            // Fazer requisição via AJAX
-            fetch('/buscar-cpf/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify({ doctorCpf: cpf })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Dados retornados:", data);
+        // Fazer requisição via AJAX para alterar os dados no servidor
+        fetch('/alterar-cadastro/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify(dados)  // Envia todos os dados coletados
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Dados alterados com sucesso!');
+            } else {
+                alert('Erro ao alterar os dados.');
+            }
+        })
+        .catch(error => console.error('Erro ao alterar dados:', error));
+    }
     
-                if (data.exists) {
-                    preencherCampos(data);  // Preenche os campos com os dados retornados
-                    habilitarCampos(true);  // Habilita os campos para edição
+    function resetForm() {
+        limparCampos();  // Limpa todos os campos
+        habilitarCampos(true);  // Habilita os campos para edição
+        habilitarBotaoCadastrar(true);  // Habilita o botão Cadastrar
+    }
     
-                    // Botões de ação
-                    document.getElementById('alterarButton').disabled = false;  
-                    document.getElementById('submitButton').disabled = true;
-                    document.getElementById('resetButton').disabled = true;
-                    document.getElementById('canceltButton').disabled = false;
-    
-                } else {
-                    alert('Profissional não encontrado. Preencha os campos.');
-                    habilitarCampos(true);  // Habilita os campos para que o usuário insira manualmente
-                }
-            })
-            .catch(error => console.error('Erro ao buscar CPF:', error));
-        }
-    
-        function alterarDados() {
-            var dados = {};
-            fields.forEach(function(id) {
-                dados[id] = document.getElementById(id).value;  // Coleta os dados dos campos
-            });
-    
-            // Fazer requisição via AJAX para alterar os dados no servidor
-            fetch('/alterar-cadastro/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify(dados)  // Envia todos os dados coletados
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Dados alterados com sucesso!');
-                } else {
-                    alert('Erro ao alterar os dados.');
-                }
-            })
-            .catch(error => console.error('Erro ao alterar dados:', error));
-        }
-    
-        function resetForm() {
-            limparCampos();  // Limpa todos os campos
-            habilitarCampos(true);  // Habilita os campos para edição
-        }
-    </script>
-       
+</script>  
 </body>
 </html>
 
