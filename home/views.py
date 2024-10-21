@@ -176,7 +176,7 @@ def cadastroMedBanco(request):
         novoCadastroMed.save()
 
         # Redireciona após o cadastro bem-sucedido
-        return redirect('exibeMedBanco')
+        return redirect('cadastrarMedico')
 
     except Exception as e:
         # Log ou tratamento de erro
