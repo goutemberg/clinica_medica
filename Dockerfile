@@ -43,11 +43,11 @@ RUN python -m venv /venv && \
   chown -R duser:duser /clinica_medica/staticfiles && \
   #chown -R duser:duser /clinica_medica/home/migrations && \
   #chmod -R 755 /clinica_medica/home/migrations && \
-  chmod -R 755 /clinica_medica/data_base/banco.sqlite3 && \
+  chmod -R 766 /clinica_medica/data_base/banco.sqlite3 && \
   chown -R duser:duser /clinica_medica/data_base/banco.sqlite3 && \
-  chmod -R 755 /data/web/static && \
-  chmod -R 755 /data/web/media && \
-  chmod -R 755 /clinica_medica/staticfiles && \
+  chmod -R 766 /data/web/static && \
+  chmod -R 766 /data/web/media && \
+  chmod -R 766 /clinica_medica/staticfiles && \
   chmod -R +x /scripts
 
 #/Users/goutembergpessoa/development/clinica_medica/banco.sqlite3
