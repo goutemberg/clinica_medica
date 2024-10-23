@@ -16,7 +16,7 @@ urlpatterns = [
 
     path('impressao/',resultList, name='impressao'),
 
-    path('buscar-cpf/', buscar_cpf, name='buscar_cpf'),
+    path('buscar_cpf/', buscar_cpf, name='buscar_cpf'),
 
     path('alterar-cadastro/', alterar_cadastro, name='alterar_cadastro'),
     

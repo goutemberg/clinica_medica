@@ -226,46 +226,54 @@ def resultList(request):
             "medicos": medicos,  # Passar médicos para o template
         },
     )
+@require_POST
 def buscar_cpf(request):
-    if request.method == 'POST':
+    import json
+    
+    # Tente capturar o CPF enviado via JSON
+    try:
         data = json.loads(request.body)
-        cpf = data.get('cpf')
-        print(f"CPF recebido: {cpf}")
+        cpf = data.get('doctorCpf')  # O nome da chave deve corresponder ao nome enviado no 'fetch'
         
+        if not cpf:
+            return JsonResponse({'error': 'CPF não fornecido'}, status=400)
+        
+        print(f"O Cpf enviado foi {cpf}")
+
+        # Busca o médico no banco de dados
         try:
             medico = CadastroMedico.objects.get(doctorCpf=cpf)
-            response = {
-                'exists': True,
-                'nome': medico.doctorName,
-                'data_nascimento': medico.birthdate,
+            medico_data = {
+                'doctorCpf': medico.doctorCpf,
+                'doctorName': medico.doctorName,
+                'birthdate': medico.birthdate,
                 'email': medico.email,
-                'telefone': medico.phone,
+                'phone': medico.phone,
                 'cep': medico.cep,
-                'endereco': medico.address,
-                'numero': medico.number,
-                'complemento': medico.complement,
+                'address': medico.address,
+                'number': medico.number,
+                'complement': medico.complement,
                 'bairro': medico.bairro,
-                'cidade': medico.city,
-                'estado': medico.state,
-                'tipo_profissional': medico.professionalType,
-                'especialidade': medico.doctorSpecialty,
-                'tipo_registro': medico.registerType,
-                'crm': medico.doctorCrm,
-                'grau_academico': medico.academicDegree,
-                'instituicao': medico.institutionName,
-                'ano_graduacao': medico.graduationYear,
-                'certificacoes': medico.certifications,
-                'clinica_afiliada': medico.clinicAffiliation,
-                'outras_infos': medico.otherInfo
+                'city': medico.city,
+                'state': medico.state,
+                'professionalType': medico.professionalType,
+                'doctorSpecialty': medico.doctorSpecialty,
+                'registerType': medico.registerType,
+                'doctorCrm': medico.doctorCrm,
+                'academicDegree': medico.academicDegree,
+                'institutionName': medico.institutionName,
+                'graduationYear': medico.graduationYear,
+                'certifications': medico.certifications,
+                'clinicAffiliation': medico.clinicAffiliation,
+                'otherInfo': medico.otherInfo
             }
+            return JsonResponse({'exists': True, 'medico': medico_data})
+
         except CadastroMedico.DoesNotExist:
-            print(f"CPF {cpf} não encontrado")
-            response = {'exists': False}
+            return JsonResponse({'exists': False})
 
-        return JsonResponse(response)
-
-
-
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Erro ao decodificar JSON'}, status=400)
 @csrf_exempt
 def alterar_cadastro(request):
     if request.method == 'POST':
