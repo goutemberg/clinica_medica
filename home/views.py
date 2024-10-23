@@ -280,12 +280,51 @@ def alterar_cadastro(request):
         data = json.loads(request.body)
         cpf = data.get('doctorCpf')
         nome = data.get('doctorName')
+        aniversario = data.get('birthdate')
+        email = data.get('email')
+        telefone = data.get('phone')
+        cep = data.get('cep')
+        endereco = data.get('address')
+        numero = data.get('number')
+        complemento = data.get('complement')
+        bairro = data.get('bairro')
+        cidade = data.get('city')
+        estado = data.get('state')
+        profissional_tipo = data.get('professionalType')
+        especialidade = data.get('doctorSpecialty')
+        registro = data.get('registerType')
+        crm = data.get('doctorCrm')
+        grau_educacional = data.get('academicDegree')
+        instituicao_ensino= data.get('institutionName')
+        ano_graduacao = data.get('graduationYear')
+        certificacoes = data.get('certifications')
+        afiliacao_clinica = data.get('clinicAffiliation')
+        outras_informacoes = data.get('otherInfo')
         
 
         try:
-            # Buscar o médico pelo CPF
             medico = CadastroMedico.objects.get(doctorCpf=cpf)
             medico.doctorName = nome
+            medico.birthdate = aniversario
+            medico.email = email
+            medico.phone = telefone
+            medico.cep = cep
+            medico.address = endereco
+            medico.number = numero
+            medico.complement = complemento
+            medico.bairro = bairro
+            medico.city = cidade
+            medico.state = estado
+            medico.professionalType = profissional_tipo
+            medico.doctorSpecialty = especialidade
+            medico.registerType = registro
+            medico.doctorCrm = crm
+            medico.academicDegree = grau_educacional
+            medico.institutionName = instituicao_ensino
+            medico.graduationYear = ano_graduacao
+            medico.certifications = certificacoes
+            medico.clinicAffiliation = afiliacao_clinica
+            medico.otherInfo = outras_informacoes
             medico.save()
 
             return JsonResponse({'success': True})
