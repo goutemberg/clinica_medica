@@ -4,13 +4,14 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from django.urls import reverse
-from .models import CadastroEmpresa, CadastroMedico, ValorPlantao, ContatoEmpresa, Plantao, PrintPlantao
+from .models import CadastroEmpresa, CadastroMedico, Plantao, PrintPlantao
 from django.views.decorators.http import require_POST
 from django.db.models import Q
 from datetime import datetime
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+import logging
 
 
 
@@ -29,13 +30,12 @@ def cadastroEmpresa(request):
 
 @require_POST
 def cadastroEmpBanco(request):
-    CompanyName = request.POST['companyName']
-    CompanyLegalName = request.POST ['companyLegalName']
+    CompanyName = request.POST ['companyName']
     CompanyCnpj = request.POST ['companyCnpj']
     CompanyInscricaoEstadual = request.POST['companyInscricaoEstadual']
     CompanyCep = request.POST['companyCep']
     Lougradouro = request.POST ['lougradouro']
-    CompanyNumber = request.POST['companyNumber']
+    #CompanyNumber = request.POST['companyNumber']
     CompanyNeighborhood = request.POST['companyNeighborhood'] 
     CompanyCity= request.POST['companyCity']
     CompanyState = request.POST['companyState']
@@ -43,43 +43,26 @@ def cadastroEmpBanco(request):
     CompanyCell = request.POST['companyCell']
     CompanyEmail = request.POST['companyEmail']
     CompanyIsentoTributacao = request.POST['companyIsentoTributacao'] == 'true'
-
-    
-
-    CompanyContactPerson = request.POST['companyContactPerson']
-
-    novoCadastroEmp = CadastroEmpresa(
-        nome=CompanyName,razao_social=CompanyLegalName,cnpj=CompanyCnpj,
-        inscricao_estadual=CompanyInscricaoEstadual,cep=CompanyCep,logradouro=Lougradouro, 
-        numero=CompanyNumber,bairro=CompanyNeighborhood,cidade=CompanyCity,estado=CompanyState, telefone=CompanyPhone, celular=CompanyCell, 
-        email=CompanyEmail, isento_tributacao=CompanyIsentoTributacao
-    )
-
-    novoCadastroEmp.save()
-
+    CompanyTaxaAdministracao = request.POST['companyTaxaAdministracao']
+    companyValorContrato = request.POST['companyValorContrato']
     CompanyValorPlantao_12 = request.POST['companyValorPlantao_12']
     CompanyValorPlantaoHora = request.POST['companyValorPlantaoHora']
     CompanyPlantaoSemana = request.POST['companyPlantaoSemana']
     CompanyValorPlantaoSabadoDomingo = request.POST['companyValorPlantaoSabadoDomingo']
+    CompanyContactPerson = request.POST['companyContactPerson']
 
-    novoCadPlantao = ValorPlantao(
-        empresa=novoCadastroEmp,
-        valor_12h=CompanyValorPlantao_12,
-        valor_por_hora=CompanyValorPlantaoHora,
-        valor_semana=CompanyPlantaoSemana,
-        valor_fim_semana=CompanyValorPlantaoSabadoDomingo,
+    novoCadastroEmp = CadastroEmpresa(
+        nome=CompanyName,razao_social=CompanyName,cnpj=CompanyCnpj,
+        inscricao_estadual=CompanyInscricaoEstadual,cep=CompanyCep,logradouro=Lougradouro, 
+        bairro=CompanyNeighborhood,cidade=CompanyCity,estado=CompanyState, telefone=CompanyPhone, celular=CompanyCell, 
+        email=CompanyEmail, isento_tributacao=CompanyIsentoTributacao,taxa_administrativa=CompanyTaxaAdministracao,valor_contrato=companyValorContrato,
+        valor_12h=CompanyValorPlantao_12,valor_por_hora=CompanyValorPlantaoHora,
+        valor_semana=CompanyPlantaoSemana,valor_fim_semana=CompanyValorPlantaoSabadoDomingo, pessoa_contato=CompanyContactPerson,
     )
-    novoCadPlantao.save()
 
-    novoPessoaContato = ContatoEmpresa(
-        empresa=novoCadastroEmp,
-        pessoa_contato=CompanyContactPerson
-    )
-    
-    novoPessoaContato.save()
+    novoCadastroEmp.save()
 
-    # return HttpResponseRedirect(reverse('plantaopro/pages/CompanyRegistration'))
-    return redirect('index')
+    return redirect('cadastrarMedico')
 
 def shiftRegistration(request):
      cadastroPlantao = Plantao.objects.all().values()
@@ -274,6 +257,64 @@ def buscar_cpf(request):
 
     except json.JSONDecodeError:
         return JsonResponse({'error': 'Erro ao decodificar JSON'}, status=400)
+    
+
+logger = logging.getLogger(__name__)
+@require_POST
+def buscar_cnpj(request):
+    logger.debug(f'Requisição recebida: {request.body}') 
+    print("A função buscar_cnpj foi chamada")
+    try:
+        # Log completo do conteúdo da requisição para depuração
+        print("Corpo da requisição recebido:", request.body)
+
+        # Carregar o JSON da requisição
+        data = json.loads(request.body)
+        print("Dados carregados:", data)  # Confirmar que o JSON foi decodificado corretamente
+
+        # Extrair o CNPJ
+        cnpj = data.get('companyCnpj')
+        if not cnpj:
+            print("Erro: CNPJ não encontrado nos dados recebidos.")
+            return JsonResponse({'error': 'CNPJ não fornecido'}, status=400)
+        
+        print("CNPJ recebido após validação:", cnpj)
+
+        # Buscar o CNPJ no banco de dados
+        try:
+            empresa = CadastroEmpresa.objects.get(companyCnpj=cnpj)
+            empresa_data = {
+                'companyCnpj': empresa.companyCnpj,
+                'companyName': empresa.companyName,
+                'companyInscricaoEstadual': empresa.companyInscricaoEstadual,
+                'companyCep': empresa.companyCep,
+                'companyStreet': empresa.companyStreet,
+                'companyNeighborhood': empresa.companyNeighborhood,
+                'companyCity': empresa.companyCity,
+                'companyState': empresa.companyState,
+                'companyPhone': empresa.companyPhone,
+                'companyCell': empresa.companyCell,
+                'companyEmail': empresa.companyEmail,
+                'companyIsentoTributacao': empresa.companyIsentoTributacao,
+                'companyContactPerson': empresa.companyContactPerson,
+                'companyValorPlantao_12': empresa.companyValorPlantao_12,
+                'companyValorPlantaoHora': empresa.companyValorPlantaoHora,
+                'companyPlantaoSemana': empresa.companyPlantaoSemana,
+                'companyValorPlantaoSabadoDomingo': empresa.companyValorPlantaoSabadoDomingo,
+                'companyTaxaAdministracao': empresa.companyTaxaAdministracao,
+                'companyValorContrato': empresa.companyValorContrato,
+            }
+            print("Dados da empresa encontrados:", empresa_data)
+            return JsonResponse({'exists': True, 'empresa': empresa_data})
+
+        except CadastroEmpresa.DoesNotExist:
+            print("Empresa não encontrada para o CNPJ fornecido.")
+            return JsonResponse({'exists': False})
+
+    except json.JSONDecodeError:
+        print("Erro ao decodificar JSON")
+        return JsonResponse({'error': 'Erro ao decodificar JSON'}, status=400)
+
 @csrf_exempt
 def alterar_cadastro(request):
     if request.method == 'POST':
@@ -330,6 +371,50 @@ def alterar_cadastro(request):
             return JsonResponse({'success': True})
         except CadastroMedico.DoesNotExist:
             return JsonResponse({'success': False, 'message': 'Médico não encontrado.'})
+
+@require_POST
+def buscar_cnpj(request):
+    import json
+    
+    try:
+        data = json.loads(request.body)
+        cnpj = data.get('cnpj') 
+        
+        if not cnpj:
+            return JsonResponse({'error': 'CNPJ não fornecido'}, status=400)
+        
+        print(f"O CNPJ enviado foi {cnpj}")
+        try:
+            company = CadastroEmpresa.objects.get(cnpj=cnpj)
+            company_data = {
+                'nome': company.nome,
+                'cnpj': company.cnpj,
+                'inscricao_estadual': company.inscricao_estadual,
+                'cep': company.cep,
+                'logradouro': company.logradouro,
+                'bairro': company.bairro,
+                'cidade': company.cidade,
+                'estado': company.estado,
+                'telefone': company.telefone,
+                'celular': company.celular,
+                'email': company.email,
+                'isento_tributacao': company.isento_tributacao,
+                'pessoa_contato': company.pessoa_contato,
+                'valor_12h': company.valor_12h,
+                'valor_por_hora': company.valor_por_hora,
+                'valor_semana': company.valor_semana,
+                'valor_fim_semana': company.valor_fim_semana,
+                'taxa_administrativa': company.taxa_administrativa,
+                'valor_contrato': company.valor_contrato,
+        
+            }
+            return JsonResponse({'exists': True, 'company': company_data})
+
+        except CadastroEmpresa.DoesNotExist:
+            return JsonResponse({'exists': False})
+
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Erro ao decodificar JSON'}, status=400)
     
 
 

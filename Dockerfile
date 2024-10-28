@@ -41,12 +41,12 @@ RUN python -m venv /venv && \
   chown -R duser:duser /data/web/static && \
   chown -R duser:duser /data/web/media && \
   chown -R duser:duser /clinica_medica/staticfiles && \
-  #chown -R duser:duser /clinica_medica/home/migrations && \
-  #chmod -R 755 /clinica_medica/home/migrations && \
+  chown -R duser:duser /clinica_medica/home/migrations && \
+  chmod -R 755 /clinica_medica/home/migrations && \
   chmod -R 775 /clinica_medica/data_base && \
   chmod -R 666 /clinica_medica/data_base/banco.sqlite3 && \
   chown -R duser:duser /clinica_medica/data_base && \
-  #chown -R duser:duser /clinica_medica/data_base/banco.sqlite3 && \
+  chown -R duser:duser /clinica_medica/data_base/banco.sqlite3 && \
   chmod -R 766 /data/web/static && \
   chmod -R 766 /data/web/media && \
   chmod -R 766 /clinica_medica/staticfiles && \

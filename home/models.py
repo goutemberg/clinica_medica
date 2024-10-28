@@ -2,6 +2,7 @@ from django import forms
 from django.db import models
 from django.forms import ModelForm
 from django.utils import timezone
+from django.utils.timezone import now
 from django.core.validators import RegexValidator, EmailValidator
 
 from django.db import models
@@ -36,20 +37,18 @@ class CadastroEmpresa(models.Model):
     ])
     email = models.EmailField(max_length=50, validators=[EmailValidator(message='Email inválido')])
     isento_tributacao = models.BooleanField(default=False)
+    pessoa_contato = models.CharField(max_length=50, default='N/A')
+    valor_12h = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    valor_por_hora = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    valor_semana = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    valor_fim_semana = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    taxa_administrativa = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    valor_contrato = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
         return self.nome
 
-class ContatoEmpresa(models.Model):
-    empresa = models.ForeignKey(CadastroEmpresa, on_delete=models.CASCADE, related_name='contatos')
-    pessoa_contato = models.CharField(max_length=50)
-    email_contato = models.EmailField(max_length=50, validators=[EmailValidator(message='Email inválido')])
-    telefone_contato = models.CharField(max_length=16, validators=[
-        RegexValidator(regex=r'^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$', message='Telefone deve estar no formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX')
-    ])
 
-    def __str__(self):
-        return self.pessoa_contato
 
 class BancoEmpresa(models.Model):
     empresa = models.ForeignKey(CadastroEmpresa, on_delete=models.CASCADE, related_name='bancos')
@@ -61,28 +60,10 @@ class BancoEmpresa(models.Model):
     def __str__(self):
         return f'{self.banco} - {self.agencia}/{self.conta}'
 
-class ValorPlantao(models.Model):
-    empresa = models.ForeignKey(CadastroEmpresa, on_delete=models.CASCADE, related_name='valores_plantao')
-    valor_12h = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    valor_por_hora = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    valor_semana = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    valor_fim_semana = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-
-    def __str__(self):
-        return f'Valores de plantão para {self.empresa.nome}'
-
-class ImpostoEmpresa(models.Model):
-    empresa = models.ForeignKey(CadastroEmpresa, on_delete=models.CASCADE, related_name='impostos')
-    taxa_administrativa = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
-    valor_imposto = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-
-    def __str__(self):
-        return f'Impostos para {self.empresa.nome}'
-
 class CadastroMedico(models.Model):
     doctorCpf = models.CharField(max_length=11, unique=True,default='N/A')  
     doctorName = models.CharField(max_length=100,default='N/A')  
-    birthdate = models.DateField(default='N/A')  
+    birthdate = models.DateField(default=now)  
     email = models.EmailField(default='N/A')  
     phone = models.CharField(max_length=15,blank=True, null=True)  
     cep = models.CharField(max_length=9,blank=True, null=True)  
@@ -98,7 +79,7 @@ class CadastroMedico(models.Model):
     doctorCrm = models.CharField(max_length=15, unique=True,default='N/A')  
     academicDegree = models.CharField(max_length=100,blank=True, null=True)  
     institutionName = models.CharField(max_length=255,default='N/A')  
-    graduationYear = models.IntegerField(default='N/A')  
+    graduationYear = models.IntegerField(default=2000)  
     certifications = models.TextField(blank=True, null=True)  
     clinicAffiliation = models.CharField(max_length=255, blank=True, null=True)  
     otherInfo = models.TextField(blank=True, null=True)  

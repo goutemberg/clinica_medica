@@ -1,189 +1,409 @@
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        {% include 'plantaopro/partials/_head.html' %}
-        <style>
-            body, html {
-                height: 100%;
-                margin: 0;
-            }
-            .flex-wrapper {
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-            }
-            .content {
-                flex: 1;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-wrapper">
-            {% include 'plantaopro/partials/_nav.html' %}
-    <!-- Company Registration Section -->
-    <section id="companyRegistration" class="py-5">
-        <div class="container">
-            <h2 class="text-center">Cadastrar Clinica</h2>
-            <form method="post" action="cadastroEmpBanco/">
-            {% csrf_token %}
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="companyName">Nome</label>
-                        <input type="text" class="form-control" name="companyName" id="companyName" placeholder="Nome da empresa" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')">
+<html lang="en">
+<head>
+    {% include 'plantaopro/partials/_head.html' %}
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        .flex-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-wrapper">
+        {% include 'plantaopro/partials/_nav.html' %}
+        
+        <!-- Company Registration Section -->
+        <section id="companyRegistration" class="py-5">
+            <div class="container">
+                <h2 class="text-center">Cadastrar Clinica</h2>
+
+            <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
+
+                <!-- CNPJ, Razão Social, Inscrição Estadual fields -->
+                <form method="post" action="cadastroEmpBanco/">
+                {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="companyCnpj">CNPJ</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="companyCnpj" name="companyCnpj" placeholder="00.000.000/0000-00" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')" required oninput="mascaraCnpj(this)">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary" onclick="buscarCnpj()">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="companyName">Razão Social</label>
+                            <input type="text" class="form-control" name="companyName" id="companyName" placeholder="Razão social" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')" disabled>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="companyInscricaoEstadual">Inscrição Estadual</label>
+                            <input type="text" class="form-control" id="companyInscricaoEstadual" name="companyInscricaoEstadual" placeholder="Inscrição estadual" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')" disabled>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="companyLegalName">Razão Social</label>
-                        <input type="text" class="form-control" name="companyLegalName" id="companyLegalName" placeholder="Razão social" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')">
+
+                    <!-- Address Fields (CEP, Logradouro, Bairro, Cidade, Estado) -->
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label for="companyCep">CEP</label>
+                            <input type="text" class="form-control" id="companyCep" name="companyCep" placeholder="CEP" disabled>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="companyStreet">Logradouro (Rua, Av, Travessa etc)</label>
+                            <input type="text" class="form-control" id="companyStreet" name="lougradouro" placeholder="Logradouro" disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="companyNeighborhood">Bairro</label>
+                            <input type="text" class="form-control" id="companyNeighborhood" name="companyNeighborhood" placeholder="Bairro" disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="companyCity">Cidade</label>
+                            <input type="text" class="form-control" id="companyCity" name="companyCity" placeholder="Cidade" disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="companyState">Estado</label>
+                            <select id="companyState" class="form-control" name="companyState" disabled>
+                                <option selected>Escolher...</option>
+                                <option>AC</option>
+                                <option>AL</option>
+                                <option>AP</option>
+                                <option>AM</option>
+                                <option>BA</option>
+                                <option>CE</option>
+                                <option>DF</option>
+                                <option>ES</option>
+                                <option>GO</option>
+                                <option>MA</option>
+                                <option>MT</option>
+                                <option>MS</option>
+                                <option>MG</option>
+                                <option>PA</option>
+                                <option>PB</option>
+                                <option>PR</option>
+                                <option>PE</option>
+                                <option>PI</option>
+                                <option>RJ</option>
+                                <option>RN</option>
+                                <option>RS</option>
+                                <option>RO</option>
+                                <option>RR</option>
+                                <option>SC</option>
+                                <option>SP</option>
+                                <option>SE</option>
+                                <option>TO</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="companyCnpj">CNPJ</label>
-                        <input type="text" class="form-control" id="companyCnpj" name="companyCnpj" placeholder="00.000.000/0000-00" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')">
+
+                    <!-- Divider between form sections -->
+                    <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
+
+                    <!-- Other form fields -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="companyPhone">Telefone</label>
+                            <input type="text" class="form-control" id="companyPhone" name="companyPhone" placeholder="(xx) 9999-9999" disabled>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="companyCell">Celular</label>
+                            <input type="text" class="form-control" id="companyCell" name="companyCell" placeholder="(xx) 99999-9999" disabled>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="companyInscricaoEstadual">Inscrição Estadual</label>
-                        <input type="text" class="form-control" id="companyInscricaoEstadual" name="companyInscricaoEstadual" placeholder="Inscrição estadual" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="companyContactPerson">Pessoa para Contato</label>
+                            <input type="text" class="form-control" id="companyContactPerson" name="companyContactPerson" placeholder="Pessoa para contato" disabled>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="companyEmail">Email</label>
+                            <input type="email" class="form-control" id="companyEmail" name="companyEmail" placeholder="Email" disabled>
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="companyCep">CEP</label>
-                        <input type="text" class="form-control" id="companyCep" name="companyCep" placeholder="CEP">
+
+                    <!-- Financial Fields -->
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="companyValorPlantao_12">Valor Plantão (12h)</label>
+                            <input type="text" class="form-control" id="companyValorPlantao_12" name="companyValorPlantao_12" placeholder="Valor do plantão" disabled>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="companyValorPlantaoHora">Valor Plantão (Por hora)</label>
+                            <input type="text" class="form-control" id="companyValorPlantaoHora" name="companyValorPlantaoHora" placeholder="Plantão por hora" disabled>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="companyPlantaoSemana">Plantão Semana</label>
+                            <input type="text" class="form-control" id="companyPlantaoSemana" name="companyPlantaoSemana" placeholder="Plantão durante a semana" disabled>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="companyStreet">Lougradouro(Rua, Av, Travessa e etc)</label>
-                        <input type="text" class="form-control" id="companyStreet" name="lougradouro" placeholder="Lougradouro">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="companyValorPlantaoSabadoDomingo">Valor Plantão Sábado e Domingo</label>
+                            <input type="text" class="form-control" id="companyValorPlantaoSabadoDomingo" name="companyValorPlantaoSabadoDomingo" placeholder="Plantão sábados e domingos" disabled>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="companyValorContrato">Valor Contrato (R$)</label>
+                            <input type="text" class="form-control" id="companyValorContrato" name="companyValorContrato" placeholder="Valor do contrato" disabled>
+                        </div>
                     </div>
-                    <div class="form-group col-md-2">
-                        <label for="companyNumber">Número</label>
-                        <input type="text" class="form-control" id="companyNumber" name="companyNumber" placeholder="Nº">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="companyTaxaAdministracao">Taxa de Administração (%)</label>
+                            <input type="text" class="form-control" id="companyTaxaAdministracao" name="companyTaxaAdministracao" placeholder="Informe a taxa de administração" disabled>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="companyIsentoTributacao">Isento de Tributação</label>
+                            <select id="companyIsentoTributacao" class="form-control" name="companyIsentoTributacao" disabled>
+                                <option selected>Escolher...</option>
+                                <option>Sim</option>
+                                <option>Não</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="companyNeighborhood">Bairro</label>
-                        <input type="text" class="form-control" id="companyNeighborhood" name="companyNeighborhood" placeholder="Bairro">
+                    
+                    <!-- Divider between form sections -->
+                    <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
+
+                    <!-- Buttons with specified colors -->
+                    <div class="form-row">
+                        <div class="col-md-12 text-left">
+                            <button type="submit" class="btn btn-primary mr-2" id="cadastrarButton" disabled>Cadastrar Empresa</button>
+                            <button type="button" class="btn btn-secondary mr-2" id="alterarButton" disabled>Alterar</button>
+                            <button type="button" class="btn btn-info mr-2" id="limparButton" onclick="resetForm()" disabled>Limpar</button>
+                            <button type="button" class="btn btn-danger" onclick="window.location.href='{% url 'index' %}'" id="cancelButton">Cancelar</button>
+                        </div>
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="companyCity">Cidade</label>
-                        <input type="text" class="form-control" id="companyCity" name="companyCity" placeholder="Cidade">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="companyState">Estado</label>
-                        <select id="companyState" class="form-control" name="companyState">
-                            <option selected>Escolher...</option>
-                            <option>AC</option>
-                            <option>AL</option>
-                            <option>AP</option>
-                            <option>AM</option>
-                            <option>BA</option>
-                            <option>CE</option>
-                            <option>DF</option>
-                            <option>ES</option>
-                            <option>GO</option>
-                            <option>MA</option>
-                            <option>MT</option>
-                            <option>MS</option>
-                            <option>MG</option>
-                            <option>PA</option>
-                            <option>PB</option>
-                            <option>PR</option>
-                            <option>PE</option>
-                            <option>PI</option>
-                            <option>RJ</option>
-                            <option>RN</option>
-                            <option>RS</option>
-                            <option>RO</option>
-                            <option>RR</option>
-                            <option>SC</option>
-                            <option>SP</option>
-                            <option>SE</option>
-                            <option>TO</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="companyPhone">Telefone</label>
-                        <input type="text" class="form-control" id="companyPhone" name="companyPhone" placeholder="(xx) 9999-9999">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="companyCell">Celular</label>
-                        <input type="text" class="form-control" id="companyCell" name="companyCell" placeholder="(xx) 99999-9999">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="companyContactPerson">Pessoa para Contato</label>
-                        <input type="text" class="form-control" id="companyContactPerson" name="companyContactPerson" placeholder="Pessoa para contato">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="companyEmail">Email</label>
-                        <input type="email" class="form-control" id="companyEmail" name="companyEmail" placeholder="Email">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="companyValorPlantao">Valor Plantão(12h)</label>
-                        <input type="text" class="form-control" id="companyValorPlantao_12" name="companyValorPlantao_12" placeholder="Valor do plantão">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="companyValorPlantaoHora">Valor Plantão (Por hora)</label>
-                        <input type="text" class="form-control" id="companyValorPlantaoHora" name="companyValorPlantaoHora" placeholder="Plantão por hora">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="companyPlantaoSemana">Plantão Semana</label>
-                        <input type="text" class="form-control" id="companyPlantaoSemana" name="companyPlantaoSemana" placeholder="Plantão durante a semana">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="companyValorPlantaoSabadoDomingo">Valor Plantão Sábado e Domingo</label>
-                        <input type="text" class="form-control" id="companyValorPlantaoSabadoDomingo" name="companyValorPlantaoSabadoDomingo" placeholder="Plantão sábados e domingos">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="companyValorContrato">Valor Contrato(R$)</label>
-                        <input type="text" class="form-control" id="companyValorContrato" name="companyValorContrato" placeholder="Valor do contrato">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="companyTaxaAdministracao">Taxa de Administração(%)</label>
-                        <input type="text" class="form-control" id="companyTaxaAdministracao" name="companyTaxaAdministracao" placeholder="Informe a taxa de administração">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="companyIsentoTributacao">Isento de Tributação</label>
-                        <select id="companyIsentoTributacao" class="form-control" name="companyIsentoTributacao">
-                            <option selected>Escolher...</option>
-                            <option>Sim</option>
-                            <option>Não</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
-                <div class="form-row">
-                    <div class="col-md-12 text-left">
-                        <button type="submit" value={% url 'cadastrarempresa' %} class="btn btn-primary mr-2 btn-success">Cadastrar Empresas</button>
-                        <button type="button" class="btn btn-secondary mr-2">Cancelar</button>
-                        <button type="button" class="btn btn-info mr-2">Limpar</button>
-                        <button type="button" class="btn btn-success">Imprimir</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
-        <div>    
+                </form>
+            </div>
+        </section>
+
+        <div>
             {% include 'plantaopro/partials/_footer.html' %}
         </div>
+    </div>
+
+    <!-- jQuery and Mask Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    <!-- JavaScript Functions -->
+    <script>
+        
+        const fields = [
+            'companyCnpj', 'companyName', 'companyInscricaoEstadual', 'companyCep', 'companyStreet',
+            'companyNeighborhood', 'companyCity', 'companyState', 'companyPhone',
+            'companyCell', 'companyEmail', 'companyIsentoTributacao', 'companyContactPerson',
+            'companyValorPlantao_12', 'companyValorPlantaoHora', 'companyPlantaoSemana',
+            'companyValorPlantaoSabadoDomingo', 'companyTaxaAdministracao', 'companyValorContrato'
+        ];  
+    
+        function enableFields() {
+            fields.forEach(function(id) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.disabled = false;
+                }
+            });
+        }
+    
+        function preencherCampos(data) {
+            fields.forEach(function(id) {
+                document.getElementById(id).value = data[id] || ''; 
+            });
+        }
+    
+        function resetForm() {
+            limparCampos();  
+            enableFields();  
+            habilitarBotaoCadastrar(true);  
+        }
+    
+        function limparCampos() {
+            fields.forEach(function(id) {
+                if (id !== 'companyCnpj') {  
+                    document.getElementById(id).value = '';  
+                }
+            });
+        }
+    
+        function habilitarBotaoCadastrar(habilitar = true) {
+            document.getElementById('submitButton').disabled = !habilitar; 
+        }
+    
+        function habilitarBotaoAlterar(habilitar = true) {
+            document.getElementById('alterarButton').disabled = !habilitar;
+        }
+    
+        function habilitarBotaoLimpar(habilitar = true) {
+            document.getElementById('limparButton').disabled = !habilitar;
+        }
+    
+        // JavaScript - buscarCnpj()
+        {% comment %} function buscarCnpj() {
+            // Captura o valor do CNPJ digitado no campo do formulário
+            var cnpj = document.getElementById("companyCnpj").value.replace(/[^\d]/g, '');
+        
+            // Validação inicial do CNPJ
+            if (!cnpj || !validarCnpj(cnpj)) {
+                alert("Por favor, informe um CNPJ válido.");
+                return;
+            }
+            console.log("CNPJ capturado:", cnpj);  
+        
+            // Envio da requisição para o backend
+            fetch('/buscar_cnpj/', {  
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}' // Certifique-se que o token está correto
+                },
+                body: JSON.stringify({ companyCnpj: cnpj })  
+            })
+            .then(response => {
+                // Verifica se a resposta é válida
+                if (!response.ok) {
+                    throw new Error("Erro na requisição: " + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Log dos dados retornados
+                console.log("Dados retornados:", data);
+        
+                // Tratamento da resposta conforme o CNPJ existir ou não
+                if (data.exists) {
+                    preencherCampos(data.empresa);  // Função para preencher campos com os dados retornados
+                    enableFields(true);             // Habilita os campos
+                    habilitarBotaoCadastrar(false); // Desabilita o botão de cadastro
+                    habilitarBotaoAlterar(true);    // Habilita o botão de alteração
+                } else {
+                    alert('CNPJ não encontrado. Preencha os campos.');
+                    enableFields(true);             // Habilita os campos
+                    limparCampos();                 // Limpa os campos do formulário
+                    habilitarBotaoCadastrar(true);  // Habilita o botão de cadastro
+                    habilitarBotaoAlterar(false);   // Desabilita o botão de alteração
+                }
+            })
+            .catch(error => console.error('Erro ao buscar CNPJ:', error));
+        }
+         {% endcomment %}
+        
+         function buscarCnpj() {
+            const cnpjInput = document.getElementById("companyCnpj").value;
+            console.log("CNPJ digitado:", cnpjInput); // Log para verificar o CNPJ digitado
+        
+            // Verifica se o CNPJ está vazio
+            if (!cnpjInput) {
+                console.log("CNPJ não fornecido");
+                return; // Sai da função se o CNPJ não foi fornecido
+            }
+        
+            const payload = { companyCnpj: cnpjInput };
+            console.log("Payload a ser enviado:", JSON.stringify(payload)); // Log do payload a ser enviado
+        
+            // Chama a API
+            fetch("/buscar_cnpj/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCookie("csrftoken"), // Assumindo que você tem uma função para obter o cookie CSRF
+                },
+                body: JSON.stringify(payload),
+            })
+            .then(response => {
+                console.log("Resposta da API:", response); // Log da resposta
+                if (!response.ok) {
+                    throw new Error("Erro na requisição: " + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Dados recebidos:", data); // Log dos dados recebidos
+                // Processar os dados recebidos aqui
+            })
+            .catch(error => {
+                console.error("Erro na requisição:", error); // Log de erro se a requisição falhar
+            });
+        }
+        
+        // Função para obter o cookie CSRF (se não estiver implementada)
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+                const cookies = document.cookie.split(";");
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Verifica se o cookie começa com o nome fornecido
+                    if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        
+        
+        function validarCnpj(cnpj) {
+            cnpj = cnpj.replace(/[^\d]+/g, '');
+            if (cnpj === '' || cnpj.length !== 14) return false;
+    
+            const invalidCnpjs = [
+                "00000000000000", "11111111111111", "22222222222222", 
+                "33333333333333", "44444444444444", "55555555555555", 
+                "66666666666666", "77777777777777", "88888888888888", 
+                "99999999999999"
+            ];
+    
+            if (invalidCnpjs.includes(cnpj)) return false;
+    
+            let tamanho = cnpj.length - 2;
+            let numeros = cnpj.substring(0, tamanho);
+            let digitos = cnpj.substring(tamanho);
+            let soma = 0;
+            let pos = tamanho - 7;
+    
+            for (let i = tamanho; i >= 1; i--) {
+                soma += numeros.charAt(tamanho - i) * pos--;
+                if (pos < 2) pos = 9;
+            }
+    
+            let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+            if (resultado != digitos.charAt(0)) return false;
+    
+            tamanho = tamanho + 1;
+            numeros = cnpj.substring(0, tamanho);
+            soma = 0;
+            pos = tamanho - 7;
+    
+            for (let i = tamanho; i >= 1; i--) {
+                soma += numeros.charAt(tamanho - i) * pos--;
+                if (pos < 2) pos = 9;
+            }
+    
+            resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+            return resultado == digitos.charAt(1);
+        }
+        function mascaraCnpj(cnpj) {
+            cnpj = cnpj.replace(/\D/g, ''); // Remove tudo que não é dígito
+            if (cnpj.length > 14) {
+                cnpj = cnpj.slice(0, 14); // Limita o tamanho do CNPJ
+            }
+            // Formata o CNPJ
+            cnpj = cnpj.replace(/^(\d{2})(\d)/, '$1.$2'); // Adiciona o primeiro ponto
+            cnpj = cnpj.replace(/(\d{3})(\d)/, '$1.$2'); // Adiciona o segundo ponto
+            cnpj = cnpj.replace(/(\d{3})(\d{1,2})$/, '$1/$2'); // Adiciona a barra
+            cnpj = cnpj.replace(/(\d{4})(\d{1,2})$/, '$1-$2'); // Adiciona o hífen
+            return cnpj;
+        }
+    </script>
     </body>
-    </html>
-
-  
-
-
-
-
-
-
-
+</html>

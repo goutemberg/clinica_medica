@@ -207,6 +207,14 @@
             'institutionName', 'graduationYear', 'certifications',
             'clinicAffiliation', 'otherInfo'
         ];
+        function enableFields() {
+            fields.forEach(function(id) {
+                var element = document.getElementById(id);
+                if (element) {
+                    element.disabled = false;
+                }
+            });
+        }
         function validarCpf(cpf) {
             cpf = cpf.replace(/\D/g, '');
         
@@ -255,13 +263,6 @@
                 }
             });
         }
-        
-        function habilitarCampos(habilitar = true) {
-            fields.forEach(function(id) {
-                document.getElementById(id).disabled = !habilitar;  
-            });
-        }
-    
         function habilitarBotaoCadastrar(habilitar = true) {
             document.getElementById('submitButton').disabled = !habilitar; 
         }
@@ -297,12 +298,12 @@
                 console.log("Dados retornados:", data);
                 if (data.exists) {
                     preencherCampos(data.medico);  
-                    habilitarCampos(true);  
+                    enableFields(true)  
                     habilitarBotaoCadastrar(false); 
                     habilitarBotaoAlterar(true)
                 } else {
                     alert('Profissional não encontrado. Preencha os campos.');
-                    habilitarCampos(true);  
+                    enableFields(true)  
                     limparCampos(); 
                     habilitarBotaoCadastrar(true); 
 

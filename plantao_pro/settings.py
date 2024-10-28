@@ -8,7 +8,8 @@ SECRET_KEY = 'django-insecure-&3d@0w2x0^@2juw_v478r0h_4rk6)iv_*o6r&hc0#eq!)th3&y
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://clinica-medica-i66x.onrender.com','localhost', '127.0.0.1','clinica-medica-i66x.onrender.com','0.0.0.0']
+ALLOWED_HOSTS = ['https://clinica-medica-i66x.onrender.com','localhost', '127.0.0.1','clinica-medica-i66x.onrender.com','0.0.0.0','*']
+
 
 CSRF_TRUSTED_ORIGINS = ['https://clinica-medica-i66x.onrender.com','http://clinica-medica-i66x.onrender.com']
 
@@ -59,6 +60,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'data_base/banco.sqlite3'),
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

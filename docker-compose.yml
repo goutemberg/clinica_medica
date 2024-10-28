@@ -11,9 +11,13 @@ services:
       - ./plantaopro:/plantaopro
       - ./data/web/static:/data/web/static/
       - ./data/web/media:/data/web/media/
-      - ./data_base:/clinica_medica/data_base:rw
+      #- ./data_base:/clinica_medica/banco.sqlite3:rw
+      - ./clinica_medica/data_base:/clinica_medica/data_base:rw
+      
     env_file:
       - ./dotenv_files/.env
+    environment:
+      - DATABASE_PATH=/clinica_medica/data_base/banco.sqlite3
    # depends_on:
    #   - psql
   #psql:
