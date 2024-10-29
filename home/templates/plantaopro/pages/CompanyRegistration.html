@@ -247,7 +247,7 @@
         }
     
         // JavaScript - buscarCnpj()
-        {% comment %} function buscarCnpj() {
+        function buscarCnpj() {
             // Captura o valor do CNPJ digitado no campo do formulário
             var cnpj = document.getElementById("companyCnpj").value.replace(/[^\d]/g, '');
         
@@ -294,47 +294,6 @@
             })
             .catch(error => console.error('Erro ao buscar CNPJ:', error));
         }
-         {% endcomment %}
-        
-         function buscarCnpj() {
-            const cnpjInput = document.getElementById("companyCnpj").value;
-            console.log("CNPJ digitado:", cnpjInput); // Log para verificar o CNPJ digitado
-        
-            // Verifica se o CNPJ está vazio
-            if (!cnpjInput) {
-                console.log("CNPJ não fornecido");
-                return; // Sai da função se o CNPJ não foi fornecido
-            }
-        
-            const payload = { companyCnpj: cnpjInput };
-            console.log("Payload a ser enviado:", JSON.stringify(payload)); // Log do payload a ser enviado
-        
-            // Chama a API
-            fetch("/buscar_cnpj/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": getCookie("csrftoken"), // Assumindo que você tem uma função para obter o cookie CSRF
-                },
-                body: JSON.stringify(payload),
-            })
-            .then(response => {
-                console.log("Resposta da API:", response); // Log da resposta
-                if (!response.ok) {
-                    throw new Error("Erro na requisição: " + response.status);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log("Dados recebidos:", data); // Log dos dados recebidos
-                // Processar os dados recebidos aqui
-            })
-            .catch(error => {
-                console.error("Erro na requisição:", error); // Log de erro se a requisição falhar
-            });
-        }
-        
-        // Função para obter o cookie CSRF (se não estiver implementada)
         function getCookie(name) {
             let cookieValue = null;
             if (document.cookie && document.cookie !== "") {
