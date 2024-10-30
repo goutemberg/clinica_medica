@@ -258,27 +258,20 @@ def buscar_cpf(request):
     
 
 logger = logging.getLogger(__name__)
+
+
 @require_POST
 def buscar_cnpj(request):
-    logger.debug(f'Requisição recebida: {request.body}') 
-    print("A função buscar_cnpj foi chamada")
+    import json
     try:
-        # Log completo do conteúdo da requisição para depuração
-        print("Corpo da requisição recebido:", request.body)
-
-        # Carregar o JSON da requisição
         data = json.loads(request.body)
-        print("Dados carregados:", data)  # Confirmar que o JSON foi decodificado corretamente
-
-        # Extrair o CNPJ
         cnpj = data.get('companyCnpj')
         if not cnpj:
-            print("Erro: CNPJ não encontrado nos dados recebidos.")
+            
             return JsonResponse({'error': 'CNPJ não fornecido'}, status=400)
         
-        print("CNPJ recebido após validação:", cnpj)
+        print(f"O Cpf enviado foi {cnpj}")
 
-        # Buscar o CNPJ no banco de dados
         try:
             empresa = CadastroEmpresa.objects.get(companyCnpj=cnpj)
             empresa_data = {
