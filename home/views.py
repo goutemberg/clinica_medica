@@ -1,5 +1,3 @@
-
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
@@ -17,7 +15,7 @@ import logging
 
 def companyRegistration(request):
      cadastroEmpresa = CadastroEmpresa.objects.all().values()
-     template = loader.get_template('plantaopro/pages/CompanyRegistration.html')
+     template = loader.get_template('plantaopro/pages/companyRegistration.html')
      context = {
          'cadastroEmpresa':cadastroEmpresa
      }
@@ -25,7 +23,7 @@ def companyRegistration(request):
 
     
 def cadastroEmpresa(request):
-     template = loader.get_template('plantaopro/pages/CompanyRegistration.html')
+     template = loader.get_template('plantaopro/pages/companyRegistration.html')
      return HttpResponse(template.render({}, request))
 
 @require_POST
