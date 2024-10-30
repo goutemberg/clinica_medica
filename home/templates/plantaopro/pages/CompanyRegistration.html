@@ -249,23 +249,24 @@
         // JavaScript - buscarCnpj()
         function buscarCnpj() {
             // Captura o valor do CNPJ digitado no campo do formulário
-            var cnpj = document.getElementById("companyCnpj").value.replace(/[^\d]/g, '');
+            var cnpj = document.getElementById("companyCnpj").value;
         
             // Validação inicial do CNPJ
             if (!cnpj || !validarCnpj(cnpj)) {
                 alert("Por favor, informe um CNPJ válido.");
+                document.getElementById("companyCnpj").value = ""; 
                 return;
             }
             console.log("CNPJ capturado:", cnpj);  
         
             // Envio da requisição para o backend
-            fetch('/buscar_cnpj/', {  
+            fetch('/buscar_cnpj_banco/', {  
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': '{{ csrf_token }}' // Certifique-se que o token está correto
                 },
-                body: JSON.stringify({ companyCnpj: cnpj })  
+                body: JSON.stringify({ cnpj: cnpj })  
             })
             .then(response => {
                 // Verifica se a resposta é válida

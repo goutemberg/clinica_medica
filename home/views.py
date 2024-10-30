@@ -261,39 +261,43 @@ logger = logging.getLogger(__name__)
 
 
 @require_POST
-def buscar_cnpj(request):
+def buscar_cnpj_banco(request):
     import json
     try:
+        print("Conteúdo do request body:", request.body)  # Adicione este log
         data = json.loads(request.body)
-        cnpj = data.get('companyCnpj')
+        print("Dicionário JSON recebido:", data)  # Loga o dicionário data
+        cnpj = data.get('cnpj')
+        print(f"Valor do CNPJ após a validação: {cnpj}")
+        
         if not cnpj:
             
-            return JsonResponse({'error': 'CNPJ não fornecido'}, status=400)
+            return JsonResponse({'error': 'CNPJ não fornecido nesta requisicao'}, status=400)
         
-        print(f"O Cpf enviado foi {cnpj}")
+        print(f"O CNPJ enviado foi {cnpj}")
 
         try:
-            empresa = CadastroEmpresa.objects.get(companyCnpj=cnpj)
+            empresa = CadastroEmpresa.objects.get(cnpj=cnpj)
             empresa_data = {
-                'companyCnpj': empresa.companyCnpj,
-                'companyName': empresa.companyName,
-                'companyInscricaoEstadual': empresa.companyInscricaoEstadual,
-                'companyCep': empresa.companyCep,
-                'companyStreet': empresa.companyStreet,
-                'companyNeighborhood': empresa.companyNeighborhood,
-                'companyCity': empresa.companyCity,
-                'companyState': empresa.companyState,
-                'companyPhone': empresa.companyPhone,
-                'companyCell': empresa.companyCell,
-                'companyEmail': empresa.companyEmail,
-                'companyIsentoTributacao': empresa.companyIsentoTributacao,
-                'companyContactPerson': empresa.companyContactPerson,
-                'companyValorPlantao_12': empresa.companyValorPlantao_12,
-                'companyValorPlantaoHora': empresa.companyValorPlantaoHora,
-                'companyPlantaoSemana': empresa.companyPlantaoSemana,
-                'companyValorPlantaoSabadoDomingo': empresa.companyValorPlantaoSabadoDomingo,
-                'companyTaxaAdministracao': empresa.companyTaxaAdministracao,
-                'companyValorContrato': empresa.companyValorContrato,
+                'companyCnpj': empresa.cnpj,
+                'companyName': empresa.nome,
+                'companyInscricaoEstadual': empresa.razao_social,
+                'companyCep': empresa.bairro,
+                'companyStreet': empresa.logradouro,
+                'companyNeighborhood': empresa.bairro,
+                'companyCity': empresa.cidade,
+                'companyState': empresa.estado,
+                'companyPhone': empresa.telefone,
+                'companyCell': empresa.celular,
+                'companyEmail': empresa.email,
+                'companyIsentoTributacao': empresa.isento_tributacao,
+                'companyContactPerson': empresa.pessoa_contato,
+                'companyValorPlantao_12': empresa.valor_12h,
+                'companyValorPlantaoHora': empresa.valor_por_hora,
+                'companyPlantaoSemana': empresa.valor_semana,
+                'companyValorPlantaoSabadoDomingo': empresa.valor_fim_semana,
+                'companyTaxaAdministracao': empresa.taxa_administrativa,
+                'companyValorContrato': empresa.valor_contrato,
             }
             print("Dados da empresa encontrados:", empresa_data)
             return JsonResponse({'exists': True, 'empresa': empresa_data})

@@ -1,7 +1,7 @@
 from django.urls import path
 from home.views import index, resultList  
 from . import views
-from .views import buscar_cpf, alterar_cadastro, buscar_cnpj
+from .views import buscar_cpf, alterar_cadastro, buscar_cnpj_banco
 
 urlpatterns = [
     path('', index, name='index'),
@@ -18,7 +18,7 @@ urlpatterns = [
 
     path('buscar_cpf/', buscar_cpf, name='buscar_cpf'),
 
-    path('buscar_cnpj/', buscar_cnpj, name='buscar_cnpj'),
+    path('buscar_cnpj_banco/', buscar_cnpj_banco, name='buscar_cnpj_banco'),
 
     path('alterar-cadastro/', alterar_cadastro, name='alterar_cadastro'),
     
