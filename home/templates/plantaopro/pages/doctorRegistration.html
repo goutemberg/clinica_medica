@@ -207,14 +207,27 @@
             'institutionName', 'graduationYear', 'certifications',
             'clinicAffiliation', 'otherInfo'
         ];
-        function enableFields() {
+        {% comment %} function enableFields() {
             fields.forEach(function(id) {
                 var element = document.getElementById(id);
                 if (element) {
                     element.disabled = false;
                 }
             });
+        } {% endcomment %}
+        function enableFields() {
+            fields.forEach(function(id) {
+                const element = document.getElementById(id);
+                if (element && id !== "doctorCpf") {  
+                    element.disabled = false;
+                }
+            });
+            const cnpjField = document.getElementById("doctorCpf");
+            if (cpfField) {
+                cpfField.disabled = true;
+            }
         }
+
         function validarCpf(cpf) {
             cpf = cpf.replace(/\D/g, '');
         
