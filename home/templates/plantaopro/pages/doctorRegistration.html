@@ -207,25 +207,20 @@
             'institutionName', 'graduationYear', 'certifications',
             'clinicAffiliation', 'otherInfo'
         ];
-        {% comment %} function enableFields() {
-            fields.forEach(function(id) {
-                var element = document.getElementById(id);
-                if (element) {
-                    element.disabled = false;
-                }
-            });
-        } {% endcomment %}
+       
         function enableFields() {
             fields.forEach(function(id) {
                 const element = document.getElementById(id);
                 if (element && id !== "doctorCpf") {  
                     element.disabled = false;
+                    element.style.backgroundColor = "white";
                 }
             });
-        
-            const cpfField = document.getElementById("doctorCpf");
-            if (cpfField) {
-                cpfField.disabled = true;
+            
+            const cnpjField = document.getElementById("doctorCpf");
+            if (cnpjField) {
+                cnpjField.readOnly = true;  // Define como somente leitura
+                cnpjField.style.backgroundColor = "lightgray";
             }
         }
 
@@ -284,6 +279,10 @@
         function habilitarBotaoAlterar(habilitar=true){
             document.getElementById('alterarButton').disabled = !habilitar
         }
+
+        function habilitarBotaoLimpar(habilitar=true){
+            document.getElementById('resetButton').disabled = !habilitar
+        }
     
          function buscarCpf() {
             var cpf = document.getElementById("doctorCpf").value;
@@ -316,11 +315,13 @@
                     enableFields(true)  
                     habilitarBotaoCadastrar(false); 
                     habilitarBotaoAlterar(true)
+                    habilitarBotaoLimpar(false)
                 } else {
                     alert('Profissional não encontrado. Preencha os campos.');
                     enableFields(true)  
                     limparCampos(); 
-                    habilitarBotaoCadastrar(); 
+                    habilitarBotaoCadastrar(true);
+                    habilitarBotaoLimpar(true)
 
                 }
             })
@@ -343,7 +344,9 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    enableFields(false)
                     alert('Dados alterados com sucesso!');
+                    
                 } else {
                     alert('Erro ao alterar os dados.');
                 }

@@ -212,7 +212,7 @@
     <script>
         
         const fields = [
-            'companyCnpj','companyName','companyNomeFantasia','companyInscricaoEstadual','companyInscricaoMunicipal', 'companyCep', 'companyStreet',
+            'companyCnpj', 'companyName', 'companyNomeFantasia','companyInscricaoEstadual','companyInscricaoMunicipal', 'companyCep', 'companyStreet',
             'companyNeighborhood', 'companyCity', 'companyState', 'companyPhone',
             'companyCell', 'companyEmail', 'companyIsentoTributacao', 'companyContactPerson',
             'companyValorPlantao_12', 'companyValorPlantaoHora', 'companyPlantaoSemana',
@@ -224,11 +224,14 @@
                 const element = document.getElementById(id);
                 if (element && id !== "companyCnpj") {  
                     element.disabled = false;
+                    element.style.backgroundColor = "white";
                 }
             });
+            
             const cnpjField = document.getElementById("companyCnpj");
             if (cnpjField) {
-                cnpjField.disabled = true;
+                cnpjField.readOnly = true;  // Define como somente leitura
+                cnpjField.style.backgroundColor = "lightgray";
             }
         }
     
