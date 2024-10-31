@@ -222,7 +222,8 @@
                     element.disabled = false;
                 }
             });
-            const cnpjField = document.getElementById("doctorCpf");
+        
+            const cpfField = document.getElementById("doctorCpf");
             if (cpfField) {
                 cpfField.disabled = true;
             }
@@ -289,6 +290,7 @@
     
             if (!cpf || !validarCpf(cpf)) {
                 alert("Por favor, informe um CPF válido.");
+                document.getElementById("doctorCpf").value = ""; 
                 return;
             }
             console.log("CPF capturado:", cpf);  
@@ -318,7 +320,7 @@
                     alert('Profissional não encontrado. Preencha os campos.');
                     enableFields(true)  
                     limparCampos(); 
-                    habilitarBotaoCadastrar(true); 
+                    habilitarBotaoCadastrar(); 
 
                 }
             })

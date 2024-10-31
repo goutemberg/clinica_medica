@@ -7,7 +7,6 @@ from django.views.decorators.http import require_POST
 from django.db.models import Q
 from datetime import datetime
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 import json
 import logging
 
@@ -62,7 +61,7 @@ def cadastroEmpBanco(request):
 
     novoCadastroEmp.save()
 
-    return redirect('cadastrarMedico')
+    return redirect('cadastroEmpresa')
 
 def shiftRegistration(request):
      cadastroPlantao = Plantao.objects.all().values()
