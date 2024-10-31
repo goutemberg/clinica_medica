@@ -83,14 +83,20 @@
 
                     <!-- Definição de Remuneração -->
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="paymentType">Tipo de Pagamento</label>
-                            <select class="form-control" id="paymentType" name="paymentType">
-                                <option selected>Por Hora</option>
-                                <option>Valor Fixo</option>
+                            <select class="form-control" id="paymentType" name="paymentType" onchange="toggleHoursField()">
+                                <option selected value="hourly">Por Hora</option>
+                                <option value="fixed">Valor Fixo</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-6">
+                    
+                        <div class="form-group col-md-4">
+                            <label for="hoursQuantity">Quantidade de Horas</label>
+                            <input type="number" class="form-control" id="hoursQuantity" name="hoursQuantity" placeholder="Informe a quantidade de horas" disabled>
+                        </div>
+                    
+                        <div class="form-group col-md-4">
                             <label for="shiftValue">Valor do Plantão</label>
                             <input type="number" class="form-control" id="shiftValue" name="shiftValue" placeholder="Informe o valor">
                         </div>
@@ -122,10 +128,13 @@
 
                     <!-- Ações -->
                     <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
-                    <div class="form-row">
-                        <div class="col-md-12 text-left">
-                            <button type="submit" value="cadastroPlantaoBanco" class="btn btn-primary mr-2">Cadastrar Plantão</button>
-                            <button type="button" class="btn btn-secondary mr-2">Cancelar</button>
+                        <div class="form-row">
+                            <div class="col-md-12 text-left">
+                                <button type="submit" class="btn btn-primary" id="submitButton" disabled>Cadastrar Plantão</button>
+                                <button type="button" class="btn btn-secondary" id="alterarButton" onclick="alterarDados()" disabled>Alterar</button>
+                                <button type="reset" class="btn btn-secondary" id="resetButton" onclick="resetForm()">Limpar</button>
+                                <button type="button" class="btn btn-danger" onclick="window.location.href='{% url 'index' %}'" id="canceltButton">Cancelar</button>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -134,6 +143,62 @@
         <div>
             {% include 'plantaopro/partials/_footer.html' %}
         </div>
-    </div>
+    </div> 
+    <script>
+        // Função para habilitar o botão de Alterar quando um plantão for selecionado
+        function alterarDados() {
+            alert("Função para alterar dados do plantão");
+        }
+
+        function toggleHoursField() {
+            const paymentType = document.getElementById("paymentType").value;
+            const hoursField = document.getElementById("hoursQuantity");
+            const shiftValueField = document.getElementById("shiftValue");
+            const startTime = document.getElementById("startTime").value;
+            const endTime = document.getElementById("endTime").value;
+        
+            if (paymentType === "hourly") {
+                const start = new Date(`1970-01-01T${startTime}:00`);
+                const end = new Date(`1970-01-01T${endTime}:00`);
+                const hours = (end - start) / (1000 * 60 * 60); // Calcula a duração em horas
+                hoursField.value = hours > 0 ? hours : 0; // Evita valores negativos
+                hoursField.disabled = false;
+                shiftValueField.placeholder = "Informe o valor da hora";
+            } else {
+                hoursField.disabled = true;
+                hoursField.value = ""; // Limpa o campo de horas apenas ao mudar para Valor Fixo
+                shiftValueField.placeholder = "Informe o valor";
+            }
+        }
+
+        // Atualiza o campo de horas automaticamente ao mudar horários
+        document.getElementById("startTime").addEventListener("change", toggleHoursField);
+        document.getElementById("endTime").addEventListener("change", toggleHoursField);
+        
+        function searchShift() {
+            const searchDate = document.getElementById("searchDate").value;
+            const searchCpf = document.getElementById("searchCpf").value;
+            const searchSpecialty = document.getElementById("searchSpecialty").value;
+
+            if (searchDate || searchCpf || searchSpecialty) {
+                // Exemplo de lógica de busca (ajustar para integração com backend)
+                alert(`Iniciando busca com os parâmetros:
+                       Data: ${searchDate}, CPF: ${searchCpf}, Especialidade: ${searchSpecialty}`);
+            } else {
+                alert("Por favor, insira ao menos um critério para a busca.");
+            }
+        }
+
+        // Função para resetar o formulário de cadastro
+        function resetForm() {
+            document.getElementById("registerForm").reset();
+            document.getElementById("alterarButton").disabled = true;
+        }
+
+        // Habilitar/desabilitar o botão "Alterar" com base em critérios
+        document.getElementById("shiftDate").addEventListener("change", function() {
+            document.getElementById("alterarButton").disabled = !this.value;
+        });
+    </script>
 </body>
 </html>
