@@ -1,11 +1,11 @@
 from django.urls import path
 from home.views import index, resultList  
 from . import views
-from .views import buscar_cpf, alterar_cadastro, buscar_cnpj_banco, alterar_cadastro_empresa, cadastroEmpBanco
+from .views import buscar_cpf, alterar_cadastro, buscar_cnpj_banco, alterar_cadastro_empresa, cadastroEmpBanco, cadastro_empresa
 
 urlpatterns = [
     path('', index, name='index'),
-    path('cadastroempresa/', views.cadastroEmpresa, name='cadastroEmpresa'),
+    path('cadastro_empresa/', cadastro_empresa, name='cadastro_empresa'),
     path('cadastroempresa/cadastroEmpBanco/', cadastroEmpBanco, name='cadastrarempresa'),
 
     path('cadastrarplantao/', views.cadastroPlantao, name='cadastroPlantao'),

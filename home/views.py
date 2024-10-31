@@ -9,21 +9,25 @@ from datetime import datetime
 from django.http import JsonResponse
 import json
 import logging
+from django.shortcuts import render
 
 
 
-def companyRegistration(request):
-     cadastroEmpresa = CadastroEmpresa.objects.all().values()
-     template = loader.get_template('plantaopro/pages/companyRegistration.html')
-     context = {
-         'cadastroEmpresa':cadastroEmpresa
-     }
-     return HttpResponse(template.render(context,request))
+# def companyRegistration(request):
+#      cadastroEmpresa = CadastroEmpresa.objects.all().values()
+#      template = loader.get_template('plantaopro/pages/companyRegistration.html')
+#      context = {
+#          'cadastroEmpresa':cadastroEmpresa
+#      }
+#      return HttpResponse(template.render(context,request))
 
     
-def cadastroEmpresa(request):
-     template = loader.get_template('plantaopro/pages/companyRegistration.html')
-     return HttpResponse(template.render({}, request))
+def cadastro_empresa(request):
+    cadastro_empresa = CadastroEmpresa.objects.all()  # Coletando os dados das empresas
+    context = {
+        'cadastroEmpresa': cadastro_empresa  # Passando os dados para o contexto
+    }
+    return render(request, 'plantaopro/pages/companyRegistration.html', context)
 
 @require_POST
 def cadastroEmpBanco(request):
