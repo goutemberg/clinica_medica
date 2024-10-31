@@ -21,45 +21,60 @@
     <div class="flex-wrapper">
         {% include 'plantaopro/partials/_nav.html' %}
         
-        <!-- Company Registration Section -->
         <section id="companyRegistration" class="py-5">
             <div class="container">
                 <h2 class="text-center">Cadastrar Clinica</h2>
-
-            <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
-
-                <!-- CNPJ, Razão Social, Inscrição Estadual fields -->
+        
+                <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
+        
+                <!-- CNPJ, Nome Fantasia, Razão Social fields -->
                 <form method="post" action="cadastroEmpBanco/">
-                {% csrf_token %}
+                    {% csrf_token %}
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="companyCnpj">CNPJ</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="companyCnpj" name="companyCnpj" placeholder="00.000.000/0000-00" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')" required oninput="mascaraCnpj(this)">
+                                <input type="text" class="form-control" id="companyCnpj" name="companyCnpj" placeholder="00.000.000/0000-00" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="this.setCustomValidity(''); mascaraCnpj(this)" maxlength="18">
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-primary" onclick="buscarCnpj()">Buscar</button>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group col-md-4">
+                            <label for="companyNomeFantasia">Nome Fantasia</label>
+                            <input type="text" class="form-control" id="companyNomeFantasia" name="companyNomeFantasia" placeholder="Nome fantasia" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')" disabled>
+                        </div>
+                        <div class="form-group col-md-4">
                             <label for="companyName">Razão Social</label>
                             <input type="text" class="form-control" name="companyName" id="companyName" placeholder="Razão social" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')" disabled>
                         </div>
+                    </div>
+        
+                    <!-- Inscrição Estadual, Inscrição Municipal, CEP fields -->
+                    <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="companyInscricaoEstadual">Inscrição Estadual</label>
                             <input type="text" class="form-control" id="companyInscricaoEstadual" name="companyInscricaoEstadual" placeholder="Inscrição estadual" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')" disabled>
                         </div>
-                    </div>
-
-                    <!-- Address Fields (CEP, Logradouro, Bairro, Cidade, Estado) -->
-                    <div class="form-row">
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-4">
+                            <label for="companyInscricaoMunicipal">Inscrição Municipal</label>
+                            <input type="text" class="form-control" id="companyInscricaoMunicipal" name="companyInscricaoMunicipal" placeholder="Inscrição municipal" required oninvalid="this.setCustomValidity('Campo Obrigatório')" oninput="setCustomValidity('')" disabled>
+                        </div>
+                        <div class="form-group col-md-4">
                             <label for="companyCep">CEP</label>
                             <input type="text" class="form-control" id="companyCep" name="companyCep" placeholder="CEP" disabled>
                         </div>
+                    </div>
+        
+                    <!-- Logradouro, Número, Bairro, Cidade, Estado fields -->
+                    <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="companyStreet">Logradouro (Rua, Av, Travessa etc)</label>
+                            <label for="companyStreet">Logradouro</label>
                             <input type="text" class="form-control" id="companyStreet" name="lougradouro" placeholder="Logradouro" disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="companyNumber">Número</label>
+                            <input type="text" class="form-control" id="companyNumber" name="companyNumber" placeholder="Número" disabled>
                         </div>
                         <div class="form-group col-md-2">
                             <label for="companyNeighborhood">Bairro</label>
@@ -102,8 +117,7 @@
                                 <option>TO</option>
                             </select>
                         </div>
-                    </div>
-
+                    </div>        
                     <!-- Divider between form sections -->
                     <div class="form-row mb-3" style="border-bottom: 1px solid #dee2e6;"></div>
 
@@ -176,7 +190,7 @@
                     <div class="form-row">
                         <div class="col-md-12 text-left">
                             <button type="submit" class="btn btn-primary mr-2" id="cadastrarButton" disabled>Cadastrar Empresa</button>
-                            <button type="button" class="btn btn-secondary mr-2" id="alterarButton" disabled>Alterar</button>
+                            <button type="button" class="btn btn-secondary mr-2" id="alterarButton" onclick="alterarDados()" disabled>Alterar</button>
                             <button type="button" class="btn btn-info mr-2" id="limparButton" onclick="resetForm()" disabled>Limpar</button>
                             <button type="button" class="btn btn-danger" onclick="window.location.href='{% url 'index' %}'" id="cancelButton">Cancelar</button>
                         </div>
@@ -198,20 +212,24 @@
     <script>
         
         const fields = [
-            'companyCnpj', 'companyName', 'companyInscricaoEstadual', 'companyCep', 'companyStreet',
+            'companyCnpj','companyName','companyNomeFantasia','companyInscricaoEstadual','companyInscricaoMunicipal', 'companyCep', 'companyStreet',
             'companyNeighborhood', 'companyCity', 'companyState', 'companyPhone',
             'companyCell', 'companyEmail', 'companyIsentoTributacao', 'companyContactPerson',
             'companyValorPlantao_12', 'companyValorPlantaoHora', 'companyPlantaoSemana',
-            'companyValorPlantaoSabadoDomingo', 'companyTaxaAdministracao', 'companyValorContrato'
+            'companyValorPlantaoSabadoDomingo', 'companyTaxaAdministracao', 'companyValorContrato','companyNumber',
         ];  
     
         function enableFields() {
             fields.forEach(function(id) {
                 const element = document.getElementById(id);
-                if (element) {
+                if (element && id !== "companyCnpj") {  
                     element.disabled = false;
                 }
             });
+            const cnpjField = document.getElementById("companyCnpj");
+            if (cnpjField) {
+                cnpjField.disabled = true;
+            }
         }
     
         function preencherCampos(data) {
@@ -235,7 +253,7 @@
         }
     
         function habilitarBotaoCadastrar(habilitar = true) {
-            document.getElementById('submitButton').disabled = !habilitar; 
+            document.getElementById('cadastrarButton').disabled = !habilitar; 
         }
     
         function habilitarBotaoAlterar(habilitar = true) {
@@ -245,6 +263,32 @@
         function habilitarBotaoLimpar(habilitar = true) {
             document.getElementById('limparButton').disabled = !habilitar;
         }
+
+        function alterarDados() {
+            var dados = {};
+            fields.forEach(function(id) {
+                dados[id] = document.getElementById(id).value;  
+            });
+    
+            fetch('/alterar_cadastro_empresa/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify(dados)  
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Dados alterados com sucesso!');
+                } else {
+                    alert('Erro ao alterar os dados.');
+                }
+            })
+            .catch(error => console.error('Erro ao alterar dados:', error));
+        }
+    
     
         // JavaScript - buscarCnpj()
         function buscarCnpj() {
@@ -289,7 +333,7 @@
                     alert('CNPJ não encontrado. Preencha os campos.');
                     enableFields(true);             // Habilita os campos
                     limparCampos();                 // Limpa os campos do formulário
-                    habilitarBotaoCadastrar(true);  // Habilita o botão de cadastro
+                    habilitarBotaoCadastrar();      // Habilita o botão de cadastro
                     habilitarBotaoAlterar(false);   // Desabilita o botão de alteração
                 }
             })
@@ -364,6 +408,28 @@
             cnpj = cnpj.replace(/(\d{4})(\d{1,2})$/, '$1-$2'); // Adiciona o hífen
             return cnpj;
         }
+    
+        function mascaraCnpj(elemento) {
+            // Remove tudo que não é dígito
+            let cnpj = elemento.value.replace(/\D/g, '');
+        
+            // Aplica a máscara conforme o número de dígitos
+            if (cnpj.length <= 14) {
+                cnpj = cnpj.replace(/^(\d{2})(\d)/, "$1.$2");
+                cnpj = cnpj.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+                cnpj = cnpj.replace(/\.(\d{3})(\d)/, ".$1/$2");
+                cnpj = cnpj.replace(/(\d{4})(\d)/, "$1-$2");
+            }
+        
+            elemento.value = cnpj;
+        }
+        
+        // Limita o campo para aceitar apenas números
+        document.getElementById("companyCnpj").addEventListener("keypress", function (e) {
+            if (!/[0-9]/.test(e.key)) {
+                e.preventDefault();
+            }
+        })
     </script>
     </body>
 </html>

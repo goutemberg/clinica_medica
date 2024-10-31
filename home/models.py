@@ -11,8 +11,8 @@ from django.core.validators import RegexValidator, EmailValidator
 
 class CadastroEmpresa(models.Model):
     id = models.AutoField(primary_key=True)
-    nome = models.CharField(max_length=255)
-    razao_social = models.CharField(max_length=255)
+    nome_fantasia = models.CharField(max_length=255, default='N/A')
+    razao_social = models.CharField(max_length=255, default='N/A')
     cnpj = models.CharField(
         max_length=18,
         unique=True,
@@ -20,7 +20,8 @@ class CadastroEmpresa(models.Model):
             RegexValidator(regex=r'^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$', message='CNPJ deve estar no formato 00.000.000/0000-00')
         ]
     )
-    inscricao_estadual = models.CharField(max_length=255, blank=True, null=True)
+    inscricao_estadual = models.CharField(max_length=30, blank=True, null=True)
+    Inscricao_municipal = models.CharField(max_length=30, blank=True, null=True)
     cep = models.CharField(max_length=9, validators=[
         RegexValidator(regex=r'^\d{5}-?\d{3}$', message='CEP deve estar no formato XXXXX-XXX')
     ])
@@ -36,7 +37,7 @@ class CadastroEmpresa(models.Model):
         RegexValidator(regex=r'^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$', message='Celular deve estar no formato (XX) XXXXX-XXXX')
     ])
     email = models.EmailField(max_length=50, validators=[EmailValidator(message='Email inválido')])
-    isento_tributacao = models.BooleanField(default=False)
+    isento_tributacao = models.CharField(max_length=5, default='Não')
     pessoa_contato = models.CharField(max_length=50, default='N/A')
     valor_12h = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     valor_por_hora = models.DecimalField(max_digits=10, decimal_places=2, default=0)
@@ -49,16 +50,6 @@ class CadastroEmpresa(models.Model):
         return self.nome
 
 
-
-class BancoEmpresa(models.Model):
-    empresa = models.ForeignKey(CadastroEmpresa, on_delete=models.CASCADE, related_name='bancos')
-    banco = models.CharField(max_length=50)
-    agencia = models.CharField(max_length=10)
-    conta = models.CharField(max_length=10)
-    titular_conta = models.CharField(max_length=255)
-
-    def __str__(self):
-        return f'{self.banco} - {self.agencia}/{self.conta}'
 
 class CadastroMedico(models.Model):
     doctorCpf = models.CharField(max_length=11, unique=True,default='N/A')  

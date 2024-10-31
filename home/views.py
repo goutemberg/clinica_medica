@@ -30,10 +30,12 @@ def cadastroEmpresa(request):
 def cadastroEmpBanco(request):
     CompanyName = request.POST ['companyName']
     CompanyCnpj = request.POST ['companyCnpj']
+    CompanyNomeFantasia = request.POST['companyNomeFantasia']
     CompanyInscricaoEstadual = request.POST['companyInscricaoEstadual']
+    CompanyInscricaoMunicipal = request.POST['companyInscricaoMunicipal']
     CompanyCep = request.POST['companyCep']
     Lougradouro = request.POST ['lougradouro']
-    #CompanyNumber = request.POST['companyNumber']
+    CompanyNumber = request.POST['companyNumber']
     CompanyNeighborhood = request.POST['companyNeighborhood'] 
     CompanyCity= request.POST['companyCity']
     CompanyState = request.POST['companyState']
@@ -50,7 +52,7 @@ def cadastroEmpBanco(request):
     CompanyContactPerson = request.POST['companyContactPerson']
 
     novoCadastroEmp = CadastroEmpresa(
-        nome=CompanyName,razao_social=CompanyName,cnpj=CompanyCnpj,
+        razao_social=CompanyName,cnpj=CompanyCnpj,nome_fantasia=CompanyNomeFantasia,numero=CompanyNumber,Inscricao_municipal=CompanyInscricaoMunicipal,
         inscricao_estadual=CompanyInscricaoEstadual,cep=CompanyCep,logradouro=Lougradouro, 
         bairro=CompanyNeighborhood,cidade=CompanyCity,estado=CompanyState, telefone=CompanyPhone, celular=CompanyCell, 
         email=CompanyEmail, isento_tributacao=CompanyIsentoTributacao,taxa_administrativa=CompanyTaxaAdministracao,valor_contrato=companyValorContrato,
@@ -280,12 +282,15 @@ def buscar_cnpj_banco(request):
             empresa = CadastroEmpresa.objects.get(cnpj=cnpj)
             empresa_data = {
                 'companyCnpj': empresa.cnpj,
-                'companyName': empresa.nome,
-                'companyInscricaoEstadual': empresa.razao_social,
+                'companyNomeFantasia': empresa.nome_fantasia,
+                'companyName': empresa.razao_social,
+                'companyInscricaoEstadual': empresa.inscricao_estadual,
+                'companyInscricaoMunicipal': empresa.Inscricao_municipal,
                 'companyCep': empresa.bairro,
                 'companyStreet': empresa.logradouro,
                 'companyNeighborhood': empresa.bairro,
                 'companyCity': empresa.cidade,
+                'companyNumber':empresa.numero,
                 'companyState': empresa.estado,
                 'companyPhone': empresa.telefone,
                 'companyCell': empresa.celular,
@@ -310,7 +315,7 @@ def buscar_cnpj_banco(request):
         print("Erro ao decodificar JSON")
         return JsonResponse({'error': 'Erro ao decodificar JSON'}, status=400)
 
-@csrf_exempt
+
 def alterar_cadastro(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -367,49 +372,63 @@ def alterar_cadastro(request):
         except CadastroMedico.DoesNotExist:
             return JsonResponse({'success': False, 'message': 'Médico não encontrado.'})
 
-@require_POST
-def buscar_cnpj(request):
-    import json
-    
-    try:
+
+def alterar_cadastro_empresa(request):
+    if request.method == 'POST':
         data = json.loads(request.body)
-        cnpj = data.get('cnpj') 
+        nome_fantasia = data.get('companyNomeFantasia')
+        cnpj = data.get('companyCnpj')
+        razao_social = data.get('companyName')
+        inscricao_estadual = data.get('companyInscricaoEstadual')
+        Inscricao_municipal = data.get('companyInscricaoMunicipal')
+        cep = data.get('companyCep')
+        logradouro = data.get('companyStreet')
+        bairro = data.get('companyNeighborhood')
+        cidade = data.get('companyCity')
+        numero = data.get('companyNumber')
+        estado = data.get('companyState')
+        telefone = data.get('companyPhone')
+        celular = data.get('companyCell')
+        email = data.get('companyEmail')
+        isento_tributacao = data.get('companyIsentoTributacao')
+        pessoa_contato = data.get('companyContactPerson')
+        valor_12h = data.get('companyValorPlantao_12')
+        valor_por_hora = data.get('companyValorPlantaoHora')
+        valor_semana = data.get('companyPlantaoSemana')
+        valor_fim_semana= data.get('companyValorPlantaoSabadoDomingo')
+        taxa_administrativa = data.get('companyTaxaAdministracao')
+        valor_contrato = data.get('companyValorContrato')
         
-        if not cnpj:
-            return JsonResponse({'error': 'CNPJ não fornecido'}, status=400)
         
-        print(f"O CNPJ enviado foi {cnpj}")
+
         try:
-            company = CadastroEmpresa.objects.get(cnpj=cnpj)
-            company_data = {
-                'nome': company.nome,
-                'cnpj': company.cnpj,
-                'inscricao_estadual': company.inscricao_estadual,
-                'cep': company.cep,
-                'logradouro': company.logradouro,
-                'bairro': company.bairro,
-                'cidade': company.cidade,
-                'estado': company.estado,
-                'telefone': company.telefone,
-                'celular': company.celular,
-                'email': company.email,
-                'isento_tributacao': company.isento_tributacao,
-                'pessoa_contato': company.pessoa_contato,
-                'valor_12h': company.valor_12h,
-                'valor_por_hora': company.valor_por_hora,
-                'valor_semana': company.valor_semana,
-                'valor_fim_semana': company.valor_fim_semana,
-                'taxa_administrativa': company.taxa_administrativa,
-                'valor_contrato': company.valor_contrato,
-        
-            }
-            return JsonResponse({'exists': True, 'company': company_data})
+            empresa = CadastroEmpresa.objects.get(cnpj=cnpj)
+            empresa.nome_fantasia = nome_fantasia
+            empresa.cnpj = cnpj
+            empresa.razao_social = razao_social
+            empresa.inscricao_estadual = inscricao_estadual
+            empresa.Inscricao_municipal = Inscricao_municipal
+            empresa.cep = cep
+            empresa.logradouro = logradouro
+            empresa.numero = numero
+            empresa.bairro = bairro
+            empresa.cidade = cidade
+            empresa.estado = estado
+            empresa.telefone = telefone
+            empresa.celular = celular
+            empresa.email = email
+            empresa.isento_tributacao = isento_tributacao
+            empresa.pessoa_contato = pessoa_contato
+            empresa.valor_12h = valor_12h
+            empresa.valor_por_hora = valor_por_hora
+            empresa.valor_semana = valor_semana
+            empresa.valor_fim_semana = valor_fim_semana
+            empresa.taxa_administrativa = taxa_administrativa
+            empresa.valor_contrato = valor_contrato
+            empresa.save()
 
+            return JsonResponse({'success': True})
         except CadastroEmpresa.DoesNotExist:
-            return JsonResponse({'exists': False})
-
-    except json.JSONDecodeError:
-        return JsonResponse({'error': 'Erro ao decodificar JSON'}, status=400)
-    
+            return JsonResponse({'success': False, 'message': 'Empresa não encontrado.'})
 
 
