@@ -55,15 +55,18 @@ def cadastroEmpBanco(request):
 
     novoCadastroEmp.save()
 
-    return redirect('cadastroEmpresa')
+    return redirect('clinica')
 
-def shiftRegistration(request):
-     cadastroPlantao = Plantao.objects.all().values()
-     template = loader.get_template('plantaopro/pages/shiftRegistration.html')
-     context = {
-         'cadastroPlantao':cadastroPlantao
-     }
-     return HttpResponse(template.render(context,request))
+def cadastro_plantao(request):
+    cadastroPlantao = Plantao.objects.all().values()  
+    medicos = CadastroMedico.objects.all()  
+    print("Médicos encontrados:", medicos)
+    context = {
+        'cadastroPlantao': cadastroPlantao,
+        'medicos': medicos
+    }
+    
+    return render(request, 'plantaopro/pages/shiftRegistration.html', context)
 
     
 def cadastroPlantao(request):
@@ -107,11 +110,10 @@ def doctorRegistration(request):
          'cadastroMedico':cadastroMedico
      }
      return HttpResponse(template.render(context,request))
-
+   
+def cadastrar_medico(request):
     
-def cadastrarMedico(request):
-     template = loader.get_template('plantaopro/pages/doctorRegistration.html')
-     return HttpResponse(template.render({}, request))
+    return render(request, 'plantaopro/pages/doctorRegistration.html')
 
 @require_POST
 def cadastroMedBanco(request):
@@ -151,8 +153,8 @@ def cadastroMedBanco(request):
         )
         novoCadastroMed.save()
 
-        # Redireciona após o cadastro bem-sucedido
-        return redirect('cadastrarMedico')
+        
+        return redirect('clinica')
 
     except Exception as e:
         # Log ou tratamento de erro
