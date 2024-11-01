@@ -23,7 +23,7 @@
         <section id="shiftRegistration" class="py-5">
             <div class="container">
                 <h2 class="text-center">Cadastro de Plantão</h2>
-                <form method="post" action="cadastroPlantao/">
+                <form method="post" action="cadastrar_plantao/">
                     {% csrf_token %}
 
                     <!-- Cadastro de Horários de Plantão -->
@@ -53,7 +53,7 @@
                             <select class="form-control" id="doctorSelect" name="doctorSelect">
                                 <option selected>Escolha um Médico</option>
                                 {% for medico in medicos %}
-                                    <option value="{{ medico.id }}">{{ medico.nome }}</option>
+                                    <option value="{{ medico.doctorCpf }}">{{ medico.doctorName }}</option>
                                 {% endfor %}
                             </select>
                         </div>

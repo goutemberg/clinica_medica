@@ -5,14 +5,14 @@ from .views import buscar_cpf, alterar_cadastro, buscar_cnpj_banco, alterar_cada
 
 urlpatterns = [
     path('', index, name='index'),
-    path('cadastro_empresa/', cadastro_empresa, name='cadastro_empresa'),
-    path('cadastroempresa/cadastroEmpBanco/', cadastroEmpBanco, name='cadastrarempresa'),
+    path('clinica/', cadastro_empresa, name='clinica'),
+    path('clinica/cadastrar_clinica/', cadastroEmpBanco, name='cadastrar_clinica'),
 
-    path('cadastrarplantao/', views.cadastroPlantao, name='cadastroPlantao'),
-    path('cadastrarplantao/cadastroPlantao/', views.cadastroPlantaoBanco, name='cadastroPlantaoBanco'), 
+    path('plantao/', views.cadastro_plantao, name='plantao'),
+    path('cadastro_plantao/cadastro_plantao/', views.cadastroPlantaoBanco, name='cadastrar_plantao'), 
 
-    path('cadastrarmedico/', views.cadastrarMedico, name='cadastrarMedico'),
-    path('cadastrarmedico/cadastroMedBanco/', views.cadastroMedBanco, name='cadastroMedBanco'),
+    path('medico/', views.cadastrar_medico, name='medico'),
+    path('medico/cadastrar_medico/', views.cadastroMedBanco, name='cadastrar_medico'),
 
     path('impressao/',resultList, name='impressao'),
 
