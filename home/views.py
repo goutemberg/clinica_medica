@@ -426,4 +426,17 @@ def alterar_cadastro_empresa(request):
         except CadastroEmpresa.DoesNotExist:
             return JsonResponse({'success': False, 'message': 'Empresa não encontrado.'})
 
+def buscar_medicos(request):
+    search_term = request.GET.get('search', '')
+    search_parts = search_term.split()
+    
+    query = CadastroMedico.objects.all()
+    
+    for part in search_parts:
+        query = query.filter(doctorName__icontains=part)
+
+    medicos = query[:10] 
+    medicos_data = [{"doctorCpf": medico.doctorCpf, "doctorName": medico.doctorName} for medico in medicos]
+    return JsonResponse(medicos_data, safe=False)
+
 

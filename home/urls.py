@@ -13,16 +13,16 @@ urlpatterns = [
 
     path('medico/', views.cadastrar_medico, name='medico'),
     path('medico/cadastrar_medico/', views.cadastroMedBanco, name='cadastrar_medico'),
+    path('buscar-medicos/', views.buscar_medicos, name='buscar_medicos'),
+    path('buscar_cpf/', buscar_cpf, name='buscar_cpf'),
 
     path('impressao/',resultList, name='impressao'),
-
-    path('buscar_cpf/', buscar_cpf, name='buscar_cpf'),
 
     path('buscar_cnpj_banco/', buscar_cnpj_banco, name='buscar_cnpj_banco'),
 
     path('alterar-cadastro/', alterar_cadastro, name='alterar_cadastro'),
 
-     path('alterar_cadastro_empresa/', alterar_cadastro_empresa, name='alterar_cadastro_empresa'),
+    path('alterar_cadastro_empresa/', alterar_cadastro_empresa, name='alterar_cadastro_empresa'),
 
     
 ]
